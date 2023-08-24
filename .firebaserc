@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "szakdolgozat-alkalmazas": {
+      "hosting": {
+        "szakdolgozat-alkalmazas": [
+          "szakdolgozat-alkalmazas"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "szakdolgozat-alkalmazas"
+  }
+}
