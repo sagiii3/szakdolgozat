@@ -13,6 +13,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { PublikusModule } from './publikus/publikus.module';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SharedModule } from './shared/shared.module';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     PublikusModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
