@@ -11,6 +11,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { PublikusModule } from './publikus/publikus.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    PublikusModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
