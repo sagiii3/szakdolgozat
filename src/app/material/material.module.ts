@@ -77,25 +77,22 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
 
   getRangeLabel(page: number, pageSize: number, length: number): string {
     if (length == 0 || pageSize == 0) {
-      return `0 of ${length}`;
+      return `0 / ${length}`;
     }
     if (length== 1) {
-      return `1 of 1`;
+      return `1 / 1`;
     }
     length = Math.max(length, 0);
     const startIndex = page * pageSize;
     const endIndex = startIndex < length ?
         Math.min(startIndex + pageSize, length) :
         startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} of ${length}`;
+    return `${startIndex + 1} - ${endIndex} / ${length}`;
   }
 }
 
-
-@NgModule({
-  declarations: [],
-  imports: [
-    MatNativeDateModule,
+const materialModules = [
+  MatNativeDateModule,
     MatTreeModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -131,42 +128,16 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule
+]
+
+
+@NgModule({
+  declarations: [],
+  imports: [
+    materialModules
   ],
   exports: [
-    MatNativeDateModule,
-    MatButtonModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatGridListModule,
-    MatCardModule,
-    MatStepperModule,
-    MatTabsModule,
-    MatExpansionModule,
-    MatButtonToggleModule,
-    MatChipsModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatBadgeModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    materialModules
   ],
   providers: [
     {provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl},

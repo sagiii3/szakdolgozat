@@ -1,5 +1,7 @@
 export const environment = {
-    production: false,
+  production: false,
+  localUrl: 'http://localhost:4000/api',
+  responseLog: true,
   firebase: {
     projectId: 'szakdolgozat-alkalmazas',
     appId: '1:1014090850949:web:c0221fcb3b1e2bb5607fec',

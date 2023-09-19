@@ -1,1 +1,30 @@
-<p>toolbar works!</p>
+<mat-toolbar class="fixed-header toolbar navbar-color mat-elevation-z8 p-0" fxLayout="row" fxLayoutAlign="start stretch" style="z-index: 2">
+
+    <button mat-button  class="sidenav-toggle" (click)="toggleSidenav.emit()" matTooltip="Menü" >
+      <mat-icon aria-hidden="false">menu</mat-icon>
+    </button>
+  
+    <span>
+      <a class="navbar-brand cim" [routerLink]="[globalisValtozok.KEZDOLAP_PREF]" [matTooltip]="'kezdolap' | translate">
+        <span *ngIf="!isScreenSmall" >{{"konyvtaras_alkalmazas" | translate}}</span>
+      </a>
+    </span>
+  
+    <span class="example-spacer"></span>
+  
+    <button *ngIf="!belepett" mat-button [matTooltip]="'bejelentkezes' | translate">
+      <mat-icon  aria-hidden="false">login</mat-icon>
+    </button>
+  
+   
+  
+    <button *ngIf="belepett" mat-button [matTooltip]="'kijelentkezes' | translate" >
+      <mat-icon aria-hidden="false">power_settings_new</mat-icon>
+    </button>
+  
+  
+  
+  </mat-toolbar>
+  
+  <router-outlet></router-outlet>
+  

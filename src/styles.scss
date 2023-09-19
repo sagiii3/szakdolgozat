@@ -1,7 +1,176 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+html, body {
+  background-color:  rgb(188, 230, 188);
+  height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  background-color:  rgb(188, 230, 188);
+}
+
+:root {
+  --white-color: white;
+  --success-color: rgb(85, 158, 85);
+  --error-color: red;
+  --info-color: rgb(38, 169, 221);
+  --warning-color: rgb(238, 238, 76);
+}
+
+.success-snackbar {
+  color: white;
+  --mdc-snackbar-container-color: var(--success-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+.error-snackbar {
+  color: white;
+  --mdc-snackbar-container-color: var(--error-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+.warning-snackbar {
+  color: white;
+  --mdc-snackbar-container-color: var(--warning-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+
+.info-snackbar {
+  color: white;
+  --mdc-snackbar-container-color: var(--info-color);
+  --mat-mdc-snack-bar-button-color: var(--white-color);
+}
+
+//sliderek alsó csíkjai -> fekete
+.carousel-indicators button{
+  background-color: black !important;
+}
+
+.carousel-indicators{
+  margin-bottom: 0% !important;
+}
+
+//sliderek bal és jobb oldalán lévő nyíl -> fekete
+.carousel-control-prev-icon, .carousel-control-next-icon{
+  filter: invert(100%);
+}
+
+//ha több hiba is van egy input mezőben, akkor abból csak egyet jelenít meg
+mat-form-field {
+  mat-error {
+      display: none !important;
+  }
+
+  mat-error:first-child {
+      display: block !important;
+  }
+}
+
+//az űrlapoknál az input széleség legyen olyan széles mint a div amiben van
+.matinput {
+  width: 100% !important;
+}
+
+
+//félkövér betűstílus
+.bold{
+  font-weight: bold;
+  margin: 0%;
+}
+
+//dőlt betűstílus
+.italic{
+  font-style: italic;
+}
+
+//a fő komponensekben szereplő külső nagy divek amiben minden benne van, pl turaim, nyilvanos turak, kezdolap
+.nagydiv{
+  margin: 2%;
+  width: 95%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(216, 240, 216);
+  padding: 2%;
+  border: 1px solid black;
+  object-fit: contain;
+  overflow: auto !important;
+  min-height: 50vh;
+}
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+.blokk{
+  display: flex;
+  font-size: 12px;
+  margin: 3% !important;
+  padding: 3% !important;
+}
+
+.kep{
+  object-fit: contain;
+  max-width: 95%;
+}
+
+.belso_div{
+  margin-right: 50px;
+}
+
+.kozepre-igazitott-szoveg{
+  text-align: center;
+}
+
+//a mat-tab-groupoknál használ belső kontent mérete, hogy ne legyen nagyobb mint a szülő komponent és ne kelljen scrollolni
+.kisebb-nagydiv{
+  position: relative;
+  margin: 0% !important;
+  width: 95% !important;
+  display: block;
+  margin: auto !important;
+}
+
+//a bejelentkezésnél és regisztrációnál látható kép
+.bejelentkezes-regisztracio-img{
+  margin: 2%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+//a h2 cím és a frissítés gomb kerüljön egy sorba
+.cim-es-frissites{
+  display: flex;
+  justify-content: space-between;
+}
+
+//a linkek színét és stílusát módosítja
+a:not(.cim) {
+  cursor: pointer !important;
+  font-weight: normal !important;
+  color: blue !important;
+  text-decoration: underline !important;
+}
+
+a:hover:not(.cim) {
+  color:darkblue !important;
+}
+//a túravezetők hosszú string tördelése
+.vezetok {
+  width: 300px !important;
+  max-height: 100px;
+  overflow: auto;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
