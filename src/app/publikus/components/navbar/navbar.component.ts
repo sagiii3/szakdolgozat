@@ -14,11 +14,6 @@ const SMALL_WIDTH_BREAKPOINT2 = 850;
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit, OnDestroy{
-  isDarkTheme: boolean = false;
-  belepett?: boolean;
-  azonosito? : string;
-  admin?: boolean;
-  vezeto?: boolean;
 
   globalisValtozok = GlobalisValtozok;
 
