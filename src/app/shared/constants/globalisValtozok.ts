@@ -10,6 +10,11 @@ export class GlobalisValtozok{
   // / jel nélküliek
   public static KEZDOLAP_PREF = 'kezdolap';
 
+  //frontend url-ek
+  public static KEZDOLAP_ROUTE = 'kezdolap';
+  public static BEJELENTKEZES_ROUTE = 'bejelentkezes';
+  public static REGISZTRACIO_ROUTE = 'regisztracio';
+
   //snackbar
   public static SNACKBAR_ERROR = 'error';
   public static SNACKBAR_SUCCESS = 'success';

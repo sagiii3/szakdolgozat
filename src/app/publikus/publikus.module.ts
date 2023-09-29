@@ -7,6 +7,8 @@ import { PublikusRoutingModule } from './publikus-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './components/footer/footer.component';
+import { BejelentkezesComponent } from './components/bejelentkezes/bejelentkezes.component';
+import { RegisztracioComponent } from './components/regisztracio/regisztracio.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     KezdolapComponent,
     NotFoundComponent,
-    FooterComponent
+    FooterComponent,
+    BejelentkezesComponent,
+    RegisztracioComponent
   ],
   imports: [
     CommonModule,
