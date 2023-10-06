@@ -11,6 +11,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
+
 import { PublikusModule } from './publikus/publikus.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FelhasznaloService } from './services/felhasznaloService/felhasznalo.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,10 +32,12 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    AngularFireModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    //provideStorage(() => getStorage()),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     PublikusModule,
@@ -49,7 +54,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    FelhasznaloService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

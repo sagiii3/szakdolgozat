@@ -97,6 +97,15 @@ export class ToolbarComponent {//implements OnInit, OnDestroy{
     }
 */
 
+  bejelentkezes(): void {
+    //this.felhasznaloService.setBejelentkezesElottiRoute(this.router.url);
+    this.router.navigate([GlobalisValtozok.BEJELENTKEZES_ROUTE]);
+  }
+
+  kijelentkezes(): void{
+    this.felhasznaloService.kijelentkezes();
+  }
+
   ngOnDestroy(): void{
     this.profilSubscription?.unsubscribe();
     this.toolbarUpdateSubscription?.unsubscribe();

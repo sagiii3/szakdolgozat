@@ -12,13 +12,13 @@
   
     <span class="example-spacer"></span>
   
-    <button *ngIf="!belepett" mat-button [matTooltip]="'bejelentkezes' | translate">
+    <button *ngIf="!belepett" mat-button [matTooltip]="'bejelentkezes' | translate" (click)="bejelentkezes()">
       <mat-icon  aria-hidden="false">login</mat-icon>
     </button>
   
    
   
-    <button *ngIf="belepett" mat-button [matTooltip]="'kijelentkezes' | translate" >
+    <button  mat-button [matTooltip]="'kijelentkezes' | translate" (click)="kijelentkezes()" >
       <mat-icon aria-hidden="false">power_settings_new</mat-icon>
     </button>
   
