@@ -9,5 +9,12 @@
     "jelszo_ismet": "Jelszó ismét",
     "felhasznalo_nev": "Felhasználó név",
     "email": "E-mail",
-    "teljes_nev": "Teljes név"
+    "teljes_nev": "Teljes név",
+    "min_8_char": "(min. 8 karakter)",
+    "kotelezo_jelszo_error": "A jelszó megadása kötelező!",
+    "jelszo_formatum_error": "A jelszó minimum 8 karakter hosszú kell legyen!",
+    "ket_jelszo_nem_egyezik_error": "A két jelszó nem egyezik!",
+    "kotelezo_ismetlojelszo_error": "Az ismétlőjelszó megadása kötelező!",
+    "megsem": "Mégsem",
+    "elfelejtett_jelszo": "Elfelejtett jelszó"
 }

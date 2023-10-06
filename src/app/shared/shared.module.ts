@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -10,11 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     SharedRoutingModule,
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    FormsModule
   ],
   exports: [
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

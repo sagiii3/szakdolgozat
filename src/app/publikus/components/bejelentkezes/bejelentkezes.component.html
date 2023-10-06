@@ -1,14 +1,53 @@
-<button (click)="bejeletkezesEmail()">
-    <mat-icon>account_circle</mat-icon>
-    <span>Bejelentkezés emaillel</span>
-</button>
-
-<button (click)="bejeletkezesGoogle()">
-    <mat-icon>account_circle</mat-icon>
-    <span>Bejelentkezés googlelel</span>
-</button>
-
-<button (click)="bejeletkezesFacebook()">
-    <mat-icon>account_circle</mat-icon>
-    <span>Bejelentkezés facebookkal</span>
-</button>
+<div class="bejelentkezes-container">
+    <h2>{{"bejelentkezes" | translate }}</h2>
+    <form #bejelentkezes="ngForm" id="formId" (keydown.enter)="bejeletkezesEmail()">
+        <div class="mb-3 row">
+            <mat-form-field>
+              <mat-label for="email" class="bold">{{"email" | translate }}</mat-label>
+              <input matInput id="email" class="form-control" type="text" required
+                [(ngModel)]="bejelentkezoFelhasznalo.email" name="email" #email="ngModel">
+              <mat-error *ngIf="email.invalid">{{"kotelezo_email_error" | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+      
+          <div class="mb-3 row">
+            <mat-form-field>
+              <mat-label for="jelszo" class="form-label bold">{{"jelszo" | translate}} 
+                {{"min_8_char" | translate}}</mat-label>
+              <input id="jelszo" class="form-control" matInput [type]="jelszoElrejtes ? 'password' : 'text'" pattern="^.{7,}$" required
+                [(ngModel)]="bejelentkezoFelhasznalo.jelszo" name="jelszo" #jelszo="ngModel" (keydown.enter)="bejeletkezesEmail()">
+              <button type="button" mat-icon-button matSuffix (click)="jelszoElrejtes = !jelszoElrejtes"
+                (keydown.enter)="$event.preventDefault()" [attr.aria-pressed]="jelszoElrejtes"
+                [matTooltip]="'jelszo_elrejtese' | translate">
+                <mat-icon>{{jelszoElrejtes ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="bejelentkezes.value.jelszo">{{"kotelezo_jelszo_error" | translate}}</mat-error>
+              <mat-error *ngIf="jelszo.invalid ">{{"jelszo_formatum_error" | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+      
+          <div class="d-flex flex-row bd-highlight mb-3 center">
+            <div class="p-2 bd-highlight"> 
+                <button type="submit" class="btn btn-success" (click)="bejeletkezesEmail()">
+                    {{"bejelentkezes" | translate}}
+                </button>
+            </div>
+            <div class="p-2 bd-highlight" mat-dialog-actions>
+                 <button type="button" class="btn btn-danger" (click)="navigacioBejelentkezesElottiOldalra()">
+                    {{"megsem" | translate}}
+                </button> 
+            </div>
+          </div>
+      
+        </form>
+        <button (click)="bejeletkezesGoogle()">
+            <mat-icon>account_circle</mat-icon>
+            <span>Bejelentkezés google</span>
+        </button>
+        
+        <button (click)="bejeletkezesFacebook()">
+            <mat-icon>account_circle</mat-icon>
+            <span>Bejelentkezés facebook</span>
+        </button>
+        <div class="center"><a href="#">{{"elfelejtett_jelszo" | translate}}</a></div>
+</div>
