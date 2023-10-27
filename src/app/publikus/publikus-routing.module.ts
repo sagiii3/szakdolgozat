@@ -4,7 +4,6 @@ import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
 import { BejelentkezesComponent } from './components/bejelentkezes/bejelentkezes.component';
 import { RegisztracioComponent } from './components/regisztracio/regisztracio.component';
 import { GlobalisValtozok } from '../shared/constants/globalisValtozok';
-import { ProgramListaComponent } from '../feature/program/components/program-lista/program-lista.component';
 
 
 const routes: Routes = [
