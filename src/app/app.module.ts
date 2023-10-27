@@ -21,6 +21,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FelhasznaloService } from './services/felhasznaloService/felhasznalo.service';
+import { ProgramModule } from './feature/program/program.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,7 +35,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AngularFireModule,
     AngularFireModule.initializeApp(environment.firebase),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
@@ -42,6 +42,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireDatabaseModule,
     PublikusModule,
     SharedModule,
+    ProgramModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,

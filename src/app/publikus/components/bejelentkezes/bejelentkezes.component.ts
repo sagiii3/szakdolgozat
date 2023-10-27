@@ -4,6 +4,8 @@ import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { BejelentkezoFelhasznalo } from '../../models/bejelentkezo-felhasznalo';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bejelentkezes',
@@ -17,23 +19,40 @@ export class BejelentkezesComponent {
 
   constructor(
     private felhasznaloService: FelhasznaloService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService,
+    private translateService: TranslateService
   ) { }
 
   bejeletkezesEmail(): void {
     //"teszt@gmail.com", "NagyonNehez123"
-    this.felhasznaloService.bejelentkezesEmaillel(this.bejelentkezoFelhasznalo.email, this.bejelentkezoFelhasznalo.jelszo);
+    this.felhasznaloService.bejelentkezesEmaillel(this.bejelentkezoFelhasznalo.email, this.bejelentkezoFelhasznalo.jelszo).then(cred => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
+      this.navigacioBejelentkezesElottiOldalra();
+    }).catch((error) => {
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
+    });
   }
 
   bejeletkezesGoogle(): void {
-    this.felhasznaloService.bejelentkezesPopup(new GoogleAuthProvider());
+    this.felhasznaloService.bejelentkezesPopup(new GoogleAuthProvider()).then(cred => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
+      this.navigacioBejelentkezesElottiOldalra();
+    }).catch((error) => {
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
+    });
   }
 
   bejeletkezesFacebook(): void {
-    this.felhasznaloService.bejelentkezesPopup(new FacebookAuthProvider());
+    this.felhasznaloService.bejelentkezesPopup(new FacebookAuthProvider()).then(cred => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
+      this.navigacioBejelentkezesElottiOldalra();
+    }).catch((error) => {
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
+    });
   }
 
-  navigacioBejelentkezesElottiOldalra(): void{
-    this.router.navigate([]);
+  navigacioBejelentkezesElottiOldalra(): void {
+    this.router.navigate([this.felhasznaloService.getBejelentkezesElottiUrl()]);
   }
 }

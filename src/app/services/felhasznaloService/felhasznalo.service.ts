@@ -5,9 +5,24 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class FelhasznaloService {
 
+  private bejelentkezesElottiUrl: string = '/kezdolap';
+
   constructor(
     private angularFireAuth: AngularFireAuth
   ) { }
+
+  //a bejelentkezesElottiUrl gettere és settere
+  getBejelentkezesElottiUrl(): string {
+    return this.bejelentkezesElottiUrl;
+  }
+
+  setBejelentkezesElottiUrl(bejelentkezesElottiUrl: string): void {
+    this.bejelentkezesElottiUrl = bejelentkezesElottiUrl;
+  }
+
+  async regisztracioEmaillel(email: string, password: string): Promise<void> {
+    await this.angularFireAuth.createUserWithEmailAndPassword(email, password);
+  }
 
   async bejelentkezesEmaillel(email: string, password: string): Promise<void> {
     await this.angularFireAuth.signInWithEmailAndPassword(email, password);

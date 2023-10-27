@@ -6,6 +6,7 @@ import { FelhasznaloService } from 'src/app/services/felhasznaloService/felhaszn
 import { HibaService } from 'src/app/services/hibaService/hiba.service';
 import { GlobalisValtozok } from 'src/app/shared/constants/globalisValtozok';
 import { Felhasznalo } from 'src/app/shared/models/felhasznalo';
+import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -32,6 +33,7 @@ export class ToolbarComponent {//implements OnInit, OnDestroy{
     private felhasznaloService: FelhasznaloService,
     private hibaService: HibaService,
     private translateService: TranslateService,
+    private snackbarService: SnackbarService,
     private router: Router){}
 /*
   ngOnInit(): void {
@@ -98,12 +100,16 @@ export class ToolbarComponent {//implements OnInit, OnDestroy{
 */
 
   bejelentkezes(): void {
-    //this.felhasznaloService.setBejelentkezesElottiRoute(this.router.url);
+    this.felhasznaloService.setBejelentkezesElottiUrl(this.router.url);
     this.router.navigate([GlobalisValtozok.BEJELENTKEZES_ROUTE]);
   }
 
   kijelentkezes(): void{
-    this.felhasznaloService.kijelentkezes();
+    this.felhasznaloService.kijelentkezes().then(() => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_kijelentkezes'));
+    }).catch((error) => {
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_kijelentkezes'));
+    });
   }
 
   ngOnDestroy(): void{

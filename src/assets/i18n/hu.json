@@ -16,5 +16,7 @@
     "ket_jelszo_nem_egyezik_error": "A két jelszó nem egyezik!",
     "kotelezo_ismetlojelszo_error": "Az ismétlőjelszó megadása kötelező!",
     "megsem": "Mégsem",
-    "elfelejtett_jelszo": "Elfelejtett jelszó"
+    "elfelejtett_jelszo": "Elfelejtett jelszó",
+    "programok": "Programok",
+    "uj_program_letrehozasa": "Új program létrehozása"
 }

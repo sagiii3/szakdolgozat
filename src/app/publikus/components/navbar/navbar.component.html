@@ -6,6 +6,17 @@
           (click)="isScreenSmall2?sidenav.toggle():{}">
           {{"kezdolap" | translate}}
         </mat-list-item>
+
+        <mat-list-item matLine [routerLink]="[globalisValtozok.PROGRAM_LISTA_ROUTE]" routerLinkActive="selected"
+          (click)="isScreenSmall2?sidenav.toggle():{}">
+          {{"programok" | translate}}
+        </mat-list-item>
+
+        <mat-list-item matLine [routerLink]="[globalisValtozok.UJ_PROGRAM_ROUTE]" routerLinkActive="selected"
+          (click)="isScreenSmall2?sidenav.toggle():{}">
+          {{"uj_program_letrehozasa" | translate}}
+        </mat-list-item>
+        
         
       </mat-nav-list>
     </mat-sidenav>

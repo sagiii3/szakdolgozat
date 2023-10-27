@@ -14,6 +14,8 @@ export class GlobalisValtozok{
   public static KEZDOLAP_ROUTE = 'kezdolap';
   public static BEJELENTKEZES_ROUTE = 'bejelentkezes';
   public static REGISZTRACIO_ROUTE = 'regisztracio';
+  public static PROGRAM_LISTA_ROUTE = 'program-lista';
+  public static UJ_PROGRAM_ROUTE = 'program-letrehozas';
 
   //snackbar
   public static SNACKBAR_ERROR = 'error';

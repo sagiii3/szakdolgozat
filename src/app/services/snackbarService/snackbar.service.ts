@@ -10,29 +10,24 @@ export class SnackbarService {
 
   private snackbarDurationSeconds = 3;
 
-  snackbarSuccess(uzenet: string, uzenetLista?: []) {
-    this.openSnackbar(GlobalisValtozok.SNACKBAR_SUCCESS, uzenet, uzenetLista);
+  snackbarSuccess(uzenet: string) {
+    this.openSnackbar(GlobalisValtozok.SNACKBAR_SUCCESS, uzenet);
   }
 
-  snackbarError(uzenet: string, uzenetLista?: []) {
-    this.openSnackbar(GlobalisValtozok.SNACKBAR_ERROR, uzenet, uzenetLista);
+  snackbarError(uzenet: string) {
+    this.openSnackbar(GlobalisValtozok.SNACKBAR_ERROR, uzenet);
   }
 
-  snackbarWarning(uzenet: string, uzenetLista?: []) {
-    this.openSnackbar(GlobalisValtozok.SNACKBAR_WARNING, uzenet, uzenetLista);
+  snackbarWarning(uzenet: string) {
+    this.openSnackbar(GlobalisValtozok.SNACKBAR_WARNING, uzenet);
   }
 
-  snackbarInfo(uzenet: string, uzenetLista?: []) {
-    this.openSnackbar(GlobalisValtozok.SNACKBAR_INFO, uzenet, uzenetLista);
+  snackbarInfo(uzenet: string) {
+    this.openSnackbar(GlobalisValtozok.SNACKBAR_INFO, uzenet);
   }
 
-  openSnackbar(snackbarTipus: string, uzenet: string, uzenetLista?: []) {
+  openSnackbar(snackbarTipus: string, uzenet: string) {
     let message: string = uzenet;
-    if (uzenetLista != undefined) {
-      for (let i of uzenetLista) {
-        message += i + "\n";
-      }
-    }
     switch (snackbarTipus) {
       case GlobalisValtozok.SNACKBAR_SUCCESS:
         this.selectSnackbarTipus(message, GlobalisValtozok.SUCCESS_SNACKBAR);

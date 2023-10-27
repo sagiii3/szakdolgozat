@@ -4,12 +4,13 @@ import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
 import { BejelentkezesComponent } from './components/bejelentkezes/bejelentkezes.component';
 import { RegisztracioComponent } from './components/regisztracio/regisztracio.component';
 import { GlobalisValtozok } from '../shared/constants/globalisValtozok';
+import { ProgramListaComponent } from '../feature/program/components/program-lista/program-lista.component';
 
 
 const routes: Routes = [
-  {path: GlobalisValtozok.KEZDOLAP_ROUTE, component: KezdolapComponent},
-  {path: GlobalisValtozok.BEJELENTKEZES_ROUTE, component: BejelentkezesComponent},
-  {path: GlobalisValtozok.REGISZTRACIO_ROUTE, component: RegisztracioComponent}
+  { path: GlobalisValtozok.KEZDOLAP_ROUTE, component: KezdolapComponent },
+  { path: GlobalisValtozok.BEJELENTKEZES_ROUTE, component: BejelentkezesComponent },
+  { path: GlobalisValtozok.REGISZTRACIO_ROUTE, component: RegisztracioComponent }
 ]
 
 
@@ -17,6 +18,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  exports:[RouterModule]
+  exports: [RouterModule]
 })
 export class PublikusRoutingModule { }
