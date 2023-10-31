@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
+import { GlobalisValtozok } from 'src/app/shared/constants/globalisValtozok';
 
 @Component({
   selector: 'app-bejelentkezes',
@@ -16,6 +17,7 @@ export class BejelentkezesComponent {
 
   bejelentkezoFelhasznalo: BejelentkezoFelhasznalo = new BejelentkezoFelhasznalo();
   jelszoElrejtes: boolean = true;
+  globalisValtozok = GlobalisValtozok;
 
   constructor(
     private felhasznaloService: FelhasznaloService,

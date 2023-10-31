@@ -1,4 +1,4 @@
-<div class="bejelentkezes-container">
+<div class="bejelentkezes-regisztracio-container">
     <h2>{{"bejelentkezes" | translate }}</h2>
     <form #bejelentkezes="ngForm" id="formId" (keydown.enter)="bejeletkezesEmail()">
         <div class="mb-3 row">
@@ -50,4 +50,10 @@
             <span>Bejelentkezés facebook</span>
         </button>
         <div class="center"><a href="#">{{"elfelejtett_jelszo" | translate}}</a></div>
+        <div class="center" style="display: inline-block;">
+          <p>{{"nincs_fiokja" | translate }}</p>
+          <a [routerLink]=" '/' + globalisValtozok.REGISZTRACIO_ROUTE">
+            {{"regisztracio" | translate}}
+          </a>
+        </div>
 </div>

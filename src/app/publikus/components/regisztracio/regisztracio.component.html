@@ -1,1 +1,78 @@
-<p>regisztracio works!</p>
+<div class="bejelentkezes-regisztracio-container">
+    <h2>{{"regisztracio" | translate}}</h2>
+    <form #regisztracioForm="ngForm">
+  
+      <div class="mb-3 row">
+        <mat-form-field class="matinput">
+          <mat-label for="felhasznalonev" class="col-form-label bold">{{"felhasznaloNev" | translate}}</mat-label>
+          <input matInput id="felhasznalonev" class="form-control" type="text" required
+            [(ngModel)]="felhasznalo.felhasznaloNev" name="felhasznalonev" #felhasznalonev="ngModel">
+          <mat-error *ngIf="felhasznalonev.invalid">{{"kotelezo_felhasznalonev_error" | translate}}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="matinput">
+          <mat-label for="nev" class="col-form-label bold">{{"teljesNev" | translate}}</mat-label>
+          <input id="nev" matInput type="text" class="form-control" required [(ngModel)]="felhasznalo.teljesNev"
+            name="nev" #nev="ngModel">
+          <mat-error *ngIf="nev.invalid">{{"kotelezo_nev_error" | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3 row">
+        <mat-form-field class="matinput">
+          <mat-label for="email" class="col-form-label bold">{{"email" | translate}}</mat-label>
+          <input id="email" matInput class="form-control" type="text" [attr.placeholder]="'email_placeholder' | translate"
+            required [(ngModel)]="felhasznalo.email" name="email" #email="ngModel" pattern="^.{6,}$">
+          <mat-error *ngIf="regisztracioForm.value.email">{{"email_formatum_error" | translate}}</mat-error>
+          <mat-error *ngIf="email.invalid">{{"kotelezo_email_error" | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+  
+  
+      <div class="mb-3 row">
+        <mat-form-field class="matinput">
+          <mat-label for="jelszo" class="col-form-label bold">
+            {{"jelszo" | translate}} {{"min_8_char" | translate}}</mat-label>
+          <input id="jelszo" class="form-control" matInput [type]="jelszoElrejtes ? 'password' : 'text'"
+            (keydown.enter)="regisztracio(regisztracioForm)" required [(ngModel)]="felhasznalo.jelszo" name="jelszo"
+            #jelszo="ngModel" pattern="^.{7,}$">
+          <button type="button" mat-icon-button matSuffix (click)="jelszoElrejtes = !jelszoElrejtes"
+            [matTooltip]="'jelszo_elrejtese' | translate" [attr.aria-pressed]="jelszoElrejtes">
+            <mat-icon>{{jelszoElrejtes ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="regisztracioForm.value.jelszo">{{"jelszo_formatum_error" | translate}}</mat-error>
+          <mat-error *ngIf="jelszo.invalid">{{"kotelezo_jelszo_error" | translate}}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="matinput">
+          <mat-label for="jelszoIsmet" class="col-form-label bold">{{"jelszo_ismet" | translate}}</mat-label>
+          <input id="jelszoIsmet" class="form-control" matInput [type]="ismetloJelszoElrejtes ? 'password' : 'text'" required
+            [(ngModel)]="felhasznalo.jelszoIsmet" name="jelszoIsmet" #jelszoIsmet="ngModel"
+            (keydown.enter)="regisztracio(regisztracioForm)" pattern="{{regisztracioForm.value.jelszo}}">
+          <button type="button" mat-icon-button matSuffix (click)="ismetloJelszoElrejtes = !ismetloJelszoElrejtes"
+           [matTooltip]="'ismetlo_jelszo_elrejtese' | translate" [attr.aria-pressed]="ismetloJelszoElrejtes">
+            <mat-icon>{{ismetloJelszoElrejtes ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="regisztracioForm.value.jelszoIsmet">{{"ket_jelszo_nem_egyezik_error" | translate}}</mat-error>
+          <mat-error *ngIf="jelszoIsmet.pristine">{{"kotelezo_ismetlojelszo_error" | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="d-flex flex-row bd-highlight mb-3 gombok center">
+        <div class="p-2 bd-highlight">
+          <button type="submit" class="btn btn-success" (click)="regisztracio(regisztracioForm)">
+            {{'regisztracio' | translate}}
+          </button>
+        </div>
+      </div>
+  
+    </form>
+
+    <div class="center" style="display: inline-block;">
+        <p>{{"mar_van_fiokja" | translate }}</p>
+        <a [routerLink]=" '/' + globalisValtozok.BEJELENTKEZES_ROUTE">
+          {{"bejelentkezes" | translate}}
+        </a>
+      </div>
+  </div>
+  
