@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FelhasznaloService } from 'src/app/services/felhasznaloService/felhasznalo.service';
 import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { BejelentkezoFelhasznalo } from '../../models/bejelentkezo-felhasznalo';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,6 +24,14 @@ export class BejelentkezesComponent {
     private snackbarService: SnackbarService,
     private translateService: TranslateService
   ) { }
+
+  bejelentkezes(formName: any) {
+    if (!formName.form.valid) {
+      //helytelenül kitöltött űrlapra hibakezelés
+    } else {
+      this.bejeletkezesEmail();
+    }
+  }
 
   bejeletkezesEmail(): void {
     //"teszt@gmail.com", "NagyonNehez123"

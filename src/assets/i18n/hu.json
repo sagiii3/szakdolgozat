@@ -24,5 +24,7 @@
     "nincs_fiokja": "Nincs fiókja?",
     "elfelejtett_jelszo": "Elfelejtett jelszó",
     "programok": "Programok",
-    "uj_program_letrehozasa": "Új program létrehozása"
+    "uj_program_letrehozasa": "Új program létrehozása",
+    "sikertelen_bejelentkezes": "Sikertelen bejelentkezés",
+    "sikeres_bejelentkezes": "Sikeres bejelentkezés"
 }
