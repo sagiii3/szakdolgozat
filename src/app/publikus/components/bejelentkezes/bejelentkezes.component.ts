@@ -55,6 +55,7 @@ export class BejelentkezesComponent {
   }
 
   elfelejtettJelszo(): void {
+    //TODO: jelszó visszaállítás
     this.felhasznaloService.kuldjUjJelszoVisszaallitoEmailt(this.bejelentkezoFelhasznalo.email).then(() => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_jelszo_visszaallitas'));
     }).catch((error) => {
