@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { GoogleAuthProvider } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FelhasznaloService } from 'src/app/services/felhasznaloService/felhasznalo.service';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
@@ -21,23 +23,39 @@ export class RegisztracioComponent {
   constructor(
     private felhasznaloService: FelhasznaloService,
     private snackbarService: SnackbarService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private router: Router
   ) { }
 
   regisztracio(formName: any) {
     if (!formName.form.valid) {
       //helytelenül kitöltött űrlapra hibakezelés
     } else {
-      this.regisztracioEmaillel(formName.form.email, formName.form.jelszo);
+      this.regisztracioEmaillel(formName.form.value.email, formName.form.value.jelszo);
     }
   }
 
   regisztracioEmaillel(email: string, password: string): void {
     this.felhasznaloService.regisztracioEmaillel(email, password).then(cred => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_regisztracio'));
-      //itt bejelentkezés
+      this.navigacioBejelentkezesElottiOldalra();
     }).catch((error) => {
       this.snackbarService.snackbarError(this.translateService.instant('sikertelen_regisztracio'));
     });
+  }
+
+  regisztracioGoogle(): void {
+    this.felhasznaloService.bejelentkezesPopup(new GoogleAuthProvider()).then(cred => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
+      this.navigacioBejelentkezesElottiOldalra();
+    }).catch((error) => {		
+      console.log(error.code)
+      console.log(error.message)
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
+    });
+  }
+
+  navigacioBejelentkezesElottiOldalra(): void {
+    this.router.navigate([this.felhasznaloService.getBejelentkezesElottiUrl()]);
   }
 }

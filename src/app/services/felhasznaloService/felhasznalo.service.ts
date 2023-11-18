@@ -46,6 +46,12 @@ export class FelhasznaloService {
     await this.angularFireAuth.signInWithPopup(provider);
   }
 
+
+  async kuldjUjJelszoVisszaallitoEmailt(email: string): Promise<void> {
+    await this.angularFireAuth.sendPasswordResetEmail(email);
+  }
+
+
   async kijelentkezes(): Promise<void> {
     await this.angularFireAuth.signOut();
   }

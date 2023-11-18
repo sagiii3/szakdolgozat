@@ -45,7 +45,7 @@
           <span>Google</span>
         </button>  
         
-        <div class="center"><a href="#">{{"elfelejtett_jelszo" | translate}}</a></div>
+        <div class="center"><a (click)="elfelejtettJelszo()" style="color: blue;">{{"elfelejtett_jelszo" | translate}}</a></div>
         <div class="center" style="display: inline-block;">
           <p>{{"nincs_fiokja" | translate }}</p>
           <a [routerLink]=" '/' + globalisValtozok.REGISZTRACIO_ROUTE">

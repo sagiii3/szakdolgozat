@@ -54,6 +54,14 @@ export class BejelentkezesComponent {
     });
   }
 
+  elfelejtettJelszo(): void {
+    this.felhasznaloService.kuldjUjJelszoVisszaallitoEmailt(this.bejelentkezoFelhasznalo.email).then(() => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_jelszo_visszaallitas'));
+    }).catch((error) => {
+      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_jelszo_visszaallitas'));
+    });
+  }
+
   navigacioBejelentkezesElottiOldalra(): void {
     this.router.navigate([this.felhasznaloService.getBejelentkezesElottiUrl()]);
   }
