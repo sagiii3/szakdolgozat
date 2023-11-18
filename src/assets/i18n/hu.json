@@ -26,5 +26,7 @@
     "programok": "Programok",
     "uj_program_letrehozasa": "Új program létrehozása",
     "sikertelen_bejelentkezes": "Sikertelen bejelentkezés",
-    "sikeres_bejelentkezes": "Sikeres bejelentkezés"
+    "sikeres_bejelentkezes": "Sikeres bejelentkezés",
+    "sikeres_kijelentkezes": "Sikeres kijelentkezés",
+    "sikertelen_kijelentkezes": "Sikertelen kijelentkezés"
 }

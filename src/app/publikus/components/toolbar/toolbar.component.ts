@@ -35,18 +35,18 @@ export class ToolbarComponent {//implements OnInit, OnDestroy{
     private translateService: TranslateService,
     private snackbarService: SnackbarService,
     private router: Router){}
-/*
+
   ngOnInit(): void {
-    //this.belepett = this.felhasznaloService.isBejelentkezett();
-    this.getToolbarUpdate();
-    this.webSocketBejelentkezes();
-    this.websocketErtesites();
+    this.felhasznaloService.isBejelentkezett().subscribe({
+      next: (resp) => {
+        this.belepett = resp;
+      },
+      error: (err) => {
+        this.hibaService.hibaKezeles(0, true);
+      }
+    });
   }
-
-  getAdatok(): void{
-    //this.belepett = this.felhasznaloService.isBejelentkezett();
-  }
-
+/*
   getProfil(): void{
     if(this.belepett){
       const obs = this.felhasznaloService.getProfil();
@@ -66,6 +66,7 @@ export class ToolbarComponent {//implements OnInit, OnDestroy{
       this.felhasznalo = new Felhasznalo();
     }
   }
+  
 
   getToolbarUpdate(): void{
     this.toolbarUpdateSubscription = this.felhasznaloService.toolbarFrissitoObservable.subscribe({

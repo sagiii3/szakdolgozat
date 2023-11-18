@@ -40,15 +40,11 @@
           </div>
       
         </form>
-        <button (click)="bejeletkezesGoogle()">
-            <mat-icon>account_circle</mat-icon>
-            <span>Bejelentkezés google</span>
-        </button>
+        <button (click)="bejeletkezesGoogle()" mat-raised-button class="google-login-btn">
+          <mat-icon>account_circle</mat-icon>
+          <span>Google</span>
+        </button>  
         
-        <button (click)="bejeletkezesFacebook()">
-            <mat-icon>account_circle</mat-icon>
-            <span>Bejelentkezés facebook</span>
-        </button>
         <div class="center"><a href="#">{{"elfelejtett_jelszo" | translate}}</a></div>
         <div class="center" style="display: inline-block;">
           <p>{{"nincs_fiokja" | translate }}</p>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +11,18 @@ export class FelhasznaloService {
   constructor(
     private angularFireAuth: AngularFireAuth
   ) { }
+
+ isBejelentkezett(): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.angularFireAuth.onAuthStateChanged(user => {
+        if (user) {
+          observer.next(true);
+        } else {
+          observer.next(false);
+        }
+      });
+    });
+  }
 
   //a bejelentkezesElottiUrl gettere és settere
   getBejelentkezesElottiUrl(): string {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FelhasznaloService } from 'src/app/services/felhasznaloService/felhasznalo.service';
-import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider } from  '@angular/fire/auth';
 import { BejelentkezoFelhasznalo } from '../../models/bejelentkezo-felhasznalo';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
@@ -47,16 +47,9 @@ export class BejelentkezesComponent {
     this.felhasznaloService.bejelentkezesPopup(new GoogleAuthProvider()).then(cred => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
       this.navigacioBejelentkezesElottiOldalra();
-    }).catch((error) => {
-      this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
-    });
-  }
-
-  bejeletkezesFacebook(): void {
-    this.felhasznaloService.bejelentkezesPopup(new FacebookAuthProvider()).then(cred => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('sikeres_bejelentkezes'));
-      this.navigacioBejelentkezesElottiOldalra();
-    }).catch((error) => {
+    }).catch((error) => {		
+      console.log(error.code)
+      console.log(error.message)
       this.snackbarService.snackbarError(this.translateService.instant('sikertelen_bejelentkezes'));
     });
   }

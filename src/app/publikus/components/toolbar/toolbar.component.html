@@ -18,7 +18,7 @@
   
    
   
-    <button  mat-button [matTooltip]="'kijelentkezes' | translate" (click)="kijelentkezes()" >
+    <button  *ngIf="belepett" mat-button [matTooltip]="'kijelentkezes' | translate" (click)="kijelentkezes()" >
       <mat-icon aria-hidden="false">power_settings_new</mat-icon>
     </button>
   
