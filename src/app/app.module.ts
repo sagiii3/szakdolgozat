@@ -10,7 +10,7 @@ import { provideAuth,getAuth  } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 import { PublikusModule } from './publikus/publikus.module';
 import { SharedModule } from './shared/shared.module';
@@ -36,6 +36,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
     AngularFireAuthModule,
