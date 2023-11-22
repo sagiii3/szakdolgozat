@@ -53,8 +53,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all",
-              "aot": true
+              "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
@@ -62,7 +61,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "aot": true
             }
           },
           "defaultConfiguration": "production"
