@@ -4,15 +4,17 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+$hatterszin: rgb(103, 96, 59);
+
 html, body {
-  background-color:  rgb(103, 96, 59);
+  background-color: $hatterszin !important;
   height: 100%;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif !important;
 }
 
 .toolbar, .sidenav-container, .sidenav {
-  background-color:  rgb(103, 96, 59);
+  background-color: $hatterszin !important;
 }
 
 :root {
