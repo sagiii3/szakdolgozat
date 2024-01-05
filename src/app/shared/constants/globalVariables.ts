@@ -5,6 +5,9 @@ export class GlobalVariables {
   public static PRIVATE = 'Private';
   public static VISIBILITY_TYPES = [this.PUBLIC, this.PRIVATE];
 
+  //Firebase collections
+  public static USER_COLLECTION_NAME = 'users';
+
   // URLs
 
   // Prefixes
@@ -16,6 +19,7 @@ export class GlobalVariables {
   public static LOGIN_ROUTE = 'login';
   public static SIGNUP_ROUTE = 'signup';
   public static HOBBY_LIST_ROUTE = 'hobby-list';
+  public static FORGOT_PASSWORD_ROUTE = 'forgot-password';
 
   // Snackbar
   public static SNACKBAR_ERROR = 'error';

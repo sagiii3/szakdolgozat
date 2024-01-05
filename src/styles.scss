@@ -1,8 +1,8 @@
-/* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 $background_color: rgb(193, 108, 186);
 
@@ -28,26 +28,26 @@ html, body {
 .success-snackbar {
   color: white;
   --mdc-snackbar-container-color: var(--success-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+  --mat-snack-bar-button-color: var(--white-color) !important;
 }
 
 .error-snackbar {
   color: white;
   --mdc-snackbar-container-color: var(--error-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+  --mat-snack-bar-button-color: var(--white-color) !important;
 }
 
 .warning-snackbar {
   color: white;
   --mdc-snackbar-container-color: var(--warning-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+  --mat-snack-bar-button-color: var(--white-color) !important;
 }
 
 
 .info-snackbar {
   color: white;
   --mdc-snackbar-container-color: var(--info-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+  --mat-snack-bar-button-color: var(--white-color) !important;
 }
 
 .bold{

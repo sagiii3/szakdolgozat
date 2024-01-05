@@ -28,8 +28,8 @@
     "successful_delete": "Successful delete",
     "failed_delete": "Failed delete",
     "forgot_password": "Forgot Password",
-    "successfull_password_reset": "Successful password reset",
-    "failed_password_reset": "Failed password reset",
+    "successfull_password_reset": "Password reset email sent successfully",
+    "failed_password_reset": "Failed to send password reset email",
     "cancel": "Cancel",
     "understood": "Understood",
     "no_account": "Don't have an account?",
@@ -39,5 +39,10 @@
     "last_page": "Last Page",
     "next_page": "Next Page",
     "previous_page": "Previous Page",
-    "language": "Change language"
+    "language": "Change language",
+    "successful_user_save": "Successful user save",
+    "failed_user_save": "Failed user save",
+    "signup_with_google": "Sign up or log in with Google",
+    "reset_password": "Reset password",
+    "send_email": "Send email"
 }

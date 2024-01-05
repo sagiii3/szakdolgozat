@@ -28,8 +28,8 @@
     "successful_delete": "Sikeres törlés",
     "failed_delete": "Sikertelen törlés",
     "forgot_password": "Elfelejtett jelszó",
-    "successfull_password_reset": "Sikeres jelszóvisszaállítás",
-    "failed_password_reset": "Sikertelen jelszóvisszaállítás",
+    "successfull_password_reset": "Sikeresen elküldtük a jelszóvisszaállító emailt",
+    "failed_password_reset": "Sikertelen email küldés",
     "cancel": "Mégsem",
     "understood": "Megértettem",
     "no_account": "Nincs fiókja?",
@@ -39,5 +39,10 @@
     "last_page": "Utolsó oldal",
     "next_page": "Következő oldal",
     "previous_page": "Előző oldal",
-    "language": "Nyelvváltoztatás"
+    "language": "Nyelvváltoztatás",
+    "successful_user_save": "Sikeres felhasználó mentés",
+    "failed_user_save": "Sikertelen felhasználó mentés",
+    "signup_with_google": "Regisztráció vagy bejelentkezés Google fiókkal",
+    "reset_password": "Jelszó visszaállítás",
+    "send_email": "Email küldése"
 }

@@ -52,16 +52,7 @@ export class LoginComponent {
       this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
     });
   }
-
-  forgotPassword(): void {
-    //TODO: Jelszó visszaállítás
-    this.userService.sendPasswordResetEmail(this.loginUser.email).then(() => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('successfull_password_reset'));
-    }).catch((error) => {
-      this.snackbarService.snackbarError(this.translateService.instant('failed_password_reset'));
-    });
-  }
-
+  
   navigateToPreviousPageAfterLogin(): void {
     this.router.navigate([this.userService.getPreviousLoginUrl()]);
   }
