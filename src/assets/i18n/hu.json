@@ -25,6 +25,8 @@
     "successful_login": "Sikeres bejelentkezés",
     "successful_logout": "Sikeres kijelentkezés",
     "successful_signup": "Sikeres regisztráció",
+    "successful_delete": "Sikeres törlés",
+    "failed_delete": "Sikertelen törlés",
     "forgot_password": "Elfelejtett jelszó",
     "successfull_password_reset": "Sikeres jelszóvisszaállítás",
     "failed_password_reset": "Sikertelen jelszóvisszaállítás",

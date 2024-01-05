@@ -25,6 +25,8 @@
     "successful_login": "Successful login",
     "successful_logout": "Successful logout",
     "successful_signup": "Successful sign up",
+    "successful_delete": "Successful delete",
+    "failed_delete": "Failed delete",
     "forgot_password": "Forgot Password",
     "successfull_password_reset": "Successful password reset",
     "failed_password_reset": "Failed password reset",
