@@ -15,6 +15,7 @@ import { SnackbarService } from 'src/app/services/snackbarService/snackbar.servi
 export class ToolbarComponent implements OnInit, OnDestroy {
   user?: User;
   isLoggedIn?: boolean;
+  langChange: boolean = true;
 
   globalVariables = GlobalVariables;
 
@@ -28,7 +29,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private snackbarService: SnackbarService,
     private router: Router
-  ) {}
+  ){ }
+  
 
   ngOnInit(): void {
     this.userService.isAuthenticated().subscribe({
@@ -52,6 +54,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }).catch((error) => {
       this.snackbarService.snackbarError(this.translateService.instant('failed_logout'));
     });
+  }
+
+  changeLanguage(): void {
+    let lang = this.langChange ? 'en' : 'hu';
+    this.translateService.addLangs([lang])
+    this.translateService.use(lang);
+    this.langChange = !this.langChange;
   }
 
   ngOnDestroy(): void {

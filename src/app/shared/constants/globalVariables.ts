@@ -15,6 +15,7 @@ export class GlobalVariables {
   public static HOME_ROUTE = 'home';
   public static LOGIN_ROUTE = 'login';
   public static SIGNUP_ROUTE = 'signup';
+  public static HOBBY_LIST_ROUTE = 'hobby-list';
 
   // Snackbar
   public static SNACKBAR_ERROR = 'error';

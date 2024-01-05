@@ -20,6 +20,10 @@
     <mat-icon aria-hidden="false">power_settings_new</mat-icon>
   </button>
 
+  <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">
+    <mat-icon aria-hidden="false">language</mat-icon>
+  </button>
+
 </mat-toolbar>
 
 <router-outlet></router-outlet>
