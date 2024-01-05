@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { PublikusRoutingModule } from './publikus-routing.module';
+import { PublicRoutingModule } from './public-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './components/footer/footer.component';
@@ -23,11 +23,11 @@ import { SignupComponent } from './components/signup/signup.component';
   ],
   imports: [
     CommonModule,
-    PublikusRoutingModule,
+    PublicRoutingModule,
     SharedModule,
   ],
   exports: [
     NavbarComponent,
   ]
 })
-export class PublikusModule { }
+export class PublicModule { }

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
-import { PublikusModule } from './publikus/publikus.module';
+import { PublicModule } from './publikus/public.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { UserService } from './services/userService/user.service';
-import { ProgramModule } from './feature/program/program.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,9 +33,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
-    PublikusModule,
+    PublicModule,
     SharedModule,
-    ProgramModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgbModule,
