@@ -7,7 +7,7 @@ import { SnackbarService } from '../snackbarService/snackbar.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HibaService {
+export class ErrorService {
 
   constructor(
     private snackbarService: SnackbarService

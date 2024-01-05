@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
-export class FelhasznaloService {
+export class UserService {
 
-  private bejelentkezesElottiUrl: string = '/kezdolap';
+  private previousLoginUrl: string = '/home';
 
   constructor(
     private angularFireAuth: AngularFireAuth
   ) { }
 
- isBejelentkezett(): Observable<boolean> {
+  isAuthenticated(): Observable<boolean> {
     return new Observable<boolean>(observer => {
       this.angularFireAuth.onAuthStateChanged(user => {
         if (user) {
@@ -24,35 +25,32 @@ export class FelhasznaloService {
     });
   }
 
-  //a bejelentkezesElottiUrl gettere és settere
-  getBejelentkezesElottiUrl(): string {
-    return this.bejelentkezesElottiUrl;
+  // Getter and setter for the previousLoginUrl
+  getPreviousLoginUrl(): string {
+    return this.previousLoginUrl;
   }
 
-  setBejelentkezesElottiUrl(bejelentkezesElottiUrl: string): void {
-    this.bejelentkezesElottiUrl = bejelentkezesElottiUrl;
+  setPreviousLoginUrl(previousLoginUrl: string): void {
+    this.previousLoginUrl = previousLoginUrl;
   }
 
-  async regisztracioEmaillel(email: string, password: string): Promise<void> {
+  async signupWithEmail(email: string, password: string): Promise<void> {
     await this.angularFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  async bejelentkezesEmaillel(email: string, password: string): Promise<void> {
+  async loginWithEmail(email: string, password: string): Promise<void> {
     await this.angularFireAuth.signInWithEmailAndPassword(email, password);
   }
 
-  
-  async bejelentkezesPopup(provider: any): Promise<void> {
+  async loginWithPopup(provider: any): Promise<void> {
     await this.angularFireAuth.signInWithPopup(provider);
   }
 
-
-  async kuldjUjJelszoVisszaallitoEmailt(email: string): Promise<void> {
+  async sendPasswordResetEmail(email: string): Promise<void> {
     await this.angularFireAuth.sendPasswordResetEmail(email);
   }
 
-
-  async kijelentkezes(): Promise<void> {
+  async logout(): Promise<void> {
     await this.angularFireAuth.signOut();
   }
 }

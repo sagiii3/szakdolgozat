@@ -2,21 +2,10 @@
     <mat-sidenav #sidenav class="sidenav mat-elevation-z8 p-0" [opened]="false" [mode]="isScreenSmall2 ? 'over' : 'side'">
   
       <mat-nav-list>
-        <mat-list-item *ngIf="isScreenSmall" matLine [routerLink]="[globalisValtozok.KEZDOLAP_PREF]" routerLinkActive="selected"
+        <mat-list-item *ngIf="isScreenSmall" matLine [routerLink]="[globalVariables.HOME_ROUTE]" routerLinkActive="selected"
           (click)="isScreenSmall2?sidenav.toggle():{}">
-          {{"kezdolap" | translate}}
-        </mat-list-item>
-
-        <mat-list-item matLine [routerLink]="[globalisValtozok.PROGRAM_LISTA_ROUTE]" routerLinkActive="selected"
-          (click)="isScreenSmall2?sidenav.toggle():{}">
-          {{"programok" | translate}}
-        </mat-list-item>
-
-        <mat-list-item matLine [routerLink]="[globalisValtozok.UJ_PROGRAM_ROUTE]" routerLinkActive="selected"
-          (click)="isScreenSmall2?sidenav.toggle():{}">
-          {{"uj_program_letrehozasa" | translate}}
-        </mat-list-item>
-        
+          {{"home" | translate}}
+        </mat-list-item>       
         
       </mat-nav-list>
     </mat-sidenav>

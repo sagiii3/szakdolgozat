@@ -1,0 +1,55 @@
+<div class="login-signup-container">
+  <h2>{{ "login" | translate }}</h2>
+  <form #loginForm="ngForm" id="formId" (keydown.enter)="loginWithEmail()">
+      <div class="mb-3 row">
+          <mat-form-field>
+              <mat-label for="email" class="bold">{{ "email" | translate }}</mat-label>
+              <input matInput id="email" class="form-control" type="text" required
+                  [(ngModel)]="loginUser.email" name="email" #email="ngModel">
+              <mat-error *ngIf="email.invalid">{{ "required_email_error" | translate }}</mat-error>
+          </mat-form-field>
+      </div>
+
+      <div class="mb-3 row">
+          <mat-form-field>
+              <mat-label for="password" class="form-label bold">{{ "password" | translate }}
+                  {{"min_8_char" | translate}}</mat-label>
+              <input id="password" class="form-control" matInput [type]="hidePassword ? 'password' : 'text'" pattern="^.{7,}$" required
+                  [(ngModel)]="loginUser.password" name="password" #password="ngModel" (keydown.enter)="loginWithEmail()">
+              <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                  (keydown.enter)="$event.preventDefault()" [attr.aria-pressed]="hidePassword"
+                  [matTooltip]="'hide_password' | translate">
+                  <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.value.password">{{ "required_password_error" | translate }}</mat-error>
+              <mat-error *ngIf="password.invalid">{{ "password_format_error" | translate }}</mat-error>
+          </mat-form-field>
+      </div>
+
+      <div class="d-flex flex-row bd-highlight mb-3 center">
+          <div class="p-2 bd-highlight">
+              <button type="submit" class="btn btn-success" (click)="loginWithEmail()">
+                  {{ "login" | translate }}
+              </button>
+          </div>
+          <div class="p-2 bd-highlight" mat-dialog-actions>
+              <button type="button" class="btn btn-danger" (click)="navigateToPreviousPageAfterLogin()">
+                  {{ "cancel" | translate }}
+              </button>
+          </div>
+      </div>
+
+  </form>
+  <button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+      <mat-icon>account_circle</mat-icon>
+      <span>Google</span>
+  </button>
+
+  <div class="center"><a (click)="forgotPassword()" style="color: blue;">{{ "forgot_password" | translate }}</a></div>
+  <div class="center" style="display: inline-block;">
+      <p>{{ "no_account" | translate }}</p>
+      <a [routerLink]="'/' + globalVariables.SIGNUP_ROUTE">
+          {{ "registration" | translate }}
+      </a>
+  </div>
+</div>

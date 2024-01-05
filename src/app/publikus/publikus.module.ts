@@ -2,24 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
+import { HomeComponent } from './components/home/home.component';
 import { PublikusRoutingModule } from './publikus-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SharedModule } from '../shared/shared.module';
 import { FooterComponent } from './components/footer/footer.component';
-import { BejelentkezesComponent } from './components/bejelentkezes/bejelentkezes.component';
-import { RegisztracioComponent } from './components/regisztracio/regisztracio.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 @NgModule({
   declarations: [
     ToolbarComponent,
     NavbarComponent,
-    KezdolapComponent,
+    HomeComponent,
     NotFoundComponent,
     FooterComponent,
-    BejelentkezesComponent,
-    RegisztracioComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,

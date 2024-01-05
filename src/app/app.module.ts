@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
-import { provideAuth,getAuth  } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { PublikusModule } from './publikus/publikus.module';
 import { SharedModule } from './shared/shared.module';
@@ -16,7 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { FelhasznaloService } from './services/felhasznaloService/felhasznalo.service';
+import { UserService } from './services/userService/user.service';
 import { ProgramModule } from './feature/program/program.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,15 +42,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
     AppRoutingModule
   ],
   providers: [
-    FelhasznaloService
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { KezdolapComponent } from './components/kezdolap/kezdolap.component';
-import { BejelentkezesComponent } from './components/bejelentkezes/bejelentkezes.component';
-import { RegisztracioComponent } from './components/regisztracio/regisztracio.component';
-import { GlobalisValtozok } from '../shared/constants/globalisValtozok';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { GlobalVariables } from '../shared/constants/globalVariables';
 
 
 const routes: Routes = [
-  { path: GlobalisValtozok.KEZDOLAP_ROUTE, component: KezdolapComponent },
-  { path: GlobalisValtozok.BEJELENTKEZES_ROUTE, component: BejelentkezesComponent },
-  { path: GlobalisValtozok.REGISZTRACIO_ROUTE, component: RegisztracioComponent }
+  { path: GlobalVariables.HOME_ROUTE, component: HomeComponent },
+  { path: GlobalVariables.LOGIN_ROUTE, component: LoginComponent },
+  { path: GlobalVariables.SIGNUP_ROUTE, component: SignupComponent }
 ]
 
 

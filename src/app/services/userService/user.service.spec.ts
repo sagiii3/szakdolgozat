@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HibaService } from './hiba.service';
+import { UserService } from './user.service';
 
-describe('HibaService', () => {
-  let service: HibaService;
+describe('FelhasznaloService', () => {
+  let service: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HibaService);
+    service = TestBed.inject(UserService);
   });
 
   it('should be created', () => {

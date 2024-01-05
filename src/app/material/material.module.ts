@@ -47,6 +47,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 
 import {NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular-material-components/moment-adapter';
+import { TranslateService } from '@ngx-translate/core';
 
 export const DateFormat = {
     display: {
@@ -68,12 +69,14 @@ export const DateFormat = {
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   changes = new Subject<void>();
 
-  firstPageLabel = `Első oldal`;
-  itemsPerPageLabel = `Oldalméret`;
-  lastPageLabel = `Utolsó oldal`;
+  constructor(private translateService: TranslateService) {}
 
-  nextPageLabel = 'Következő oldal';
-  previousPageLabel = 'Előző oldal';
+  firstPageLabel = this.translateService.instant('first_page');
+  itemsPerPageLabel = this.translateService.instant('items_per_page');
+  lastPageLabel = this.translateService.instant('last_page');
+
+  nextPageLabel = this.translateService.instant('next_page');
+  previousPageLabel = this.translateService.instant('previous_page');
 
   getRangeLabel(page: number, pageSize: number, length: number): string {
     if (length == 0 || pageSize == 0) {
