@@ -46,10 +46,10 @@ export class SnackbarService {
     }
   }
 
-  selectSnackbarTipus(message: string, szin: string) {
+  selectSnackbarTipus(message: string, color: string) {
     this.snackBar.open(message, this.translateService.instant('understood'), {
       duration: this.snackbarDurationSeconds * 1000,
-      panelClass: [szin]
+      panelClass: [color]
     });
   }
 

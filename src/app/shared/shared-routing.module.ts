@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GlobalVariables } from './constants/globalVariables';
+import { HomeComponent } from '../publikus/components/home/home.component';
 
 
 const routes: Routes = [
-  //{path: 'kezdolap', component: KezdolapComponent}
+  //{path: GlobalVariables.HOME_ROUTE, component: HomeComponent}
 ]
 
 

@@ -9,7 +9,7 @@ export class GlobalVariables {
 
   // Prefixes
   // Without the / character
-  public static HOME_PREFIX = 'homepage';
+  public static HOME_PREFIX = 'home';
 
   // Frontend URLs
   public static HOME_ROUTE = 'home';

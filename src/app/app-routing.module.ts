@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { noop } from 'rxjs';
 import { NotFoundComponent } from './publikus/components/not-found/not-found.component';
+import { GlobalVariables } from './shared/constants/globalVariables';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'kezdolap', pathMatch: 'full' },
+  { path: '', redirectTo: GlobalVariables.HOME_ROUTE, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 

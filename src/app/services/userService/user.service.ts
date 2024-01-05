@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
+import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private previousLoginUrl: string = '/home';
+  private previousLoginUrl: string = GlobalVariables.HOME_ROUTE;
 
   constructor(
     private angularFireAuth: AngularFireAuth
@@ -25,11 +26,12 @@ export class UserService {
     });
   }
 
-  // Getter and setter for the previousLoginUrl
+  // Getter for the previousLoginUrl
   getPreviousLoginUrl(): string {
     return this.previousLoginUrl;
   }
 
+  // Setter for the previousLoginUrl
   setPreviousLoginUrl(previousLoginUrl: string): void {
     this.previousLoginUrl = previousLoginUrl;
   }
