@@ -44,5 +44,7 @@
     "failed_user_save": "Sikertelen felhasználó mentés",
     "signup_with_google": "Regisztráció vagy bejelentkezés Google fiókkal",
     "reset_password": "Jelszó visszaállítás",
-    "send_email": "Email küldése"
+    "send_email": "Email küldése",
+    "hobby_list": "Hobbi lista",
+    "add_to_own_hobbies": "Hozzáadás a saját hobbikhoz"
 }

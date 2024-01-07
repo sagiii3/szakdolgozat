@@ -8,10 +8,10 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 
 
 const routes: Routes = [
-  { path: GlobalVariables.HOME_ROUTE, component: HomeComponent },
-  { path: GlobalVariables.LOGIN_ROUTE, component: LoginComponent },
-  { path: GlobalVariables.SIGNUP_ROUTE, component: SignupComponent },
-  { path: GlobalVariables.FORGOT_PASSWORD_ROUTE, component: ForgotPasswordComponent }
+  { path: GlobalVariables.ROUTES.home, component: HomeComponent },
+  { path: GlobalVariables.ROUTES.login, component: LoginComponent },
+  { path: GlobalVariables.ROUTES.signup, component: SignupComponent },
+  { path: GlobalVariables.ROUTES.forgotPassword, component: ForgotPasswordComponent }
 ]
 
 

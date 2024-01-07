@@ -1,0 +1,12 @@
+<div *ngIf="hobby" class="hobby-tile" [matTooltip]="hobby.description">
+    <div class="header">
+      <h2>{{ hobby.name }}</h2>
+      <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div class="content">
+      <img [src]="hobby.imageUrl" alt="{{ hobby.name }} image" class="tile-image" />
+    </div>
+  </div>
+  

@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
   resetPassword(): void {
     this.userService.sendPasswordResetEmail(this.emailValue).then(() => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successfull_password_reset'));
-      this.router.navigate([GlobalVariables.LOGIN_ROUTE]);
+      this.router.navigate([GlobalVariables.ROUTES.login]);
     }).catch((error) => {
       this.snackbarService.snackbarError(this.translateService.instant('failed_password_reset'));
     });

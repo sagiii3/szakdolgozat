@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HobbyListComponent } from './hobby-list/hobby-list.component';
+import { HobbyListComponent } from './components/hobby-list/hobby-list.component';
+import { HobbyTileComponent } from './components/hobby-tile/hobby-tile.component';
+import { SharedModule } from '../shared/shared.module';
+import { HobbyRoutingModule } from './hobbies-routing.module';
 
 
 @NgModule({
   declarations: [
-    HobbyListComponent
+    HobbyListComponent,
+    HobbyTileComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    HobbyRoutingModule
   ]
 })
 export class HobbiesModule { }

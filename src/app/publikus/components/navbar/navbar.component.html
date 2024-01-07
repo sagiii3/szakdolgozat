@@ -2,10 +2,16 @@
     <mat-sidenav #sidenav class="sidenav mat-elevation-z8 p-0" [opened]="false" [mode]="isScreenSmall2 ? 'over' : 'side'">
   
       <mat-nav-list>
-        <mat-list-item *ngIf="isScreenSmall" matLine [routerLink]="[globalVariables.HOME_ROUTE]" routerLinkActive="selected"
+
+        <mat-list-item *ngIf="isScreenSmall" matLine [routerLink]="[globalVariables.ROUTES.home]" routerLinkActive="selected"
           (click)="isScreenSmall2?sidenav.toggle():{}">
           {{"home" | translate}}
-        </mat-list-item>       
+        </mat-list-item>   
+        
+        <mat-list-item matLine [routerLink]="[globalVariables.ROUTES.hobbyList]" routerLinkActive="selected"
+          (click)="isScreenSmall2?sidenav.toggle():{}">
+          {{"hobby_list" | translate}}
+        </mat-list-item>
         
       </mat-nav-list>
     </mat-sidenav>

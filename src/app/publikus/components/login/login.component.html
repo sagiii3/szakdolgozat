@@ -47,14 +47,14 @@
     </button>
 
     <div class="center">
-        <a [routerLink]="'/' + globalVariables.FORGOT_PASSWORD_ROUTE">
+        <a [routerLink]="'/' + globalVariables.ROUTES.forgotPassword">
             {{ "forgot_password" | translate }}
         </a>
     </div>
     <div class="center" style="display: inline-block;">
         <span>
             {{ "no_account" | translate }}
-            <a [routerLink]="'/' + globalVariables.SIGNUP_ROUTE">
+            <a [routerLink]="'/' + globalVariables.ROUTES.signup">
                 {{ "signup" | translate }}
             </a>
         </span>

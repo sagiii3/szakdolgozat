@@ -45,7 +45,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   login(): void {
     this.userService.setPreviousLoginUrl(this.router.url);
-    this.router.navigate([GlobalVariables.LOGIN_ROUTE]);
+    this.router.navigate([GlobalVariables.ROUTES.login]);
   }
 
   logout(): void {

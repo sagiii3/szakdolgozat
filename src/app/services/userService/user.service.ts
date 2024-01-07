@@ -8,7 +8,7 @@ import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 })
 export class UserService {
 
-  private previousLoginUrl: string = GlobalVariables.HOME_ROUTE;
+  private previousLoginUrl: string = GlobalVariables.ROUTES.home;
 
   constructor(
     private angularFireAuth: AngularFireAuth

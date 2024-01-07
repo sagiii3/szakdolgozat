@@ -20,6 +20,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { HobbiesModule } from './hobbies/hobbies.module';
 //import { ServiceWorkerModule } from '@angular/service-worker';
 
 
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     provideFirestore(() => getFirestore()),
     //provideStorage(() => getStorage()),
     PublicModule,
+    HobbiesModule,
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,

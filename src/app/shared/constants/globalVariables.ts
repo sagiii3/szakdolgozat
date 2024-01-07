@@ -6,7 +6,10 @@ export class GlobalVariables {
   public static VISIBILITY_TYPES = [this.PUBLIC, this.PRIVATE];
 
   //Firebase collections
-  public static USER_COLLECTION_NAME = 'users';
+  public static COLLECTIONS = {
+    users: 'users',
+    hobbies: 'hobbies'
+  };
 
   // URLs
 
@@ -15,11 +18,13 @@ export class GlobalVariables {
   public static HOME_PREFIX = 'home';
 
   // Frontend URLs
-  public static HOME_ROUTE = 'home';
-  public static LOGIN_ROUTE = 'login';
-  public static SIGNUP_ROUTE = 'signup';
-  public static HOBBY_LIST_ROUTE = 'hobby-list';
-  public static FORGOT_PASSWORD_ROUTE = 'forgot-password';
+  public static ROUTES = {
+    home: 'home',
+    login: 'login',
+    signup: 'signup',
+    hobbyList: 'hobby-list',
+    forgotPassword: 'forgot-password'
+  };
 
   // Snackbar
   public static SNACKBAR_ERROR = 'error';

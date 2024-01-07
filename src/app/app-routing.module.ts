@@ -4,7 +4,7 @@ import { NotFoundComponent } from './publikus/components/not-found/not-found.com
 import { GlobalVariables } from './shared/constants/globalVariables';
 
 const routes: Routes = [
-  { path: '', redirectTo: GlobalVariables.HOME_ROUTE, pathMatch: 'full' },
+  { path: '', redirectTo: GlobalVariables.ROUTES.home, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 

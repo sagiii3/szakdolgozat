@@ -58,7 +58,7 @@ export class SignupComponent {
 
   saveUser(): void{
     this.firebaseService.addToCollection(
-      GlobalVariables.USER_COLLECTION_NAME,
+      GlobalVariables.COLLECTIONS.users,
       this.user,
       'successful_user_save',
       'failed_user_save',

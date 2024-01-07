@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GlobalVariables } from '../shared/constants/globalVariables';
-import { HobbyListComponent } from './hobby-list/hobby-list.component';
+import { HobbyListComponent } from './components/hobby-list/hobby-list.component';
 
 
 const routes: Routes = [
-  { path: GlobalVariables.HOBBY_LIST_ROUTE, component: HobbyListComponent },
+  { path: GlobalVariables.ROUTES.hobbyList, component: HobbyListComponent },
 ]
 
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class PublicRoutingModule { }
+export class HobbyRoutingModule { }

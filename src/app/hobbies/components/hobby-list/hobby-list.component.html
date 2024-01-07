@@ -1,0 +1,6 @@
+<div class="hobby-list">
+    <h2>{{"hobby_list" | translate}}</h2>
+  <div class="hobby-tile" *ngFor="let hobby of hobbies">
+    <app-hobby-tile [hobby]="hobby"></app-hobby-tile>
+  </div>
+</div>

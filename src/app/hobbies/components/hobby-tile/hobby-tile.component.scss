@@ -1,0 +1,31 @@
+.hobby-tile {
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px;
+    width: 300px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #e99eeb;
+  }
+  
+  .content {
+    position: relative;
+  }
+  
+  .tile-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .icon-button {
+    margin-right: 5px;
+    color: #333;
+  }
+  
