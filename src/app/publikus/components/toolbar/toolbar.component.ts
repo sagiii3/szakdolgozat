@@ -38,7 +38,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.isLoggedIn = response;
       },
       error: (error) => {
-        this.errorService.hibaKezeles(0, true);
+        this.errorService.errorLog(error);
       }
     });
   }

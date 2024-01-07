@@ -44,7 +44,7 @@ export class FirebaseService {
       ).catch(
         (error) => {
           error.code == 'permission-denied' ?
-          this.errorService.hibaKezeles(100, true, undefined):
+          this.errorService.errorLog(error) : 
           this.snackbarService.snackbarError(this.translateService.instant(failedMessage)
         )}
       );
@@ -56,7 +56,7 @@ export class FirebaseService {
       ).catch(
         (error) => {
           error.code == 'permission-denied' ?
-          this.errorService.hibaKezeles(100, true, undefined):
+          this.errorService.errorLog(error) : 
           this.snackbarService.snackbarError(this.translateService.instant(failedMessage)
         )}
       );

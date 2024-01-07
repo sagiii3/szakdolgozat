@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/app/services/firebaseService/firebase.servi
 import { Hobby } from '../../models/hobby';
 import { Subscription } from 'rxjs';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { ErrorService } from 'src/app/services/errorService/error.service';
 
 @Component({
   selector: 'app-hobby-list',
@@ -15,7 +16,8 @@ export class HobbyListComponent implements OnInit, OnDestroy{
 
   hobbyListSubscription?: Subscription;
   constructor(
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private errorService: ErrorService
     ) { }
 
   ngOnInit(): void {
@@ -28,8 +30,8 @@ export class HobbyListComponent implements OnInit, OnDestroy{
       next: (hobbies: Hobby[]) => {
         this.hobbies = hobbies;
       },
-      error: (err: any) => {
-        console.log(err);
+      error: (error: any) => {
+        this.errorService.errorLog(error);
       },
     });
   }
@@ -40,7 +42,7 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    console.log('HobbyListComponent destroyed');
+    this.hobbyListSubscription?.unsubscribe();
   }
 
 }
