@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/userService/user.service';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
@@ -28,7 +28,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private translateService: TranslateService,
     private snackbarService: SnackbarService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ){ }
   
 
@@ -61,6 +62,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.translateService.addLangs([lang])
     this.translateService.use(lang);
     this.langChange = !this.langChange;
+    let currentRoute = window.location.pathname;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentRoute]);
+    });    
   }
 
   ngOnDestroy(): void {

@@ -4,9 +4,12 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { BilingualTranslatePipe } from './pipes/bilingual-translate.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    BilingualTranslatePipe
+  ],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -17,7 +20,8 @@ import { FormsModule } from '@angular/forms';
   exports: [
     MaterialModule,
     TranslateModule,
-    FormsModule
+    FormsModule,
+    BilingualTranslatePipe
   ]
 })
 export class SharedModule { }
