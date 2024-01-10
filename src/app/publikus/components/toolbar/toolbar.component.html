@@ -12,16 +12,16 @@
 
   <span class="example-spacer"></span>
 
+  <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">
+    <mat-icon aria-hidden="false">language</mat-icon>
+  </button>
+
   <button *ngIf="!isLoggedIn" mat-button [matTooltip]="'login' | translate" (click)="login()">
     <mat-icon aria-hidden="false">login</mat-icon>
   </button>
 
   <button *ngIf="isLoggedIn" mat-button [matTooltip]="'logout' | translate" (click)="logout()">
     <mat-icon aria-hidden="false">power_settings_new</mat-icon>
-  </button>
-
-  <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">
-    <mat-icon aria-hidden="false">language</mat-icon>
   </button>
 
 </mat-toolbar>

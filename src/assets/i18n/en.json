@@ -46,5 +46,6 @@
     "reset_password": "Reset password",
     "send_email": "Send email",
     "hobby_list": "Hobby List",
-    "add_to_own_hobbies": "Add to own hobbies"
+    "add_to_own_hobbies": "Add to own hobbies",
+    "permission-denied": "You don't have permission to execute this action"
 }

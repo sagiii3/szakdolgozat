@@ -15,7 +15,7 @@ export class ForgotPasswordComponent {
   public emailValue: string = '';
 
   constructor(
-    private userService: UserService,
+    protected userService: UserService,
     private snackbarService: SnackbarService,
     private translateService: TranslateService,
     private router: Router
@@ -29,9 +29,4 @@ export class ForgotPasswordComponent {
       this.snackbarService.snackbarError(this.translateService.instant('failed_password_reset'));
     });
   }
-
-  navigateToPreviousPageAfterLogin(): void {
-    this.router.navigate([this.userService.getPreviousLoginUrl()]);
-  }
-
 }

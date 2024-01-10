@@ -1,34 +1,59 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { User } from 'src/app/shared/models/user';
+import { FirebaseService } from '../firebaseService/firebase.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy{
 
   private previousLoginUrl: string = GlobalVariables.ROUTES.home;
 
+  user: User = new User();
+  userSubscription?: Subscription;
+
   constructor(
-    private angularFireAuth: AngularFireAuth
+    private angularFireAuth: AngularFireAuth,
+    private router: Router,
+    private firebaseService: FirebaseService
   ) { }
 
   isAuthenticated(): Observable<boolean> {
     return new Observable<boolean>(observer => {
       this.angularFireAuth.onAuthStateChanged(user => {
-        if (user) {
-          observer.next(true);
-        } else {
-          observer.next(false);
-        }
+        user ? observer.next(true) : observer.next(false);
+        this.user = new User(
+          user?.uid,
+          undefined,
+          user?.displayName || undefined,
+          user?.email  || undefined, 
+          undefined,
+          undefined, 
+          user?.photoURL  || undefined);
       });
     });
   }
 
-  // Getter for the previousLoginUrl
-  getPreviousLoginUrl(): string {
-    return this.previousLoginUrl;
+  saveUser(): void{
+    this.firebaseService.addToCollection(
+      GlobalVariables.COLLECTIONS.users,
+      this.user,
+      'successful_user_save',
+      'failed_user_save',
+      User
+    );
+    }
+
+  getCurrentUser(): User {
+    return this.user;
+  }
+
+  navigateToPreviousPageAfterLogin(): void {
+    this.router.navigate([this.previousLoginUrl]);
   }
 
   // Setter for the previousLoginUrl
@@ -54,5 +79,9 @@ export class UserService {
 
   async logout(): Promise<void> {
     await this.angularFireAuth.signOut();
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
   }
 }

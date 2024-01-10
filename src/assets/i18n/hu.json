@@ -46,5 +46,6 @@
     "reset_password": "Jelszó visszaállítás",
     "send_email": "Email küldése",
     "hobby_list": "Hobbi lista",
-    "add_to_own_hobbies": "Hozzáadás a saját hobbikhoz"
+    "add_to_own_hobbies": "Hozzáadás a saját hobbikhoz",
+    "permission-denied": "Nincs jogosultsága a művelet végrehajtásához"
 }

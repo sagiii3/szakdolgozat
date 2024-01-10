@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/userService/user.service';
 import { GoogleAuthProvider } from '@angular/fire/auth';
 import { LoginUser } from '../../models/login-user';
-import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +16,11 @@ export class LoginComponent {
 
   loginUser: LoginUser = new LoginUser();
   hidePassword: boolean = true;
+  user: User = new User();
   globalVariables = GlobalVariables;
 
   constructor(
-    private userService: UserService,
-    private router: Router,
+    protected userService: UserService,
     private snackbarService: SnackbarService,
     private translateService: TranslateService
   ) { }
@@ -35,25 +35,22 @@ export class LoginComponent {
 
   loginWithEmail(): void {
     this.userService.loginWithEmail(this.loginUser.email, this.loginUser.password).then(cred => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('successfull_login'));
-      this.navigateToPreviousPageAfterLogin();
+      this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
+      this.userService.navigateToPreviousPageAfterLogin();
     }).catch((error) => {
+      console.log(error.code, error.message);
       this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
     });
   }
 
   loginWithGoogle(): void {
     this.userService.loginWithPopup(new GoogleAuthProvider()).then(cred => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('successfull_login'));
-      this.navigateToPreviousPageAfterLogin();
+      this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
+      this.userService.saveUser();
+      this.userService.navigateToPreviousPageAfterLogin();
     }).catch((error) => {		
-      console.log(error.code)
-      console.log(error.message)
+      console.log(error.code, error.message);
       this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
     });
-  }
-  
-  navigateToPreviousPageAfterLogin(): void {
-    this.router.navigate([this.userService.getPreviousLoginUrl()]);
   }
 }
