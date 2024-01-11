@@ -50,5 +50,6 @@
     "permission-denied": "Nincs jogosultsága a művelet végrehajtásához",
     "404_not_found": "404 A keresett oldal nem található",
     "successful_own_hobby_save": "Sikeres saját hobbi mentés",
-    "failed_own_hobby_save": "Sikertelen saját hobbi mentés"
+    "failed_own_hobby_save": "Sikertelen saját hobbi mentés",
+    "own_hobbies": "Saját hobbik"
 }

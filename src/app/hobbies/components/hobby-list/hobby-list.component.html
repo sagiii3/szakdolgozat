@@ -1,7 +1,7 @@
 <div class="hobby-list">
   <h2>{{ "hobby_list" | translate }}</h2>
   <div class="hobby-tile-container">
-    <div class="hobby-tile" *ngFor="let hobby of hobbies">
+    <div class="hobby-tile" *ngFor="let hobby of hobbyList">
       <app-hobby-tile [hobby]="hobby" (addToOwnHobbiesEmitter)="addToOwnHobbies($event)"></app-hobby-tile>
     </div>
   </div>

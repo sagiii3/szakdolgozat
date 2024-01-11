@@ -10,10 +10,9 @@ import * as e from 'express';
 export class HobbyTileComponent {
   @Input() hobby?: Hobby;
 
-  //uj eventemitter létrehozása
-  @Output() addToOwnHobbiesEmitter = new EventEmitter<string>();
+  @Output() addToOwnHobbiesEmitter = new EventEmitter<Hobby>();
 
   addToOwnHobbies() {
-    this.addToOwnHobbiesEmitter.emit(this.hobby?.id || '');
+    this.addToOwnHobbiesEmitter.emit(this.hobby);
   }
 }

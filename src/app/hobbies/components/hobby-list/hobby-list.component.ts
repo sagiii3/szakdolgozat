@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebaseService/firebase.service';
 import { Hobby } from '../../models/hobby';
 import { Subscription } from 'rxjs';
-import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { ErrorService } from 'src/app/services/errorService/error.service';
-import { OwnHobby } from '../../models/ownHobby';
-import { UserService } from 'src/app/services/userService/user.service';
+import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 
 @Component({
   selector: 'app-hobby-list',
@@ -14,13 +11,12 @@ import { UserService } from 'src/app/services/userService/user.service';
 })
 export class HobbyListComponent implements OnInit, OnDestroy{
 
-  hobbies: Hobby[] = [];
+  hobbyList: Hobby[] = [];
 
-  hobbyListSubscription?: Subscription;
+  private hobbyListSubscription?: Subscription;
   constructor(
-    private firebaseService: FirebaseService,
     private errorService: ErrorService,
-    private userService: UserService
+    private hobbyService: HobbyService
     ) { }
 
   ngOnInit(): void {
@@ -28,10 +24,10 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   }
 
   getHobbies(): void {
-    this.hobbyListSubscription = this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies)
+    this.hobbyListSubscription = this.hobbyService.getHobbies()
     .subscribe({
       next: (hobbies: Hobby[]) => {
-        this.hobbies = hobbies;
+        this.hobbyList = hobbies;
       },
       error: (error: any) => {
         this.errorService.errorLog(error);
@@ -39,13 +35,8 @@ export class HobbyListComponent implements OnInit, OnDestroy{
     });
   }
 
-  addToOwnHobbies(id: string): void {
-    this.firebaseService.addToCollection(
-      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies,
-      new OwnHobby(id, 0),
-      'successful_own_hobby_save',
-      'failed_own_hobby_save',
-      OwnHobby);
+  addToOwnHobbies(hobby: Hobby): void {
+    this.hobbyService.addToOwnHobbies(hobby);
   }
 
   ngOnDestroy(): void {

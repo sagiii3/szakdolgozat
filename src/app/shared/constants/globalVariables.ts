@@ -24,7 +24,8 @@ export class GlobalVariables {
     login: 'login',
     signup: 'signup',
     hobbyList: 'hobby-list',
-    forgotPassword: 'forgot-password'
+    forgotPassword: 'forgot-password',
+    ownHobbies: 'own-hobbies'
   };
 
   // Snackbar
