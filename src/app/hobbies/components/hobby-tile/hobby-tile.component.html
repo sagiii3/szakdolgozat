@@ -1,7 +1,8 @@
 <div *ngIf="hobby" class="hobby-tile" [matTooltip]="hobby.description | bilingualTranslate">
     <div class="header">
       <h2>{{ hobby.name | bilingualTranslate}}</h2>
-      <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate">
+      <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate"
+         (click)="addToOwnHobbies()">
         <mat-icon>add</mat-icon>
       </button>
     </div>

@@ -8,7 +8,8 @@ export class GlobalVariables {
   //Firebase collections
   public static COLLECTIONS = {
     users: 'users',
-    hobbies: 'hobbies'
+    hobbies: 'hobbies',
+    ownHobbies: 'ownHobbies'
   };
 
   // URLs

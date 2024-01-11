@@ -47,5 +47,8 @@
     "send_email": "Email küldése",
     "hobby_list": "Hobbi lista",
     "add_to_own_hobbies": "Hozzáadás a saját hobbikhoz",
-    "permission-denied": "Nincs jogosultsága a művelet végrehajtásához"
+    "permission-denied": "Nincs jogosultsága a művelet végrehajtásához",
+    "404_not_found": "404 A keresett oldal nem található",
+    "successful_own_hobby_save": "Sikeres saját hobbi mentés",
+    "failed_own_hobby_save": "Sikertelen saját hobbi mentés"
 }
