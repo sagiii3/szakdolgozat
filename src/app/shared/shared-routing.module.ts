@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GlobalVariables } from './constants/globalVariables';
-import { HomeComponent } from '../publikus/components/home/home.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes: Routes = [
-  //{path: GlobalVariables.HOME_ROUTE, component: HomeComponent}
+  {path: GlobalVariables.ROUTES.profile, component: ProfileComponent}
 ]
 
 

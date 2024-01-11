@@ -5,10 +5,12 @@ import { MaterialModule } from '../material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { BilingualTranslatePipe } from './pipes/bilingual-translate.pipe';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
-    BilingualTranslatePipe
+    BilingualTranslatePipe,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

@@ -25,7 +25,8 @@ export class GlobalVariables {
     signup: 'signup',
     hobbyList: 'hobby-list',
     forgotPassword: 'forgot-password',
-    ownHobbies: 'own-hobbies'
+    ownHobbies: 'own-hobbies',
+    profile: 'profile',
   };
 
   // Snackbar

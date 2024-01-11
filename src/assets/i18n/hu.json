@@ -51,5 +51,6 @@
     "404_not_found": "404 A keresett oldal nem található",
     "successful_own_hobby_save": "Sikeres saját hobbi mentés",
     "failed_own_hobby_save": "Sikertelen saját hobbi mentés",
-    "own_hobbies": "Saját hobbik"
+    "own_hobbies": "Saját hobbik",
+    "my_profile": "Profilom"
 }

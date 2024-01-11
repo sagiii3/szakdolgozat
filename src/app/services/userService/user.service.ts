@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { User } from 'src/app/shared/models/user';
 import { FirebaseService } from '../firebaseService/firebase.service';
+import { ErrorService } from '../errorService/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class UserService implements OnDestroy{
   constructor(
     private angularFireAuth: AngularFireAuth,
     private router: Router,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private errorService: ErrorService
   ) { }
 
   isAuthenticated(): Observable<boolean> {
@@ -50,6 +52,31 @@ export class UserService implements OnDestroy{
 
   getCurrentUser(): User {
     return this.user;
+  }
+
+  getUser(): any {
+    this.isAuthenticated().subscribe({
+      next: (isAuthenticated: boolean) => {
+        if (isAuthenticated) {
+          return this.user;
+        }
+        return undefined;
+      },
+      error: (error: any) => {
+        this.errorService.errorLog(error);
+        return undefined;
+      }
+    });
+    /*//wait till the authorization is done and the current user is set
+    return new Observable<User>(observer => {
+      this.isAuthenticated().subscribe({
+        next: (isAuthenticated: boolean) => {
+          if (isAuthenticated) {
+            return this.user;
+          }
+        }
+      });
+    });*/
   }
 
   navigateToPreviousPageAfterLogin(): void {
