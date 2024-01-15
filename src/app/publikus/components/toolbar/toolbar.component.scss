@@ -28,6 +28,10 @@ $iconWidth: 50px;
   height: 7vh;
   z-index: 1;
 }
-.multiline-tooltip{
-  white-space: pre-line !important;
+
+.pfp{
+  margin: auto;
+  display: block;
+  width: 100%;
+  max-height: $iconWidth;
 }

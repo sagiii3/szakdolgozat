@@ -5,12 +5,22 @@
   </button>
 
   <span>
-    <a class="navbar-brand title" [routerLink]="[globalVariables.HOME_PREFIX]" [matTooltip]="'home' | translate">
+    <a class="navbar-brand title" [routerLink]="[globalVariables.ROUTES.home]" [matTooltip]="'home' | translate">
       <span *ngIf="!isScreenSmall">{{ "title" | translate }}</span>
     </a>
   </span>
 
   <span class="example-spacer"></span>
+
+  <button *ngIf="isLoggedIn" mat-button [matTooltip]="'my_profile' | translate"[routerLink]="[globalVariables.ROUTES.profile]">
+    <mat-icon aria-hidden="false">
+      <span>
+        <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
+         [src]="user?.photoURL ? user?.photoURL :'../../../assets/images/pfp.jpg'">
+        {{user?.fullName}}
+      </span>
+    </mat-icon>
+  </button>
 
   <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">
     <mat-icon aria-hidden="false">language</mat-icon>

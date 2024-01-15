@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/userService/user.service';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { User } from 'src/app/shared/models/user';
 import { SnackbarService } from 'src/app/services/snackbarService/snackbar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -23,20 +24,32 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   @Input() isScreenSmall2 = false;
   @Output() toggleSidenav = new EventEmitter<void>();
 
+  authSubscription?: Subscription;
+  userSubscription?: Subscription;
+
   constructor(
     private userService: UserService,
     private errorService: ErrorService,
     private translateService: TranslateService,
     private snackbarService: SnackbarService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
   ){ }
   
 
   ngOnInit(): void {
-    this.userService.isAuthenticated().subscribe({
+    this.authSubscription = this.userService.isAuthenticated().subscribe({
       next: (response) => {
         this.isLoggedIn = response;
+        if (this.isLoggedIn) {
+          this.userSubscription = this.userService.getUser().subscribe({
+            next: (user) => {
+              this.user = user;
+            },
+            error: (error) => {
+              this.errorService.errorLog(error);
+            }
+          });
+        }
       },
       error: (error) => {
         this.errorService.errorLog(error);
@@ -52,6 +65,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   logout(): void {
     this.userService.logout().then(() => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_logout'));
+      this.user = undefined;
+      this.isLoggedIn = false;
+      this.router.navigate([GlobalVariables.ROUTES.home]);
     }).catch((error) => {
       this.snackbarService.snackbarError(this.translateService.instant('failed_logout'));
     });
@@ -69,6 +85,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    this.authSubscription?.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 }

@@ -3,11 +3,25 @@
     display: block;
     width: 100%;
     max-height: 250px;
-  }
-.profile-component{
-    margin: 40px;
-    padding: 30px;
-    background-color: bisque;
-    border: solid 1px black;
-    border-radius: 10px;
+}
+
+.column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.data-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.data-div-item{
+  display: flex;
+  align-items: left;
+  justify-content: left;
 }

@@ -1,57 +1,34 @@
 <div *ngIf="user" class="profile-component">
-    <div class="title-and-refresh">
+    <div>
       <h2>{{"my_profile" | translate}}</h2>
     </div>
-    <div class="row">
-      <div class="col-md-4 border-right center">
-        <div class="d-flex flex-column align-items-center text-center center">
-          <img  class="rounded-circle pfp" alt="profile_picture" [src]="user.photoURL ? user.photoURL :'../../../assets/images/pfp.jpg'">
+    <div class="column">
+      <div class="img-center-div">
+        <img  class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
+          [src]="user.photoURL ? user.photoURL :'../../../assets/images/pfp.jpg'">
+      </div>
+      <div class="name-div">
+        {{user.fullName}}
+      </div>
+      <div class="data-div">
+        <div class="data-div-item">
+          <div class="data-div-item-title">
+            {{'email' | translate}}
+          </div>
+          <div class="data-div-item-data">
+            {{user.email}}
+          </div>
         </div>
-      </div>
-      <div class="col-md-8" style="padding: 20px;">
-        <form #profileModification="ngForm" (ngSubmit)="onSave(profileModification)" id="formId" enctype="multipart/form-data">
-  
-          <div *ngIf="!passwordChange" class="mb-3 row">
-            <label for="username" class="col-sm-3 col-form-label">{{"username" | translate}}:</label>
-            <div class="col-sm-6">
-              <div *ngIf="!wantToModify">
-                <input [readonly]="!wantToModify"
-                  [ngClass]="wantToModify ? 'form-control' : 'form-control-plaintext'" id="username"
-                  type="text" placeholder="{{user.username}}" required
-                  [(ngModel)]="modifiedUser.username" name="username" #username="ngModel">
-              </div>
-              <mat-form-field *ngIf="wantToModify && !passwordChange">
-                <input [readonly]="!wantToModify"
-                  [ngClass]="wantToModify ? 'form-control' : 'form-control-plaintext'" id="username"
-                  type="text" placeholder="{{user.username}}" matInput required
-                  [(ngModel)]="modifiedUser.username" name="username" #username="ngModel">
-                <mat-error *ngIf="username.invalid">{{"required_username_error" | translate}}</mat-error>
-              </mat-form-field>
-            </div>
+        <div class="data-div-item">
+          <div class="data-div-item-title">
+            {{'username' | translate}}
           </div>
-  
-          <!-- ... (similar translations for other form fields) ... -->
-  
-          <div class="row">
-            <div class="col">
-              <button *ngIf="wantToModify" type="button" class="btn btn-danger"
-                (click)="cancel()">{{"cancel" | translate}}</button>
-            </div>
-            <div class="col">
-              <button *ngIf="wantToModify" type="submit" class="btn btn-success"
-                [disabled]="!profileModification.form.valid">{{"save" | translate}}</button>
-            </div>
-            <div class="col">
-              <button *ngIf="!wantToModify" type="button" class="btn btn-success"
-                (click)="wantToModify=true">{{"modify_my_data" | translate}}</button>
-            </div>
-            <div class="col">
-              <button *ngIf="!wantToModify" type="button" class="btn btn-success"
-                (click)="wantToModify=true; passwordChange=true;">{{"password_change" | translate}}</button>
-            </div>
+          <div class="data-div-item-data">
+            {{user.username}}
           </div>
-        </form>
-      </div>
+        </div>
     </div>
+      
+    {{user | json }}
   </div>
   

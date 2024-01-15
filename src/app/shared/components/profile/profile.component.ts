@@ -11,55 +11,33 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  passwordHide: boolean = true;
-  repeatPasswordHide: boolean = true;
-  oldPasswordHide: boolean = true;
-  hasImage: boolean = false;
   user: User = new User();
-  modifiedUser: User = new User();
-  wantToModify: boolean = false;
-  passwordChange: boolean = false;
-  
-  private profileSubscription?: Subscription;
-  private profileModificationSubscription?: Subscription;
-  
+
+
+  profileSubscription?: Subscription;
+
   constructor(
     private userService: UserService,
     private errorService: ErrorService) {}
   
   ngOnInit(): void {
     this.getProfile();
-  }
-  
-  onSave(formName: NgForm) {
-    if (!formName.form.valid) {
-      this.errorService.errorLog('Invalid form');
-    } else {
-
-    }
-  }
-  
-  profileImageUpload(event: any) {
-    if (event != null && event.target != null) {
-      this.modifiedUser.photoURL = event.target.files[0];
-      this.hasImage = true;
-    }
-  }
-  
-  cancel(): void {
-    this.wantToModify = false;
-    this.passwordChange = false;
-    this.modifiedUser = this.user;
-  }
+  } 
   
   getProfile(): void {
-    //this.user = this.userService.getUser();
-    this.modifiedUser = this.user; 
+    this.profileSubscription = this.userService.getUser().subscribe({
+      next: (user: User) => {
+        this.user = user;
+        console.log(this.user);
+      },
+      error: (error: any) => {
+        this.errorService.errorLog(error);
+      }
+    });
   }
   
   ngOnDestroy(): void {
     this.profileSubscription?.unsubscribe();
-    this.profileModificationSubscription?.unsubscribe();
   }
   
 }

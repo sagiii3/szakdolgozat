@@ -54,29 +54,28 @@ export class UserService implements OnDestroy{
     return this.user;
   }
 
-  getUser(): any {
-    this.isAuthenticated().subscribe({
-      next: (isAuthenticated: boolean) => {
-        if (isAuthenticated) {
-          return this.user;
-        }
-        return undefined;
-      },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
-        return undefined;
-      }
-    });
-    /*//wait till the authorization is done and the current user is set
+  getUser(): Observable<User> {
     return new Observable<User>(observer => {
       this.isAuthenticated().subscribe({
         next: (isAuthenticated: boolean) => {
           if (isAuthenticated) {
-            return this.user;
+            observer.next(this.user);
+            /*
+            this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.users + this.user?.id).pipe(
+              map((users: User[]) => {
+                users[0];
+                console.log(users[0]);
+              })
+            );
+            observer.next(this.user);
+            */
           }
+        },
+        error: (error: any) => {
+          this.errorService.errorLog(error);
         }
       });
-    });*/
+    });
   }
 
   navigateToPreviousPageAfterLogin(): void {
