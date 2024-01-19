@@ -26,6 +26,7 @@ export class RecordHobbyComponent {
   saveHobby(): void {
     this.hobbyService.addHobbyToUserOwn(this.data.hobby);
     this.hobbyService.addActivityToOwnHobby(this.data.hobby.id, this.activity);
+    this.closeDialog();
   }
 
   closeDialog(): void {
