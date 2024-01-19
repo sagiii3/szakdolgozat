@@ -9,7 +9,7 @@ import * as e from 'express';
 })
 export class HobbyTileComponent {
   @Input() hobby?: Hobby;
-
+  @Input() addButton = false;
   @Output() addToOwnHobbiesEmitter = new EventEmitter<Hobby>();
 
   addToOwnHobbies() {

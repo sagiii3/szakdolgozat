@@ -12,14 +12,16 @@
 
   <span class="example-spacer"></span>
 
-  <button *ngIf="isLoggedIn" mat-button [matTooltip]="'my_profile' | translate"[routerLink]="[globalVariables.ROUTES.profile]">
-    <mat-icon aria-hidden="false">
+  <button *ngIf="isLoggedIn" mat-button class="profile-button"
+  [matTooltip]="'my_profile' | translate"[routerLink]="[globalVariables.ROUTES.profile]">
       <span>
-        <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
-         [src]="user?.photoURL ? user?.photoURL :'../../../assets/images/pfp.jpg'">
+        <mat-icon aria-hidden="false">
+          <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
+          [src]="user?.photoURL ? user?.photoURL :'../../../assets/images/pfp.jpg'">
+        </mat-icon>
         {{user?.fullName}}
       </span>
-    </mat-icon>
+    
   </button>
 
   <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">

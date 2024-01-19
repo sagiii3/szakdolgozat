@@ -1,0 +1,36 @@
+<div class="dialog-div">
+    <div class="header">
+        <h2>{{ "record_hobby" | translate }}</h2>
+        <button type="button" matTooltip="{{'close' | translate}}" class="icon-button close-button" mat-icon-button (click)="closeDialog();">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form #recordHobby="ngForm" id="formId">
+        <div class="mb-3 row">
+            <span>
+                {{ "spent_hours_label" | translate }}
+                <mat-form-field>
+                    <input matInput id="spentHours" class="form-control" type="number" required [(ngModel)]="activity.spentHours"
+                        name="spentHours" #spentHours="ngModel" class="spentHours">
+                </mat-form-field>
+            </span>
+        </div>
+
+        <div class="mb-3 row">
+            <span>{{ "hobby_notes_label" | translate }}</span>
+            <mat-form-field>
+                <textarea  matInput id="hobbyNotes" class="form-control" rows="5" cols="50"
+                    [(ngModel)]="activity.activityNotes" name="hobbyNotes" #hobbyNotes="ngModel"></textarea>
+            </mat-form-field>
+        </div>
+
+        <!--save and cancel buttons-->
+        <div class="button-row">
+            <span>
+                <button type="button" class="btn btn-success" (click)="saveHobby()">{{ "save" | translate }}</button>
+                <button type="button" class="btn btn-danger" (click)="closeDialog();">{{ "cancel" | translate }}</button>
+            </span>
+        </div>
+
+    </form>
+</div>

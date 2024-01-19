@@ -1,9 +1,11 @@
+import { Activity } from "./activity";
 import { Hobby } from "./hobby";
 
 export class OwnHobby extends Hobby{
-    spentHours?: number;
-    constructor(hobby: Hobby, spentHours?: number){
+    activity: Activity[];
+
+    constructor(hobby: Hobby, activity?: Activity[]){
         super(hobby.id, hobby.name, hobby.description, hobby.imageUrl);
-        this.spentHours = spentHours || 0;
+        this.activity = activity || [];
     }
 }

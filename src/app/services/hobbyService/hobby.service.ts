@@ -6,6 +6,7 @@ import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
 import { Observable } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
+import { Activity } from 'src/app/hobbies/models/activity';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,24 @@ export class HobbyService {
     private errorService: ErrorService
   ) { }
 
-  addToOwnHobbies(hobby: Hobby): void {
+  addHobbyToUserOwn(hobby: Hobby): void {
     this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies,
-      new OwnHobby(hobby, 0),
+      hobby,
       'successful_own_hobby_save',
       'failed_own_hobby_save',
-      OwnHobby);
+      Hobby);
+  }
+
+  addActivityToOwnHobby(hobbyId: string, activity: Activity): void {
+    this.firebaseService.addToCollection(
+      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
+      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
+      GlobalVariables.COLLECTIONS.activities,
+      activity,
+      'successful_activity_save',
+      'failed_activity_save',
+      Activity);
   }
 
   getOwnHobbies(): Observable<OwnHobby[]> {

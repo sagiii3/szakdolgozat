@@ -77,3 +77,14 @@ html, body {
   justify-content: center;
   
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-button {
+  margin-right: 5px;
+  color:black;
+}

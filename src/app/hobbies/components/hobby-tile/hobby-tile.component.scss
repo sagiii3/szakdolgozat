@@ -12,14 +12,6 @@
   transform: scale(1.1);
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #e3e0b8;
-}
-
 .content {
   position: relative;
 }
@@ -30,7 +22,11 @@
   display: block;
 }
 
-.icon-button {
-  margin-right: 5px;
-  color:black;
+.header-colored{
+  background-color: #e3e0b8;
+  padding: 10px;
+}
+
+.mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
+  display: none !important;
 }

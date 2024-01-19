@@ -9,7 +9,8 @@ export class GlobalVariables {
   public static COLLECTIONS = {
     users: 'users',
     hobbies: 'hobbies',
-    ownHobbies: 'ownHobbies'
+    ownHobbies: 'ownHobbies',
+    activities: 'activities',
   };
 
   // URLs

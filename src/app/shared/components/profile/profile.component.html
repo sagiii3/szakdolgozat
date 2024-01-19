@@ -1,34 +1,35 @@
 <div *ngIf="user" class="profile-component">
-    <div>
-      <h2>{{"my_profile" | translate}}</h2>
-    </div>
-    <div class="column">
+  <div>
+    <h2>{{"my_profile" | translate}}</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
       <div class="img-center-div">
-        <img  class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
+        <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
           [src]="user.photoURL ? user.photoURL :'../../../assets/images/pfp.jpg'">
       </div>
       <div class="name-div">
         {{user.fullName}}
       </div>
-      <div class="data-div">
-        <div class="data-div-item">
-          <div class="data-div-item-title">
-            {{'email' | translate}}
-          </div>
-          <div class="data-div-item-data">
-            {{user.email}}
-          </div>
-        </div>
-        <div class="data-div-item">
-          <div class="data-div-item-title">
-            {{'username' | translate}}
-          </div>
-          <div class="data-div-item-data">
-            {{user.username}}
-          </div>
-        </div>
     </div>
-      
-    {{user | json }}
+    <div class="col-md-6 offset-md-3">
+      <div class="mb-3 row">
+      <div class="data-div-item mb-3 row">
+        <div class="data-div-item-title col-sm-3">
+          {{'email' | translate}}
+        </div>
+        <div class="data-div-item-data col-sm-9">
+          {{user.email}}
+        </div>
+      </div>
+      <div class="data-div-item mb-3 row">
+        <div class="data-div-item-title col-sm-3">
+          {{'username' | translate}}
+        </div>
+        <div class="data-div-item-data col-sm-9">
+          {{user.username}}
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>

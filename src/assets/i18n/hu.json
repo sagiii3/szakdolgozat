@@ -52,5 +52,12 @@
     "successful_own_hobby_save": "Sikeres saját hobbi mentés",
     "failed_own_hobby_save": "Sikertelen saját hobbi mentés",
     "own_hobbies": "Saját hobbik",
-    "my_profile": "Profilom"
+    "my_profile": "Profilom",
+    "close": "Bezárás",
+    "spent_hours_label": "Eltöltött órák száma: ",
+    "record_hobby": "Hobbi rögzítése",
+    "save": "Mentés",
+    "hobby_notes_label": "Jegyzetek a hobbihoz: ",
+    "successful_activity_save": "Sikeres tevékenység mentés",
+    "failed_activity_save": "Sikertelen tevékenység mentés"
 }

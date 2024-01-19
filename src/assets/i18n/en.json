@@ -52,5 +52,12 @@
     "successful_own_hobby_save": "Successful own hobby save",
     "failed_own_hobby_save": "Failed own hobby save",
     "own-hobbies": "Own Hobbies",
-    "my_profile": "My Profile"
+    "my_profile": "My Profile",
+    "close": "Close",
+    "spent_hours_label": "Spent Hours: ",
+    "record_hobby": "Record Hobby",
+    "save": "Save",
+    "hobby_notes_label": "Notes for the hobby: ",
+    "successful_activity_save": "Successful activity save",
+    "failed_activity_save": "Failed activity save"
 }

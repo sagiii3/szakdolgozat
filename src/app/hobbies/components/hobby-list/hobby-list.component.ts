@@ -3,6 +3,8 @@ import { Hobby } from '../../models/hobby';
 import { Subscription } from 'rxjs';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 
 @Component({
   selector: 'app-hobby-list',
@@ -16,7 +18,8 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   private hobbyListSubscription?: Subscription;
   constructor(
     private errorService: ErrorService,
-    private hobbyService: HobbyService
+    private hobbyService: HobbyService,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -36,7 +39,12 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   }
 
   addToOwnHobbies(hobby: Hobby): void {
-    this.hobbyService.addToOwnHobbies(hobby);
+    this.dialog.open(RecordHobbyComponent, {
+      data: {
+        hobby: hobby
+      },
+      disableClose: true,
+    });
   }
 
   ngOnDestroy(): void {
