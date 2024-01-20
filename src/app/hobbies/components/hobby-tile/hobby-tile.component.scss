@@ -30,3 +30,11 @@
 .mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
   display: none !important;
 }
+
+button{
+  border: none;
+  background-color: transparent;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}

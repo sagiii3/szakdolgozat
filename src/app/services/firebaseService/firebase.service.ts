@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, Firestore, FirestoreDataConverter, getDocs } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
-import { deleteDoc, doc, setDoc } from 'firebase/firestore';
-import { Observable, map, from } from 'rxjs';
+import { deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
+import { Observable, map, from, filter } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 
@@ -95,4 +95,18 @@ export class FirebaseService {
       })
     );
   }
+
+  getDocument(collectionName: string, id: string): Observable<any> {
+    const docRef = doc(this.firestore, collectionName, id);
+    return from(getDoc(docRef)).pipe(
+      map((doc) => {
+        if (doc.exists()) {
+          return doc.data();
+        } else {
+          return undefined;
+        }
+      })
+    );
+  }
+
 }

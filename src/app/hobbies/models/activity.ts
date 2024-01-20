@@ -1,10 +1,10 @@
 export class Activity {
     id?: string;
     spentHours?: number;
-    activityNotes?: string;
+    notes?: string;
 
-    constructor(spentHours?: number, activityNotes?: string){
+    constructor(spentHours?: number, notes?: string){
         this.spentHours = spentHours;
-        this.activityNotes = activityNotes;
+        this.notes = notes;
     }
 }

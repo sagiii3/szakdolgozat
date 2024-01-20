@@ -9,7 +9,7 @@ import { HobbyDetailComponent } from './components/hobby-detail/hobby-detail.com
 const routes: Routes = [
   { path: GlobalVariables.ROUTES.hobbyList, component: HobbyListComponent },
   { path: GlobalVariables.ROUTES.ownHobbies, component: OwnHobbiesComponent },
-  { path: GlobalVariables.ROUTES.ownHobbies + ':name', component: HobbyDetailComponent },
+  { path: GlobalVariables.ROUTES.ownHobbies + '/:id', component: HobbyDetailComponent },
 ]
 
 

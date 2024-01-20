@@ -7,6 +7,7 @@ import { UserService } from '../userService/user.service';
 import { Observable } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class HobbyService {
   constructor(
     private firebaseService: FirebaseService,
     private userService: UserService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private dialog: MatDialog
   ) { }
 
   addHobbyToUserOwn(hobby: Hobby): void {
@@ -39,6 +41,15 @@ export class HobbyService {
       Activity);
   }
 
+  openDialog(component: any, data: any): void {
+    this.dialog.open(component, {
+      data: {
+        hobby: data
+      },
+      disableClose: true,
+    });
+  }
+
   getOwnHobbies(): Observable<OwnHobby[]> {
     //wait till the authorization is done and the current user is set
     return new Observable<OwnHobby[]>(observer => {
@@ -59,6 +70,15 @@ export class HobbyService {
         }
       });
     });
+  }
+
+  getHobbyById(id?: string): Observable<OwnHobby> {
+    console.log(this.userService.getCurrentUser().id);
+    //TODO: get the current user id
+    return this.firebaseService.getDocument(
+      GlobalVariables.COLLECTIONS.users + '/' + 'B9iR4wgSQvTcGp2TBjhICvHomKw1' //this.userService.getCurrentUser().id 
+      + '/' +
+       GlobalVariables.COLLECTIONS.ownHobbies,  id || '');
   }
 
   getHobbies(): Observable<Hobby[]> {

@@ -18,8 +18,7 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   private hobbyListSubscription?: Subscription;
   constructor(
     private errorService: ErrorService,
-    private hobbyService: HobbyService,
-    private dialog: MatDialog
+    private hobbyService: HobbyService
     ) { }
 
   ngOnInit(): void {
@@ -39,12 +38,7 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   }
 
   addToOwnHobbies(hobby: Hobby): void {
-    this.dialog.open(RecordHobbyComponent, {
-      data: {
-        hobby: hobby
-      },
-      disableClose: true,
-    });
+    this.hobbyService.openDialog(RecordHobbyComponent, hobby);
   }
 
   ngOnDestroy(): void {

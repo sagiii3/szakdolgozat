@@ -1,1 +1,13 @@
-<p>hobby-detail works!</p>
+<div>
+    <h2> {{"hobby_detail" | translate }}</h2>
+    <div *ngIf="hobby">
+        <div>
+            <h3>{{ hobby.name | bilingualTranslate}}</h3>
+            <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
+            <p>{{hobby.description}}</p>
+            <div *ngFor="let activity of hobby.activities">
+                <p>{{activity.spentHours}}</p>
+                <p>{{activity.notes}}</p>
+        </div>
+
+</div>

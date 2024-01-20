@@ -59,5 +59,7 @@
     "save": "Mentés",
     "hobby_notes_label": "Jegyzetek a hobbihoz: ",
     "successful_activity_save": "Sikeres tevékenység mentés",
-    "failed_activity_save": "Sikertelen tevékenység mentés"
+    "failed_activity_save": "Sikertelen tevékenység mentés",
+    "hobby_detail": "Hobbi részletező",
+    "details": "Részletek"
 }

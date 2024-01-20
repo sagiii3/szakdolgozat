@@ -59,5 +59,7 @@
     "save": "Save",
     "hobby_notes_label": "Notes for the hobby: ",
     "successful_activity_save": "Successful activity save",
-    "failed_activity_save": "Failed activity save"
+    "failed_activity_save": "Failed activity save",
+    "hobby_detail": "Hobby Detail",
+    "details": "Details"
 }

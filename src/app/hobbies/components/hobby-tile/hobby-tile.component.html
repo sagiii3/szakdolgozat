@@ -1,13 +1,15 @@
-<div *ngIf="hobby" class="hobby-tile" [matTooltip]="hobby.description | bilingualTranslate">
-    <div class="header header-colored">
-      <h2>{{ hobby.name | bilingualTranslate}}</h2>
-      <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate"
-         (click)="addToOwnHobbies()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-    <div class="content">
-      <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
-    </div>
+<div *ngIf="hobby" class="hobby-tile">
+  <div class="header header-colored">
+    <h2>{{ hobby.name | bilingualTranslate}}</h2>
+    <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate"
+        (click)="addToOwnHobbies()">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
-  
+  <div class="content">
+    <button *ngIf="hobby" [routerLink]="[hobby.id]" routerLinkActive="selected" 
+      matTooltip="{{'details' | translate}}">
+      <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
+    </button>
+  </div>
+</div>
