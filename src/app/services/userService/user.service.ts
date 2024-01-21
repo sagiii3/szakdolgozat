@@ -60,6 +60,7 @@ export class UserService implements OnDestroy{
         next: (isAuthenticated: boolean) => {
           if (isAuthenticated) {
             observer.next(this.user);
+            //todo: get user from firebase
             /*
             this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.users + this.user?.id).pipe(
               map((users: User[]) => {

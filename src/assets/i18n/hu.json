@@ -66,5 +66,7 @@
     "notes": "Jegyzetek",
     "description": "Leírás",
     "activity": "Tevékenység",
-    "activity_wrap": "Tevékenység összefoglaló"
+    "activity_wrap": "Tevékenység összefoglaló",
+    "invalid_activity": "Érvénytelen tevékenység",
+    "save_problem": "Probléma lépett fel a mentés során"
 }

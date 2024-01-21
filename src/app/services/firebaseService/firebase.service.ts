@@ -45,30 +45,25 @@ export class FirebaseService {
     return result;
   }
 
-  async addToCollection(collectionName: string, document: any, successMessage: string, failedMessage: string, _class: any): Promise<void> {
+  async addToCollection(collectionName: string, document: any, successMessage: string, failedMessage: string, _class: any): Promise<boolean> {
     const converter = this.createFirestoreDataConverter(_class);
     document = this.removeUndefinedFields(document);
-    if(document.id){
-      let customCollection = doc(this.firestore, collectionName, document.id);
-      await setDoc(customCollection.withConverter(converter), document).then(
-        () => this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage))
-      ).catch(
-        (error) => {
-          let message = error.code == 'permission-denied' ? 'permission-denied' : failedMessage;
-          this.snackbarService.snackbarError(this.translateService.instant(message));
-        }
-      );
-    }
-    else{
-      let customCollection = collection(this.firestore, collectionName);
-      await addDoc(customCollection.withConverter(converter), document).then(
-        () => this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage))
-      ).catch(
-        (error) => {
-          let message = error.code == 'permission-denied' ? 'permission-denied' : failedMessage;
-          this.snackbarService.snackbarError(this.translateService.instant(message));
-        }
-      );
+    try {
+      if (document.id) {
+        const customCollection = doc(this.firestore, collectionName, document.id);
+        await setDoc(customCollection.withConverter(converter), document);
+        this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
+        return true;
+      } else {
+        const customCollection = collection(this.firestore, collectionName);
+        await addDoc(customCollection.withConverter(converter), document);
+        this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
+        return true;
+      }
+    } catch (error: any) {
+      const message = error.code === 'permission-denied' ? 'permission-denied' : failedMessage;
+      this.snackbarService.snackbarError(this.translateService.instant(message));
+      return false;
     }
   }
 

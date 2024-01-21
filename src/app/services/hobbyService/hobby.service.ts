@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,19 @@ export class HobbyService {
     private dialog: MatDialog
   ) { }
 
-  addHobbyToUserOwn(hobby: Hobby): void {
+  addHobbyToUserOwn(hobby: Hobby): boolean {
+    //return if hobby was successfully added
     this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies,
       hobby,
       'successful_own_hobby_save',
       'failed_own_hobby_save',
       Hobby);
+    return true;
   }
 
-  addActivityToOwnHobby(hobbyId: string, activity: Activity): void {
+  addActivityToOwnHobby(hobbyId: string, activity: Activity): boolean {
+    //return if hobby was successfully added
     this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
       GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
@@ -39,6 +43,7 @@ export class HobbyService {
       'successful_activity_save',
       'failed_activity_save',
       Activity);
+    return true;
   }
 
   openDialog(component: any, data: any): void {
@@ -73,20 +78,43 @@ export class HobbyService {
   }
 
   getHobbyById(id?: string): Observable<OwnHobby> {
-    console.log(this.userService.getCurrentUser().id);
-    //TODO: get the current user id
-    return this.firebaseService.getDocument(
-      GlobalVariables.COLLECTIONS.users + '/' + 'B9iR4wgSQvTcGp2TBjhICvHomKw1' //this.userService.getCurrentUser().id 
-      + '/' +
-       GlobalVariables.COLLECTIONS.ownHobbies,  id || '');
+    return new Observable<OwnHobby>(observer => {
+      this.userService.getUser().subscribe({
+        next: (user: User) => {
+          let route = GlobalVariables.COLLECTIONS.users + '/' + user.id
+            + '/' + GlobalVariables.COLLECTIONS.ownHobbies;
+          this.firebaseService.getDocument(route, id || '').subscribe({
+            next: (hobby: OwnHobby) => {
+              observer.next(hobby);
+            },
+            error: (error: any) => {
+              this.errorService.errorLog(error);
+            }
+          });
+        },
+        error: (error: any) => {
+          this.errorService.errorLog(error);
+        }
+      });
+    });
   }
 
   getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
-    return this.firebaseService.getCollectionList(
-      GlobalVariables.COLLECTIONS.users + '/' + 'B9iR4wgSQvTcGp2TBjhICvHomKw1' //this.userService.getCurrentUser().id 
-      + '/' +
-      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
-      GlobalVariables.COLLECTIONS.activities);
+    return new Observable<Activity[]>(observer => {
+      this.userService.getUser().subscribe({  
+        next: (user: User) => {
+          let route = GlobalVariables.COLLECTIONS.users + '/' + user.id
+          + '/' + GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId
+          + '/' + GlobalVariables.COLLECTIONS.activities;
+          this.firebaseService.getCollectionList(route).subscribe({
+            next: (activities: Activity[]) => {
+              observer.next(activities);
+            },
+            error: (error: any) => {
+              this.errorService.errorLog(error);
+            }
+          });
+        },})});
   }
 
   getHobbies(): Observable<Hobby[]> {

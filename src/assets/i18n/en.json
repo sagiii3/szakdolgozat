@@ -66,5 +66,7 @@
     "notes": "Notes",
     "description": "Description",
     "activity": "Activity",
-    "activity_wrap": "Activity Wrap"
+    "activity_wrap": "Activity Wrap",
+    "invalid_activity": "Invalid activity",
+    "save_problem": "Problem while saving"
 }

@@ -25,6 +25,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
+    console.log(this.id);
     this.getHobby();
   }
 
