@@ -27,11 +27,11 @@ export class RecordHobbyComponent {
 
   activity: Activity = new Activity();
 
-  saveHobby(): void {
+  async saveHobby(): Promise<void> {
     //todo: check if activity is valid
     if(this.activity.spentHours && this.activity.spentHours > 0){
-      let addHobby: boolean = this.hobbyService.addHobbyToUserOwn(this.data.hobby);
-      let addActivity: boolean = this.hobbyService.addActivityToOwnHobby(this.data.hobby.id || '', this.activity);
+      let addHobby: boolean =  await this.hobbyService.addHobbyToUserOwn(this.data.hobby);
+      let addActivity: boolean = await this.hobbyService.addActivityToOwnHobby(this.data.hobby.id || '', this.activity);
       if(addHobby && addActivity){
         this.closeDialog();
         this.router.navigate([GlobalVariables.ROUTES.ownHobbies, this.data.hobby.id]);

@@ -22,20 +22,19 @@ export class HobbyService {
     private dialog: MatDialog
   ) { }
 
-  addHobbyToUserOwn(hobby: Hobby): boolean {
+  async addHobbyToUserOwn(hobby: Hobby): Promise<boolean> {
     //return if hobby was successfully added
-    this.firebaseService.addToCollection(
+    return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies,
       hobby,
       'successful_own_hobby_save',
       'failed_own_hobby_save',
       Hobby);
-    return true;
   }
 
-  addActivityToOwnHobby(hobbyId: string, activity: Activity): boolean {
+  async addActivityToOwnHobby(hobbyId: string, activity: Activity): Promise<boolean> {
     //return if hobby was successfully added
-    this.firebaseService.addToCollection(
+    return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
       GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
       GlobalVariables.COLLECTIONS.activities,
@@ -43,7 +42,6 @@ export class HobbyService {
       'successful_activity_save',
       'failed_activity_save',
       Activity);
-    return true;
   }
 
   openDialog(component: any, data: any): void {
