@@ -28,6 +28,7 @@ export class GlobalVariables {
     forgotPassword: 'forgot-password',
     ownHobbies: 'own-hobbies',
     profile: 'profile',
+    activityWrap: 'activity-wrap',
   };
 
   // Snackbar

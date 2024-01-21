@@ -65,5 +65,6 @@
     "spent_hours": "Spent Hours",
     "notes": "Notes",
     "description": "Description",
-    "activity": "Activity"
+    "activity": "Activity",
+    "activity_wrap": "Activity Wrap"
 }

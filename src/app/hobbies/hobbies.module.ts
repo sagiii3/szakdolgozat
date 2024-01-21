@@ -8,6 +8,7 @@ import { OwnHobbiesComponent } from './components/own-hobbies/own-hobbies.compon
 import { RecordHobbyComponent } from './components/dialogs/record-hobby/record-hobby.component';
 import { HobbyDetailComponent } from './components/hobby-detail/hobby-detail.component';
 import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
+import { ActivityWrapComponent } from './components/activity-wrap/activity-wrap.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ActivityTileComponent } from './components/activity-tile/activity-tile.
     OwnHobbiesComponent,
     RecordHobbyComponent,
     HobbyDetailComponent,
-    ActivityTileComponent
+    ActivityTileComponent,
+    ActivityWrapComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
             <h3>{{ hobby.name | bilingualTranslate}}</h3>
             <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
             <p>{{'description' | translate}}: {{hobby.description | bilingualTranslate}}</p>
-            <p>{{'activity' | translate}}</p>
+            <h3>{{'activity' | translate}}</h3>
             <div *ngFor="let activity of hobby.activities">
                 <app-activity-tile [activity]="activity"></app-activity-tile>
             </div>

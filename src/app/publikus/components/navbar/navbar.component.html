@@ -17,6 +17,13 @@
           (click)="isScreenSmall2?sidenav.toggle():{}">
           {{"own_hobbies" | translate}}
         </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item matLine [routerLink]="[globalVariables.ROUTES.activityWrap]" routerLinkActive="selected"
+          (click)="isScreenSmall2?sidenav.toggle():{}">
+          {{"activity_wrap" | translate}}
+        </mat-list-item>
         
       </mat-nav-list>
     </mat-sidenav>
