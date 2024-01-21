@@ -28,7 +28,6 @@ export class ProfileComponent {
     this.profileSubscription = this.userService.getUser().subscribe({
       next: (user: User) => {
         this.user = user;
-        console.log(this.user);
       },
       error: (error: any) => {
         this.errorService.errorLog(error);

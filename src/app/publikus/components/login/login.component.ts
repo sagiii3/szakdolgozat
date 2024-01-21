@@ -6,6 +6,7 @@ import { SnackbarService } from 'src/app/services/snackbarService/snackbar.servi
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { User } from 'src/app/shared/models/user';
+import { ErrorService } from 'src/app/services/errorService/error.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent {
   constructor(
     protected userService: UserService,
     private snackbarService: SnackbarService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private errorService: ErrorService
   ) { }
 
   login(formName: any) {
@@ -38,7 +40,7 @@ export class LoginComponent {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
       this.userService.navigateToPreviousPageAfterLogin();
     }).catch((error) => {
-      console.log(error.code, error.message);
+      this.errorService.errorLog(error.code + error.message);
       this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
     });
   }
@@ -49,7 +51,7 @@ export class LoginComponent {
       this.userService.saveUser();
       this.userService.navigateToPreviousPageAfterLogin();
     }).catch((error) => {		
-      console.log(error.code, error.message);
+      this.errorService.errorLog(error.code + error.message);
       this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
     });
   }

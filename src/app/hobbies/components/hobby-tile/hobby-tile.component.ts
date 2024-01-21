@@ -16,8 +16,4 @@ export class HobbyTileComponent {
   addToOwnHobbies() {
     this.addToOwnHobbiesEmitter.emit(this.hobby);
   }
-
-  ngOnInit(): void {
-    console.log(this.hobby);
-  }
 }

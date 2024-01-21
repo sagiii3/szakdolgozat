@@ -61,5 +61,9 @@
     "successful_activity_save": "Successful activity save",
     "failed_activity_save": "Failed activity save",
     "hobby_detail": "Hobby Detail",
-    "details": "Details"
+    "details": "Details",
+    "spent_hours": "Spent Hours",
+    "notes": "Notes",
+    "description": "Description",
+    "activity": "Activity"
 }

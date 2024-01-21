@@ -81,6 +81,14 @@ export class HobbyService {
        GlobalVariables.COLLECTIONS.ownHobbies,  id || '');
   }
 
+  getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
+    return this.firebaseService.getCollectionList(
+      GlobalVariables.COLLECTIONS.users + '/' + 'B9iR4wgSQvTcGp2TBjhICvHomKw1' //this.userService.getCurrentUser().id 
+      + '/' +
+      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
+      GlobalVariables.COLLECTIONS.activities);
+  }
+
   getHobbies(): Observable<Hobby[]> {
     return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies);
   }

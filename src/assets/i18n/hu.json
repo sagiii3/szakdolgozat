@@ -61,5 +61,9 @@
     "successful_activity_save": "Sikeres tevékenység mentés",
     "failed_activity_save": "Sikertelen tevékenység mentés",
     "hobby_detail": "Hobbi részletező",
-    "details": "Részletek"
+    "details": "Részletek",
+    "spent_hours": "Eltöltött órák",
+    "notes": "Jegyzetek",
+    "description": "Leírás",
+    "activity": "Tevékenység"
 }

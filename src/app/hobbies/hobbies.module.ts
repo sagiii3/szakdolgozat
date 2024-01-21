@@ -7,6 +7,7 @@ import { HobbyRoutingModule } from './hobbies-routing.module';
 import { OwnHobbiesComponent } from './components/own-hobbies/own-hobbies.component';
 import { RecordHobbyComponent } from './components/dialogs/record-hobby/record-hobby.component';
 import { HobbyDetailComponent } from './components/hobby-detail/hobby-detail.component';
+import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { HobbyDetailComponent } from './components/hobby-detail/hobby-detail.com
     HobbyTileComponent,
     OwnHobbiesComponent,
     RecordHobbyComponent,
-    HobbyDetailComponent
+    HobbyDetailComponent,
+    ActivityTileComponent
   ],
   imports: [
     CommonModule,
