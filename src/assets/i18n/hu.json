@@ -79,5 +79,6 @@
     "is_authenticated_error": "Hitelesítési hiba történt",
     "get_hobby_by_id_error": "Hobbi lekérése sikertelen",
     "get_activities_error": "Tevékenységek lekérése sikertelen",
-    "get_hobbies_error": "Hobbik lekérése sikertelen"
+    "get_hobbies_error": "Hobbik lekérése sikertelen",
+    "password_mismatch_error": "A két jelszó nem egyezik"
 }

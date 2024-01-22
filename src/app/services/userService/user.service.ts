@@ -40,8 +40,11 @@ export class UserService implements OnDestroy{
     });
   }
 
-  saveUser(user: User): void{
-    this.firebaseService.addToCollection(
+  saveUser(user: User): Promise<boolean>{
+    user.id = this.user.id;
+    user.confirmPassword = undefined;
+    user.password = undefined;
+    return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users,
       user,
       'successful_user_save',
@@ -59,10 +62,10 @@ export class UserService implements OnDestroy{
       this.isAuthenticated().subscribe({
         next: (isAuthenticated: boolean) => {
           if (isAuthenticated) {
-            console.log(this.user);
             this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.users, this.user?.id ||'').subscribe({
               next: (user: User) => {
                 this.user = user;
+                console.log(this.user);
                 observer.next(this.user);
               },
               error: (error: Error) => {

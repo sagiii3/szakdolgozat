@@ -79,5 +79,6 @@
     "is_authenticated_error": "Error while checking authentication",
     "get_hobby_by_id_error": "Error while getting hobby by id",
     "get_activities_error": "Error while getting activities",
-    "get_hobbies_error": "Error while getting hobbies"
+    "get_hobbies_error": "Error while getting hobbies",
+    "password_mismatch_error": "Password mismatch"
 }
