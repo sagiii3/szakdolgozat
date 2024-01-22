@@ -68,5 +68,9 @@
     "activity": "Tevékenység",
     "activity_wrap": "Tevékenység összefoglaló",
     "invalid_activity": "Érvénytelen tevékenység",
-    "save_problem": "Probléma lépett fel a mentés során"
+    "save_problem": "Probléma lépett fel a mentés során",
+    "add_new_hobby": "Új hobbi hozzáadása",
+    "successful_hobby_save": "Sikeres hobbi mentés",
+    "failed_hobby_save": "Sikertelen hobbi mentés",
+    "error": "Hiba történt"
 }

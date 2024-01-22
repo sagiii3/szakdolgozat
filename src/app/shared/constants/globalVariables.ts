@@ -29,6 +29,7 @@ export class GlobalVariables {
     ownHobbies: 'own-hobbies',
     profile: 'profile',
     activityWrap: 'activity-wrap',
+    addNewHobby: 'add-new-hobby',
   };
 
   // Snackbar

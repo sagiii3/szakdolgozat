@@ -59,17 +59,15 @@ export class UserService implements OnDestroy{
       this.isAuthenticated().subscribe({
         next: (isAuthenticated: boolean) => {
           if (isAuthenticated) {
-            observer.next(this.user);
-            //todo: get user from firebase
-            /*
-            this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.users + this.user?.id).pipe(
-              map((users: User[]) => {
-                users[0];
-                console.log(users[0]);
-              })
-            );
-            observer.next(this.user);
-            */
+            this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.users, this.user?.id ||'').subscribe({
+              next: (user: User) => {
+                this.user = user;
+                observer.next(this.user);
+              },
+              error: (error: any) => {
+                this.errorService.errorLog(error);
+              }
+            });
           }
         },
         error: (error: any) => {

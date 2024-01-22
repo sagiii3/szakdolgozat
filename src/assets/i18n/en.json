@@ -68,5 +68,9 @@
     "activity": "Activity",
     "activity_wrap": "Activity Wrap",
     "invalid_activity": "Invalid activity",
-    "save_problem": "Problem while saving"
+    "save_problem": "Problem while saving",
+    "add_new_hobby": "Add New Hobby",
+    "successful_hobby_save": "Successful hobby save",
+    "failed_hobby_save": "Failed hobby save",
+    "error": "Error happened"
 }

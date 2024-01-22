@@ -56,13 +56,23 @@ export class FirebaseService {
         return true;
       } else {
         const customCollection = collection(this.firestore, collectionName);
-        await addDoc(customCollection.withConverter(converter), document);
+        const docRef = await addDoc(customCollection.withConverter(converter), document);
+
+        console.log('Document written with ID: ', docRef.id);
+        console.log(customCollection)
+        
+        // Update the document with the auto-generated ID
+        const newDocument = { ...document, id: docRef.id };
+        await setDoc(doc(customCollection, docRef.id).withConverter(converter), newDocument);
+        
         this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
         return true;
       }
-    } catch (error: any) {
+    }
+    catch (error: any) {
       const message = error.code === 'permission-denied' ? 'permission-denied' : failedMessage;
       this.snackbarService.snackbarError(this.translateService.instant(message));
+      this.errorService.errorLog(error);
       return false;
     }
   }

@@ -7,7 +7,7 @@
     </button>
   </div>
   <div class="content">
-    <button *ngIf="hobby" [routerLink]="[hobby.id]" routerLinkActive="selected" 
+    <button *ngIf="hobby" [routerLink]="['/', globalVariables.ROUTES.ownHobbies, hobby.id]" class="tile-image-button"
       matTooltip="{{'details' | translate}}">
       <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
     </button>

@@ -23,7 +23,6 @@ export class HobbyService {
   ) { }
 
   async addHobbyToUserOwn(hobby: Hobby): Promise<boolean> {
-    //return if hobby was successfully added
     return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies,
       hobby,
@@ -33,7 +32,6 @@ export class HobbyService {
   }
 
   async addActivityToOwnHobby(hobbyId: string, activity: Activity): Promise<boolean> {
-    //return if hobby was successfully added
     return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
       GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
@@ -117,6 +115,15 @@ export class HobbyService {
 
   getHobbies(): Observable<Hobby[]> {
     return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies);
+  }
+
+  async addNewHobby(hobby: Hobby): Promise<boolean> {
+    return this.firebaseService.addToCollection(
+      GlobalVariables.COLLECTIONS.hobbies, 
+      hobby, 
+      'successful_hobby_save', 
+      'failed_hobby_save', 
+      Hobby);
   }
 
 }

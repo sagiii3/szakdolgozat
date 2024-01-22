@@ -44,7 +44,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           this.userSubscription = this.userService.getUser().subscribe({
             next: (user) => {
               this.user = user;
-              console.log(this.user);
             },
             error: (error) => {
               this.errorService.errorLog(error);

@@ -1,5 +1,8 @@
 <div class="hobby-list">
     <h2>{{ "own_hobbies" | translate }}</h2>
+    <button class="btn btn-primary" [routerLink]="['/', globalVariables.ROUTES.addNewHobby]">
+      {{'add_new_hobby' | translate }}
+    </button>
     <div class="hobby-tile-container">
       <div class="hobby-tile" *ngFor="let hobby of hobbyList">
         <app-hobby-tile [hobby]="hobby" (addToOwnHobbiesEmitter)="addToOwnHobby($event)"></app-hobby-tile>

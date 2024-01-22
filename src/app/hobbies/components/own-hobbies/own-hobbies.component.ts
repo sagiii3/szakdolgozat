@@ -4,6 +4,7 @@ import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { Subscription } from 'rxjs';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
+import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 
 @Component({
   selector: 'app-own-hobbies',
@@ -11,6 +12,7 @@ import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.compo
   styleUrls: ['./own-hobbies.component.scss']
 })
 export class OwnHobbiesComponent implements OnInit, OnDestroy{
+  globalVariables = GlobalVariables;
   
   hobbyList: Hobby[] = [];
 

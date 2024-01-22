@@ -28,7 +28,6 @@ export class RecordHobbyComponent {
   activity: Activity = new Activity();
 
   async saveHobby(): Promise<void> {
-    //todo: check if activity is valid
     if(this.activity.spentHours && this.activity.spentHours > 0){
       let addHobby: boolean =  await this.hobbyService.addHobbyToUserOwn(this.data.hobby);
       let addActivity: boolean = await this.hobbyService.addActivityToOwnHobby(this.data.hobby.id || '', this.activity);
