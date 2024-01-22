@@ -72,5 +72,12 @@
     "add_new_hobby": "Új hobbi hozzáadása",
     "successful_hobby_save": "Sikeres hobbi mentés",
     "failed_hobby_save": "Sikertelen hobbi mentés",
-    "error": "Hiba történt"
+    "error": "Hiba történt",
+    "get_own_hobbies_error": "Saját hobbik lekérése sikertelen",
+    "profile_error": "Profil lekérése sikertelen",
+    "get_user_error": "Felhasználó lekérése sikertelen",
+    "is_authenticated_error": "Hitelesítési hiba történt",
+    "get_hobby_by_id_error": "Hobbi lekérése sikertelen",
+    "get_activities_error": "Tevékenységek lekérése sikertelen",
+    "get_hobbies_error": "Hobbik lekérése sikertelen"
 }

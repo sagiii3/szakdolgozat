@@ -31,7 +31,7 @@ export class SignupComponent {
       let password = formName.form.value.password;
       this.userService.signupWithEmail(email, password).then(cred => {
         this.snackbarService.snackbarSuccess(this.translateService.instant('successful_signup'));
-        this.userService.saveUser();
+        this.userService.saveUser(this.user);
         this.userService.navigateToPreviousPageAfterLogin();
       }).catch((error) => {
         this.snackbarService.snackbarError(this.translateService.instant('failed_signup'));

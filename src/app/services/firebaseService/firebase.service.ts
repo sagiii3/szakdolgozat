@@ -57,9 +57,6 @@ export class FirebaseService {
       } else {
         const customCollection = collection(this.firestore, collectionName);
         const docRef = await addDoc(customCollection.withConverter(converter), document);
-
-        console.log('Document written with ID: ', docRef.id);
-        console.log(customCollection)
         
         // Update the document with the auto-generated ID
         const newDocument = { ...document, id: docRef.id };

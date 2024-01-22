@@ -47,7 +47,7 @@ export class LoginComponent {
   loginWithGoogle(): void {
     this.userService.loginWithPopup(new GoogleAuthProvider()).then(cred => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
-      this.userService.saveUser();
+      this.userService.saveUser(this.userService.getCurrentUser());
       this.userService.navigateToPreviousPageAfterLogin();
     }).catch((error: Error) => {		
       this.errorService.errorLog("failed_login", error);
