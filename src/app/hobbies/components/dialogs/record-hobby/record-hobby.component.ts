@@ -36,11 +36,11 @@ export class RecordHobbyComponent {
         this.router.navigate([GlobalVariables.ROUTES.ownHobbies, this.data.hobby.id]);
       }
       else{
-        this.errorService.errorLog('save_problem');
+        this.errorService.errorLog('save_problem', undefined);
       }
     }
     else{
-      this.errorService.errorLog('invalid_activity');
+      this.errorService.errorLog('invalid_activity', undefined);
     }
   }
 

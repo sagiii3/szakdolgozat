@@ -39,9 +39,8 @@ export class LoginComponent {
     this.userService.loginWithEmail(this.loginUser.email, this.loginUser.password).then(cred => {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
       this.userService.navigateToPreviousPageAfterLogin();
-    }).catch((error) => {
-      this.errorService.errorLog(error.code + error.message);
-      this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
+    }).catch((error: Error) => {
+      this.errorService.errorLog("failed_login", error);
     });
   }
 
@@ -50,9 +49,8 @@ export class LoginComponent {
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_login'));
       this.userService.saveUser();
       this.userService.navigateToPreviousPageAfterLogin();
-    }).catch((error) => {		
-      this.errorService.errorLog(error.code + error.message);
-      this.snackbarService.snackbarError(this.translateService.instant('failed_login'));
+    }).catch((error: Error) => {		
+      this.errorService.errorLog("failed_login", error);
     });
   }
 }

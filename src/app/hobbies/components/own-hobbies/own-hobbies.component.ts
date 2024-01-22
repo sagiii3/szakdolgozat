@@ -33,8 +33,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy{
       next: (hobbies: Hobby[]) => {
         this.hobbyList = hobbies;
       },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('get_own_hobbies_error', error);
       }
     });
   }

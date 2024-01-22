@@ -29,8 +29,8 @@ export class ProfileComponent {
       next: (user: User) => {
         this.user = user;
       },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('profile_error', error);
       }
     });
   }

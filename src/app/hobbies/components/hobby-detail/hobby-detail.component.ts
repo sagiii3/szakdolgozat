@@ -34,8 +34,8 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
         this.hobby = hobby;
         this.getHobbyActivities();
       }, 
-      error: (error: any) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('get_hobby_by_id_error', error);
       }
    });
   }
@@ -47,8 +47,8 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
           this.hobby.activities = activities;
         }
       },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('get_activities_error', error);
       }
     });
   }

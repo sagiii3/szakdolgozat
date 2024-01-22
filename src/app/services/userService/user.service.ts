@@ -64,14 +64,14 @@ export class UserService implements OnDestroy{
                 this.user = user;
                 observer.next(this.user);
               },
-              error: (error: any) => {
-                this.errorService.errorLog(error);
+              error: (error: Error) => {
+                this.errorService.errorLog('get_user_error', error);
               }
             });
           }
         },
-        error: (error: any) => {
-          this.errorService.errorLog(error);
+        error: (error: Error) => {
+          this.errorService.errorLog('is_authenticated_error', error);
         }
       });
     });

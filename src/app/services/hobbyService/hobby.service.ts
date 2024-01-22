@@ -63,8 +63,8 @@ export class HobbyService {
                 next: (ownHobbies: OwnHobby[]) => {
                   observer.next(ownHobbies);
                 },
-                error: (error: any) => {
-                  this.errorService.errorLog(error);
+                error: (error: Error) => {
+                  this.errorService.errorLog('get_own_hobbies_error', error);
                 }
               });
           }
@@ -83,13 +83,13 @@ export class HobbyService {
             next: (hobby: OwnHobby) => {
               observer.next(hobby);
             },
-            error: (error: any) => {
-              this.errorService.errorLog(error);
+            error: (error: Error) => {
+              this.errorService.errorLog('get_hobby_by_id_error', error);
             }
           });
         },
-        error: (error: any) => {
-          this.errorService.errorLog(error);
+        error: (error: Error) => {
+          this.errorService.errorLog('get_user_error', error);
         }
       });
     });
@@ -106,8 +106,8 @@ export class HobbyService {
             next: (activities: Activity[]) => {
               observer.next(activities);
             },
-            error: (error: any) => {
-              this.errorService.errorLog(error);
+            error: (error: Error) => {
+              this.errorService.errorLog('get_activities_error', error);
             }
           });
         },})});

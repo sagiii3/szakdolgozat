@@ -71,8 +71,7 @@ export class FirebaseService {
     }
     catch (error: any) {
       const message = error.code === 'permission-denied' ? 'permission-denied' : failedMessage;
-      this.snackbarService.snackbarError(this.translateService.instant(message));
-      this.errorService.errorLog(error);
+      this.errorService.errorLog(message, error);
       return false;
     }
   }

@@ -45,14 +45,14 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             next: (user) => {
               this.user = user;
             },
-            error: (error) => {
-              this.errorService.errorLog(error);
+            error: (error: Error) => {
+              this.errorService.errorLog('get_user_error', error);
             }
           });
         }
       },
-      error: (error) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('is_authenticated_error', error);
       }
     });
   }
@@ -68,8 +68,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.user = undefined;
       this.isLoggedIn = false;
       this.router.navigate([GlobalVariables.ROUTES.home]);
-    }).catch((error) => {
-      this.snackbarService.snackbarError(this.translateService.instant('failed_logout'));
+    }).catch((error: Error) => {
+      this.errorService.errorLog("failed_login", error);
     });
   }
 

@@ -12,8 +12,8 @@ export class ErrorService {
     private translateService: TranslateService
   ) { }
 
-  errorLog(error: any): void {
+  errorLog(errorMessage: string, error?: Error): void {
     console.log(error);
-    this.snackbarService.snackbarError(this.translateService.instant('error'));
+    this.snackbarService.snackbarError(this.translateService.instant(errorMessage));
   }
 }
