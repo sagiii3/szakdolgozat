@@ -65,7 +65,6 @@ export class UserService implements OnDestroy{
             this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.users, this.user?.id ||'').subscribe({
               next: (user: User) => {
                 this.user = user;
-                console.log(this.user);
                 observer.next(this.user);
               },
               error: (error: Error) => {

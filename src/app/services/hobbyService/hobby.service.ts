@@ -9,6 +9,8 @@ import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/shared/models/user';
+import { ActivityWrapData } from 'src/app/hobbies/models/activityWrapData';
+import { BilingualTranslatePipe } from 'src/app/shared/pipes/bilingual-translate.pipe'
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class HobbyService {
     private firebaseService: FirebaseService,
     private userService: UserService,
     private errorService: ErrorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private bilingualTranslatePipe: BilingualTranslatePipe
   ) { }
 
   async addHobbyToUserOwn(hobby: Hobby): Promise<boolean> {
@@ -93,6 +96,32 @@ export class HobbyService {
         }
       });
     });
+  }
+
+  getActivityWrapData(): Observable<ActivityWrapData[]> {
+    return new Observable<ActivityWrapData[]>(observer => {
+      this.getHobbies().subscribe({
+        next: (hobbies: Hobby[]) => {
+          let data: ActivityWrapData[] = [];
+          hobbies.forEach(hobby => {
+            this.getHobbyActivities(hobby.id).subscribe({
+              next: (activities: Activity[]) => {
+                let sum = 0;
+                activities.forEach(activity => {
+                  sum += activity.spentHours || 0;
+                });
+                data.push(
+                  new ActivityWrapData(
+                    this.bilingualTranslatePipe.transform(hobby.name),
+                    sum));
+              }
+            });
+          });
+          observer.next(data);
+        }
+      });
+    });
+
   }
 
   getHobbyActivities(hobbyId?: string): Observable<Activity[]> {

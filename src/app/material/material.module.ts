@@ -48,6 +48,7 @@ import {
 
 import {NgxMatMomentAdapter, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular-material-components/moment-adapter';
 import { TranslateService } from '@ngx-translate/core';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const DateFormat = {
     display: {
@@ -130,7 +131,8 @@ const materialModules = [
     MatBadgeModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    NgxChartsModule
 ]
 
 

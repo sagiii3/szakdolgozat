@@ -110,4 +110,20 @@ export class FirebaseService {
     );
   }
 
+  getDocumentProperty(documentId: string, propertyName: string): Observable<any> {
+    return new Observable<any>(observer => {
+      this.getDocument(documentId, propertyName).subscribe({
+        next: (document) => {
+          if (document !== undefined) {
+            observer.next(document[propertyName]);
+          }
+        },
+        error: (error) => {
+          this.errorService.errorLog('get_document_property_error', error);
+        }
+      });
+    }
+    );
+  }
+
 }
