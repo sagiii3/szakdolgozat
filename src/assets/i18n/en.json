@@ -82,5 +82,6 @@
     "get_hobbies_error": "Error while getting hobbies",
     "password_mismatch_error": "Password mismatch",
     "get_document_property_error": "Error while getting document property",
-    "get_activity_wrap_data_error": "Error while getting activity wrap data"
+    "get_activity_wrap_data_error": "Error while getting activity wrap data",
+    "hobbies": "Hobbies"
 }

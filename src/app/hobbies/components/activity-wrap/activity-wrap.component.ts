@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { ActivityWrapData } from '../../models/activityWrapData';
@@ -13,15 +12,17 @@ import { Subscription } from 'rxjs';
 export class ActivityWrapComponent implements OnInit, OnDestroy{
   data?: ActivityWrapData[];
   view: [number, number ] = [800, 300];//width, height
-  gradient: boolean = true;
+  showDiagram: boolean = false;
 
-  customColors: Color[] = [
+  customColors = [
     {
-      name: 'Germany',
-      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA'],
-      selectable: true,
-      group: ScaleType.Linear
-    }
+      name: 'Sütés',
+      value: '#ff0000'
+    },
+    {
+      name: 'Szalvétagyűjtés',
+      value: '#00ff00'
+    },
   ];
 
   getActivityWrapDataSubscription?: Subscription;

@@ -4,7 +4,7 @@ import { OwnHobby } from 'src/app/hobbies/models/ownHobby';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
-import { Observable } from 'rxjs';
+import { Observable, async, catchError, concat, exhaustMap, forkJoin, map, mergeMap, of, reduce, tap, toArray } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
@@ -98,9 +98,43 @@ export class HobbyService {
     });
   }
 
-  getActivityWrapData(): Observable<ActivityWrapData[]> {
-    return new Observable<ActivityWrapData[]>(observer => {
-      this.getHobbies().subscribe({
+
+
+
+  
+  // ...
+  
+
+
+getActivityWrapData(): Observable<ActivityWrapData[]> {
+  return new Observable<ActivityWrapData[]>(observer => {
+    this.getOwnHobbies().subscribe({
+      next: (hobbies: Hobby[]) => {
+        let data: ActivityWrapData[] = [];
+        hobbies.forEach(hobby => {
+          this.getHobbyActivities(hobby.id).subscribe({
+            next: (activities: Activity[]) => {
+              let sum = 0;
+              activities.forEach(activity => {
+                sum += activity.spentHours || 0;
+              });
+              data.push(
+                new ActivityWrapData(
+                  this.bilingualTranslatePipe.transform(hobby.name),
+                  sum));
+            }
+          });
+        });
+        observer.next(data);
+      }
+    });
+  });
+}
+
+
+  
+    /*return new Observable<ActivityWrapData[]>(observer => {
+      this.getOwnHobbies().subscribe({
         next: (hobbies: Hobby[]) => {
           let data: ActivityWrapData[] = [];
           hobbies.forEach(hobby => {
@@ -121,8 +155,7 @@ export class HobbyService {
         }
       });
     });
-
-  }
+  }*/
 
   getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
     return new Observable<Activity[]>(observer => {

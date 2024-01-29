@@ -82,5 +82,6 @@
     "get_hobbies_error": "Hobbik lekérése sikertelen",
     "password_mismatch_error": "A két jelszó nem egyezik",
     "get_document_property_error": "A dokumentum adattagjának lekérése sikertelen",
-    "get_activity_wrap_data_error": "A tevékenység összefoglaló lekérése sikertelen"
+    "get_activity_wrap_data_error": "A tevékenység összefoglaló lekérése sikertelen",
+    "hobbies": "Hobbik"
 }

@@ -1,21 +1,32 @@
 <div>
     <h2> {{ "activity_wrap" | translate }}</h2>
     todo: diagramok jönnek ide...
-    <div *ngIf="data && data.length > 4">
+    <button (click)="showDiagram = true">show diagram</button>
+    <div *ngIf="showDiagram">
      
-    <ngx-charts-advanced-pie-chart 
-        [view]="view"
-        [results]="data"
-        [gradient]="gradient"
-        [customColors]="customColors"
+        <ngx-charts-advanced-pie-chart 
+            [view]="view"
+            [results]="data"
+            [gradient]="true"
+            [customColors]="customColors"
+            >
+        </ngx-charts-advanced-pie-chart>
+
+        <ngx-charts-bar-vertical 
+            [view]="view"
+            [results]="data"
+            [gradient]="false"
+            [xAxis]="true"
+			[yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxisLabel]="'hobbies' | translate"
+			[yAxisLabel]="'spent_hours' | translate"
+            
         >
-    </ngx-charts-advanced-pie-chart>
+		</ngx-charts-bar-vertical>
+
     </div>
 </div>
 {{ data | json }}
-
-<!--<ngx-charts-bar-vertical
-            [view]="view"
-            [results]="data"
-            >
-    </ngx-charts-bar-vertical>-->
