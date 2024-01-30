@@ -14,6 +14,7 @@ export class AddNewHobbyComponent {
     new BilingualString("Napkin Collecting", "Szalvétagyűjtés"),
     new BilingualString("Collecting napkins from all over the world", "Szalvétákat gyűjteni a világ minden tájáról"),
     "https://floweralley.files.wordpress.com/2022/03/img_7975.jpg");
+    
   constructor(
     private hobbyService: HobbyService
   ) {}

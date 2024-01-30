@@ -85,5 +85,11 @@
     "get_activity_wrap_data_error": "A tevékenység összefoglaló lekérése sikertelen",
     "hobbies": "Hobbik",
     "hobby_date_label": "Tevékenység dátuma: ",
-    "date": "Dátum"
+    "date": "Dátum",
+    "hobby_description_hu": "Hobbi leírása (magyarul)",
+    "hobby_description_en": "Hobbi leírása (angolul)",
+    "hobby_name_en": "Hobbi neve (angolul)",
+    "hobby_name_hu": "Hobbi neve (magyarul)",
+    "hobby_image": "Hobbi képe",
+    "hobby_image_url": "Hobbi kép URL"
 }

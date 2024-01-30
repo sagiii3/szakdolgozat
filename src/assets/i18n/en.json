@@ -85,5 +85,11 @@
     "get_activity_wrap_data_error": "Error while getting activity wrap data",
     "hobbies": "Hobbies",
     "hobby_date_label": "Activity date: ",
-    "date": "Date"
+    "date": "Date",
+    "hobby_name_hu": "Hobby name (Hungarian)",
+    "hobby_name_en": "Hobby name (English)",
+    "hobby_description_hu": "Hobby description (Hungarian)",
+    "hobby_description_en": "Hobby description (English)",
+    "hobby_image": "Hobby image",
+    "hobby_image_url": "Hobby image url"
 }

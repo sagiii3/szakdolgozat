@@ -1,12 +1,11 @@
-<div class="detail-div">
+<div class="outside_div">
     <h1 *ngIf="hobby" class="center"> {{"hobby_detail" | translate }} - {{ hobby.name | bilingualTranslate}}</h1>
     <div *ngIf="hobby">
-        <div>
-            <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
-            <p class="center">{{'description' | translate}}: {{hobby.description | bilingualTranslate}}</p>
-            <h3>{{'activity' | translate}}:</h3>
-            <div *ngFor="let activity of hobby.activities">
-                <app-activity-tile [activity]="activity"></app-activity-tile>
-            </div>
+        <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
+        <p class="center">{{'description' | translate}}: {{hobby.description | bilingualTranslate}}</p>
+        <h3>{{'activity' | translate}}:</h3>
+        <div *ngFor="let activity of hobby.activities">
+            <app-activity-tile [activity]="activity"></app-activity-tile>
         </div>
+    </div>
 </div>
