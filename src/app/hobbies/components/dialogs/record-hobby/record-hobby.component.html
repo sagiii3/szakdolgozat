@@ -11,7 +11,19 @@
                 {{ "spent_hours_label" | translate }}
                 <mat-form-field>
                     <input matInput id="spentHours" class="form-control" type="number" required [(ngModel)]="activity.spentHours"
-                        name="spentHours" #spentHours="ngModel" class="spentHours">
+                        name="spentHours" #spentHours="ngModel">
+                </mat-form-field>
+            </span>
+        </div>
+
+        <div class="mb-3 row">
+            <span>
+                {{ "hobby_date_label" | translate }}
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="activity.date" name="hobbyDate"
+                        #hobbyDate="ngModel" required >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </span>
         </div>

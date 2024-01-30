@@ -6,11 +6,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { BilingualTranslatePipe } from './pipes/bilingual-translate.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
+import { DateTimePipe } from './pipes/date-time.pipe';
 
 @NgModule({
   declarations: [
     BilingualTranslatePipe,
-    ProfileComponent
+    ProfileComponent,
+    DateTimePipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     MaterialModule,
     TranslateModule,
     FormsModule,
-    BilingualTranslatePipe
+    BilingualTranslatePipe,
+    DateTimePipe
   ]
 })
 export class SharedModule { }

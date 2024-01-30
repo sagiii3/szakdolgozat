@@ -23,6 +23,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HobbiesModule } from './hobbies/hobbies.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BilingualTranslatePipe } from './shared/pipes/bilingual-translate.pipe';
+import { DatePipe } from '@angular/common';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,7 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
-    BilingualTranslatePipe
+    BilingualTranslatePipe,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

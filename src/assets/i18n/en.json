@@ -83,5 +83,7 @@
     "password_mismatch_error": "Password mismatch",
     "get_document_property_error": "Error while getting document property",
     "get_activity_wrap_data_error": "Error while getting activity wrap data",
-    "hobbies": "Hobbies"
+    "hobbies": "Hobbies",
+    "hobby_date_label": "Activity date: ",
+    "date": "Date"
 }

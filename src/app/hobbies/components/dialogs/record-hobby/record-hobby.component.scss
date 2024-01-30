@@ -2,30 +2,6 @@
 .mat-mdc-icon-button ::ng-deep .mat-mdc-button-persistent-ripple {
     display: none !important;
 }
-/*
-//dialogok jobb felső sarkában lévő bezárás gomb x ikonja
-.close-button {
-    top: 0px;
-    right: 0px;
-    display: flex;
-    align-items: center;
-    background-color: transparent !important;
-    outline: none !important;
-    box-shadow: none !important;
-    float: right;
-
-    mat-icon {
-        transform: scale(1);
-        background-color: transparent;
-        margin: 0%;
-        padding: 0%;
-    }
-
-    position: absolute;
-    z-index: 101;
-    margin: 0% !important;
-    padding: 0% !important;
-}*/
 
 .dialog-div {
     width: 60vw;
@@ -35,10 +11,6 @@
     background-color: rgb(224, 141, 227);
     position: relative;
     margin: 0% !important;
-}
-
-.spentHours{
-    width: 75% !important;
 }
 
 span{
