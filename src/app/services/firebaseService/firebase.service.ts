@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { addDoc, collection, Firestore, FirestoreDataConverter, getDocs } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
-import { Observable, map, from, filter } from 'rxjs';
+import { Observable, map, from, filter, catchError, of } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 
@@ -111,18 +111,12 @@ export class FirebaseService {
   }
 
   getDocumentProperty(documentId: string, propertyName: string): Observable<any> {
-    return new Observable<any>(observer => {
-      this.getDocument(documentId, propertyName).subscribe({
-        next: (document) => {
-          if (document !== undefined) {
-            observer.next(document[propertyName]);
-          }
-        },
-        error: (error) => {
-          this.errorService.errorLog('get_document_property_error', error);
-        }
-      });
-    }
+    return this.getDocument(documentId, propertyName).pipe(
+      map(document => document?.[propertyName]),
+      catchError(error => {
+        this.errorService.errorLog('get_document_property_error', error);
+        return of(undefined);
+      })
     );
   }
 

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, catchError, filter, from, switchMap, throwError } from 'rxjs';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { User } from 'src/app/shared/models/user';
 import { FirebaseService } from '../firebaseService/firebase.service';
@@ -58,26 +58,21 @@ export class UserService implements OnDestroy{
   }
 
   getUser(): Observable<User> {
-    return new Observable<User>(observer => {
-      this.isAuthenticated().subscribe({
-        next: (isAuthenticated: boolean) => {
-          if (isAuthenticated) {
-            this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.users, this.user?.id ||'').subscribe({
-              next: (user: User) => {
-                this.user = user;
-                observer.next(this.user);
-              },
-              error: (error: Error) => {
-                this.errorService.errorLog('get_user_error', error);
-              }
-            });
-          }
-        },
-        error: (error: Error) => {
-          this.errorService.errorLog('is_authenticated_error', error);
-        }
-      });
-    });
+    return this.isAuthenticated().pipe(
+      filter(isAuthenticated => isAuthenticated),
+      switchMap(() => {
+        return this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.users, this.user?.id || '').pipe(
+          catchError((error: Error) => {
+            this.errorService.errorLog('get_user_error', error);
+            return throwError(error); // re-throw the error after logging
+          })
+        );
+      }),
+      switchMap((user: User) => {
+        this.user = user;
+        return from([this.user]);
+      })
+    );
   }
 
   navigateToPreviousPageAfterLogin(): void {

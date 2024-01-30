@@ -4,7 +4,7 @@ import { OwnHobby } from 'src/app/hobbies/models/ownHobby';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
-import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, combineLatest, filter, map, of, switchMap, tap, throwError } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
@@ -55,55 +55,39 @@ export class HobbyService {
   }
 
   getOwnHobbies(): Observable<OwnHobby[]> {
-    //wait till the authorization is done and the current user is set
-    return new Observable<OwnHobby[]>(observer => {
-      this.userService.isAuthenticated().subscribe({
-        next: (isAuthenticated: boolean) => {
-          if (isAuthenticated) {
-            this.firebaseService.getCollectionList(
-              GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + GlobalVariables.COLLECTIONS.ownHobbies)
-              .subscribe({
-                next: (ownHobbies: OwnHobby[]) => {
-                  observer.next(ownHobbies);
-                },
-                error: (error: Error) => {
-                  this.errorService.errorLog('get_own_hobbies_error', error);
-                }
-              });
-          }
-        }
-      });
-    });
+    return this.userService.isAuthenticated().pipe(
+      filter(isAuthenticated => isAuthenticated), // Ignore if not authenticated
+      switchMap(() => {
+        let userId = this.userService.getCurrentUser().id;
+        let route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
+        
+        return this.firebaseService.getCollectionList(route).pipe(
+          catchError((error: Error) => {
+            this.errorService.errorLog('get_own_hobbies_error', error);
+            return throwError(error); // re-throw the error after logging
+          })
+        );
+      })
+    );
   }
 
   getHobbyById(id?: string): Observable<OwnHobby> {
-    return new Observable<OwnHobby>(observer => {
-      this.userService.getUser().subscribe({
-        next: (user: User) => {
-          let route = GlobalVariables.COLLECTIONS.users + '/' + user.id
-            + '/' + GlobalVariables.COLLECTIONS.ownHobbies;
-          this.firebaseService.getDocument(route, id || '').subscribe({
-            next: (hobby: OwnHobby) => {
-              observer.next(hobby);
-            },
-            error: (error: Error) => {
-              this.errorService.errorLog('get_hobby_by_id_error', error);
-            }
-          });
-        },
-        error: (error: Error) => {
-          this.errorService.errorLog('get_user_error', error);
-        }
-      });
-    });
+    return this.userService.getUser().pipe(
+      switchMap((user: User) => {
+        let route = GlobalVariables.COLLECTIONS.users + '/' + user.id + '/' + GlobalVariables.COLLECTIONS.ownHobbies;
+        return this.firebaseService.getDocument(route, id || '').pipe(
+          catchError((error: Error) => {
+            this.errorService.errorLog('get_hobby_by_id_error', error);
+            return throwError(error); // return the error as an observable
+          })
+        );
+      }),
+      catchError((error: Error) => {
+        this.errorService.errorLog('get_user_error', error);
+        return throwError(error); // re-throw the error after logging
+      })
+    );
   }
-
-
-
-
-  
-  // ...
-  
 
 
 getActivityWrapData(): Observable<ActivityWrapData[]> {
@@ -112,7 +96,11 @@ getActivityWrapData(): Observable<ActivityWrapData[]> {
       if (!hobbies.length) {
         return of([]);
       }
-      const activityObservables = hobbies.map(hobby => this.getHobbyActivities(hobby.id));
+      //végigmegy a hobbies tömbön és minden hobby elemre meghívja a getHobbyActivities-t, ami visszaad minden híváskor egy Observable<Activity[]>-t
+      let activityObservables: Observable<Activity[]>[] = hobbies.map(hobby => this.getHobbyActivities(hobby.id));
+      //combineLatest: várja az összes Observable-t és ha mindegyikből megérkezett az érték, akkor visszaadja az értékeket egy tömbben
+      //Observable<Activity[]>[] -> Observable<Activity[][]>
+      //pl: [ [activity1, activity2], [activity3, activity4] ] hobby1-hez tartozó activity-k (1, 2), hobby2-hez tartozó activity-k (3,4)
       return combineLatest(activityObservables).pipe(
         map((activitiesArrays: Activity[][]) => {
           activitiesArrays.reduce((activityArray: Activity[], value: Activity[]) => activityArray.concat(value), []);
@@ -131,48 +119,20 @@ getActivityWrapData(): Observable<ActivityWrapData[]> {
 }
 
 
-  
-    /*return new Observable<ActivityWrapData[]>(observer => {
-      this.getOwnHobbies().subscribe({
-        next: (hobbies: Hobby[]) => {
-          let data: ActivityWrapData[] = [];
-          hobbies.forEach(hobby => {
-            this.getHobbyActivities(hobby.id).subscribe({
-              next: (activities: Activity[]) => {
-                let sum = 0;
-                activities.forEach(activity => {
-                  sum += activity.spentHours || 0;
-                });
-                data.push(
-                  new ActivityWrapData(
-                    this.bilingualTranslatePipe.transform(hobby.name),
-                    sum));
-              }
-            });
-          });
-          observer.next(data);
-        }
-      });
-    });
-  }*/
-
-  getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
-    return new Observable<Activity[]>(observer => {
-      this.userService.getUser().subscribe({  
-        next: (user: User) => {
-          let route = GlobalVariables.COLLECTIONS.users + '/' + user.id
-          + '/' + GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId
-          + '/' + GlobalVariables.COLLECTIONS.activities;
-          this.firebaseService.getCollectionList(route).subscribe({
-            next: (activities: Activity[]) => {
-              observer.next(activities);
-            },
-            error: (error: Error) => {
-              this.errorService.errorLog('get_activities_error', error);
-            }
-          });
-        },})});
-  }
+getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
+  return this.userService.getUser().pipe(
+    switchMap((user: User) => {
+      let route = `${GlobalVariables.COLLECTIONS.users}/${user.id}/${GlobalVariables.COLLECTIONS.ownHobbies}/${hobbyId}/${GlobalVariables.COLLECTIONS.activities}`;
+      
+      return this.firebaseService.getCollectionList(route).pipe(
+        catchError((error: Error) => {
+          this.errorService.errorLog('get_activities_error', error);
+          return throwError(error); // re-throw the error after logging
+        })
+      );
+    })
+  );
+}
 
   getHobbies(): Observable<Hobby[]> {
     return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies);
