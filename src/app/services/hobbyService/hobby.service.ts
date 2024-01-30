@@ -4,7 +4,7 @@ import { OwnHobby } from 'src/app/hobbies/models/ownHobby';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
-import { Observable, async, catchError, concat, exhaustMap, forkJoin, map, mergeMap, of, reduce, tap, toArray } from 'rxjs';
+import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
@@ -107,28 +107,27 @@ export class HobbyService {
 
 
 getActivityWrapData(): Observable<ActivityWrapData[]> {
-  return new Observable<ActivityWrapData[]>(observer => {
-    this.getOwnHobbies().subscribe({
-      next: (hobbies: Hobby[]) => {
-        let data: ActivityWrapData[] = [];
-        hobbies.forEach(hobby => {
-          this.getHobbyActivities(hobby.id).subscribe({
-            next: (activities: Activity[]) => {
-              let sum = 0;
-              activities.forEach(activity => {
-                sum += activity.spentHours || 0;
-              });
-              data.push(
-                new ActivityWrapData(
-                  this.bilingualTranslatePipe.transform(hobby.name),
-                  sum));
-            }
-          });
-        });
-        observer.next(data);
+  return this.getOwnHobbies().pipe(
+    switchMap((hobbies: Hobby[]) => {
+      if (!hobbies.length) {
+        return of([]);
       }
-    });
-  });
+      const activityObservables = hobbies.map(hobby => this.getHobbyActivities(hobby.id));
+      return combineLatest(activityObservables).pipe(
+        map((activitiesArrays: Activity[][]) => {
+          activitiesArrays.reduce((activityArray: Activity[], value: Activity[]) => activityArray.concat(value), []);
+          let data: ActivityWrapData[] = hobbies.map((hobby, index) => {
+          let sum = activitiesArrays[index].reduce((total, activity) => total + (activity.spentHours || 0), 0);
+            return new ActivityWrapData(
+              this.bilingualTranslatePipe.transform(hobby.name),
+              sum
+            );
+          });
+          return data;
+        })
+      );
+    })
+  );
 }
 
 

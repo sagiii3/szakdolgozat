@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 export class ActivityWrapComponent implements OnInit, OnDestroy{
   data?: ActivityWrapData[];
   view: [number, number ] = [800, 300];//width, height
-  showDiagram: boolean = false;
 
   customColors = [
     {
@@ -40,7 +39,6 @@ export class ActivityWrapComponent implements OnInit, OnDestroy{
     .subscribe({
       next: (activityWrapData: ActivityWrapData[]) => {
         this.data = activityWrapData;
-        console.log(this.data)
       },
       error: (error: Error) => {
         this.errorService.errorLog('get_activity_wrap_data_error',error);

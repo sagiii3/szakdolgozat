@@ -1,8 +1,8 @@
 <div>
     <h2> {{ "activity_wrap" | translate }}</h2>
-    todo: diagramok jönnek ide...
+    todo: diagramok
     <button (click)="showDiagram = true">show diagram</button>
-    <div *ngIf="showDiagram">
+    <div>
      
         <ngx-charts-advanced-pie-chart 
             [view]="view"
@@ -29,4 +29,3 @@
 
     </div>
 </div>
-{{ data | json }}
