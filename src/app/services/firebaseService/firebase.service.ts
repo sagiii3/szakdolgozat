@@ -5,6 +5,7 @@ import { deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import { Observable, map, from, filter, catchError, of } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
+import { BilingualString } from 'src/app/shared/models/billingual-string';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +18,23 @@ export class FirebaseService {
     protected translateService: TranslateService,
     protected errorService: ErrorService) { }
 
-  createFirestoreDataConverter<T>(osztaly: { new(...args: any[]): T }): FirestoreDataConverter<T> {
+  createFirestoreDataConverter<T>(_class: { new(...args: any[]): T }): FirestoreDataConverter<T> {
     return {
       toFirestore: (data: T) => { 
         const result: Record<string, any> = {};
         Object.keys(data as object).forEach((key) => {
-            result[key] = (data as any)[key];
+          let value = (data as any)[key];
+          if (value instanceof BilingualString) {
+            result[key] = Object.fromEntries(Object.entries(value));
+          } else {
+            result[key] = value;
+          }
         });
         return result;
       },
       fromFirestore: (snapshot: any, options: any) => {
         const data = snapshot.data(options);
-        return new osztaly(
+        return new _class(
           ...Object.keys(data).map((key) => data[key])
         );
       }

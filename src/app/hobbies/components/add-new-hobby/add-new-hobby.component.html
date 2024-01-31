@@ -1,63 +1,53 @@
 <div class="outside_div">
-    <div class="header">
-        <h2>{{ "add_new_hobby" | translate }}</h2>
-    </div>
+  <div class="inner_div">
+    <h2>{{ "add_new_hobby" | translate }}</h2>
     <form #newHobby="ngForm">
-        <div class="mb-3 row">
-          <span>
-            <label>{{"hobby_name_hu" | translate }}: </label>
-            <mat-form-field>
-              <input matInput id="hobbyNameHU" type="text" class="form-control" 
-                     name="hobbyNameHU" [(ngModel)]="hobby.name.hu" required #hobbyNameHU="ngModel">
-            </mat-form-field>
-          </span>
-        </div>
-      
-        <div class="mb-3 row">
-          <span>
-            <label>{{"hobby_name_en" | translate }}: </label>
-            <mat-form-field>
-              <input matInput id="hobbyNameEN" type="text" class="form-control" 
-                     name="hobbyNameEN" [(ngModel)]="hobby.name.en" required #hobbyNameEN="ngModel">
-            </mat-form-field>
-          </span>
-        </div>
-      
-        <div class="mb-3 row">
-          <span>
-            <label>{{"hobby_description_hu" | translate }}: </label>
-            <mat-form-field>
-              <input matInput id="hobbyDescriptionHU" type="text" class="form-control" 
-                     name="hobbyDescriptionHU" [(ngModel)]="hobby.description.hu" required #hobbyDescriptionHU="ngModel">
-            </mat-form-field>
-          </span>
-        </div>
-      
-        <div class="mb-3 row">
-          <span>
-            <label>{{"hobby_description_en" | translate }}: </label>
-            <mat-form-field>
-              <input matInput id="hobbyDescriptionEN" type="text" class="form-control" 
-                     name="hobbyDescriptionEN" [(ngModel)]="hobby.description.en" required #hobbyDescriptionEN="ngModel">
-            </mat-form-field>
-          </span>
-        </div>
-      
-        <div class="mb-3 row">
-          <span>
-            <label>{{"hobby_image_url" | translate }}: </label>
-            <mat-form-field>
-              <input matInput id="hobbyImageUrl" type="text" class="form-control" 
-                     name="hobbyImageUrl" [(ngModel)]="hobby.imageUrl" required #hobbyImageUrl="ngModel">
-            </mat-form-field>
-          </span>
-        </div>
-      
-        <div class="button-row">
-          <span>
-            <button type="button" class="btn btn-success" (click)="addNewHobby()">{{ "save" | translate }}</button>
-          </span>
-        </div>
-      </form>
-      
+      <div class="mb-3 row">
+          <label>{{"hobby_name_hu" | translate }}: </label>
+          <mat-form-field>
+            <input matInput id="hobbyNameHU" type="text" class="form-control" name="hobbyNameHU"
+              [(ngModel)]="hobby.name.hu" required #hobbyNameHU="ngModel">
+          </mat-form-field>
+      </div>
+
+      <div class="mb-3 row">
+          <label>{{"hobby_name_en" | translate }}: </label>
+          <mat-form-field>
+            <input matInput id="hobbyNameEN" type="text" class="form-control" name="hobbyNameEN"
+              [(ngModel)]="hobby.name.en" required #hobbyNameEN="ngModel">
+          </mat-form-field>
+      </div>
+
+      <div class="mb-3 row">
+          <label>{{"hobby_description_hu" | translate }}: </label>
+          <mat-form-field>
+            <input matInput id="hobbyDescriptionHU" type="text" class="form-control" name="hobbyDescriptionHU"
+              [(ngModel)]="hobby.description.hu" required #hobbyDescriptionHU="ngModel">
+          </mat-form-field>
+      </div>
+
+      <div class="mb-3 row">
+          <label>{{"hobby_description_en" | translate }}: </label>
+          <mat-form-field>
+            <input matInput id="hobbyDescriptionEN" type="text" class="form-control" name="hobbyDescriptionEN"
+              [(ngModel)]="hobby.description.en" required #hobbyDescriptionEN="ngModel">
+          </mat-form-field>
+      </div>
+
+      <div class="mb-3 row">
+          <label>{{"hobby_image_url" | translate }}: </label>
+          <mat-form-field>
+            <input matInput id="hobbyImageUrl" type="text" class="form-control" name="hobbyImageUrl"
+              [(ngModel)]="hobby.imageUrl" required #hobbyImageUrl="ngModel">
+          </mat-form-field>
+      </div>
+
+      <div class="button-row">
+        <span>
+          <button type="button" class="btn btn-success" (click)="addNewHobby()">{{ "save" | translate }}</button>
+          <button type="button" class="btn btn-danger" (click)="cancel()">{{ "cancel" | translate }}</button>
+        </span>
+      </div>
+    </form>
+  </div>
 </div>

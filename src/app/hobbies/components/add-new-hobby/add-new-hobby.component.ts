@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { Hobby } from '../../models/hobby';
 import { BilingualString } from 'src/app/shared/models/billingual-string';
+import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-hobby',
@@ -10,13 +12,12 @@ import { BilingualString } from 'src/app/shared/models/billingual-string';
 })
 export class AddNewHobbyComponent {
   hobby: Hobby = new Hobby(
-    'id', 
-    new BilingualString("Napkin Collecting", "Szalvétagyűjtés"),
-    new BilingualString("Collecting napkins from all over the world", "Szalvétákat gyűjteni a világ minden tájáról"),
-    "https://floweralley.files.wordpress.com/2022/03/img_7975.jpg");
+    new BilingualString(),
+    new BilingualString());
     
   constructor(
-    private hobbyService: HobbyService
+    private hobbyService: HobbyService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -24,5 +25,9 @@ export class AddNewHobbyComponent {
 
   addNewHobby(): void {
     this.hobbyService.addNewHobby(this.hobby);
+  }
+
+  cancel(): void {
+    this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
   }
 }

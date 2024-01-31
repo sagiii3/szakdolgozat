@@ -4,7 +4,7 @@ import { OwnHobby } from 'src/app/hobbies/models/ownHobby';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
-import { Observable, catchError, combineLatest, filter, map, of, switchMap, tap, throwError } from 'rxjs';
+import { Observable, catchError, combineLatest, filter, map, of, switchMap, throwError } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';

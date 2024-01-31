@@ -5,7 +5,7 @@ export class OwnHobby extends Hobby{
     activities: Activity[];
 
     constructor(hobby: Hobby, activity?: Activity[]){
-        super(hobby.id, hobby.name, hobby.description, hobby.imageUrl);
+        super(hobby.name, hobby.description, hobby.imageUrl, hobby.id);
         this.activities = activity || [];
     }
 }
