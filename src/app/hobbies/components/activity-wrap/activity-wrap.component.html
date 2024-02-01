@@ -1,16 +1,22 @@
 <div>
     <h2> {{ "activity_wrap" | translate }}</h2>
-    todo: diagramok
-    <div>
-     
+
+    <div class="buttons">
+        <button class="btn btn-info" (click)="buttonChange('allPie')" >{{ "show_all_pie" | translate }}</button>
+        <button class="btn btn-info" (click)="buttonChange('allVertical')">{{ "show_all_vertical" | translate }}</button>
+        <button class="btn btn-info" (click)="buttonChange('monthlyPie')">{{ "show_monthly_pie" | translate }}</button>
+        <button class="btn btn-info" (click)="buttonChange('monthlyVertical')">{{ "show_monthly_vertical" | translate }}</button>
+    </div>
+
+    <div *ngIf="buttons['allPie']">
         <ngx-charts-advanced-pie-chart 
             [view]="view"
             [results]="data"
             [gradient]="true"
-            [customColors]="customColors"
             >
         </ngx-charts-advanced-pie-chart>
-
+    </div>
+    <div *ngIf="buttons['allVertical']">
         <ngx-charts-bar-vertical 
             [view]="view"
             [results]="data"
@@ -22,9 +28,40 @@
             [showYAxisLabel]="true"
             [xAxisLabel]="'hobbies' | translate"
 			[yAxisLabel]="'spent_hours' | translate"
-            
+            >
+		</ngx-charts-bar-vertical>
+    </div>
+    <div *ngIf="buttons['monthlyPie'] || buttons['monthlyVertical']">
+        <label for="monthSelector">{{'select_month' | translate}}</label>
+        <select id="monthSelector" [(ngModel)]="monthNumber">
+            <option *ngFor="let month of globalVariables.months; let i = index" [value]="i">{{ month | translate }}</option>
+        </select>
+
+        <button (click)="showMonthlyData()">Show</button>
+    </div>
+
+    <div *ngIf="buttons['monthlyPie']">
+        <ngx-charts-advanced-pie-chart *ngIf="monthlyData"
+            [view]="view"
+            [results]="monthlyData"
+            [gradient]="true"
+        >
+        </ngx-charts-advanced-pie-chart>
+    </div>
+
+    <div *ngIf="buttons['monthlyVertical']">
+        <ngx-charts-bar-vertical *ngIf="monthlyData"
+            [view]="view"
+            [results]="monthlyData"
+            [gradient]="false"
+            [xAxis]="true"
+			[yAxis]="true"
+            [legend]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [xAxisLabel]="'hobbies' | translate"
+			[yAxisLabel]="'spent_hours' | translate"
         >
 		</ngx-charts-bar-vertical>
-
     </div>
 </div>

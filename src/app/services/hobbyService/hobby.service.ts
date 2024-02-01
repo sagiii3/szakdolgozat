@@ -37,7 +37,7 @@ export class HobbyService {
   async addActivityToOwnHobby(hobbyId: string, activity: Activity): Promise<boolean> {
     return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
-      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' + 
+      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobbyId + '/' +
       GlobalVariables.COLLECTIONS.activities,
       activity,
       'successful_activity_save',
@@ -60,7 +60,7 @@ export class HobbyService {
       switchMap(() => {
         let userId = this.userService.getCurrentUser().id;
         let route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
-        
+
         return this.firebaseService.getCollectionList(route).pipe(
           catchError((error: Error) => {
             this.errorService.errorLog('get_own_hobbies_error', error);
@@ -90,49 +90,71 @@ export class HobbyService {
   }
 
 
-getActivityWrapData(): Observable<ActivityWrapData[]> {
-  return this.getOwnHobbies().pipe(
-    switchMap((hobbies: Hobby[]) => {
-      if (!hobbies.length) {
-        return of([]);
-      }
-      //végigmegy a hobbies tömbön és minden hobby elemre meghívja a getHobbyActivities-t, ami visszaad minden híváskor egy Observable<Activity[]>-t
-      let activityObservables: Observable<Activity[]>[] = hobbies.map(hobby => this.getHobbyActivities(hobby.id));
-      //combineLatest: várja az összes Observable-t és ha mindegyikből megérkezett az érték, akkor visszaadja az értékeket egy tömbben
-      //Observable<Activity[]>[] -> Observable<Activity[][]>
-      //pl: [ [activity1, activity2], [activity3, activity4] ] hobby1-hez tartozó activity-k (1, 2), hobby2-hez tartozó activity-k (3,4)
-      return combineLatest(activityObservables).pipe(
-        map((activitiesArrays: Activity[][]) => {
-          activitiesArrays.reduce((activityArray: Activity[], value: Activity[]) => activityArray.concat(value), []);
-          let data: ActivityWrapData[] = hobbies.map((hobby, index) => {
-          let sum = activitiesArrays[index].reduce((total, activity) => total + (activity.spentHours || 0), 0);
-            return new ActivityWrapData(
-              this.bilingualTranslatePipe.transform(hobby.name),
-              sum
-            );
-          });
-          return data;
-        })
-      );
-    })
-  );
-}
+  getActivityWrapData(monthly?: boolean): Observable<ActivityWrapData[] | ActivityWrapData[][]> {
+    return this.getOwnHobbies().pipe(
+      switchMap((hobbies: Hobby[]) => {
+        if (!hobbies.length) {
+          return of([]);
+        }
+        let activityObservables: Observable<Activity[]>[] = hobbies.map(hobby => this.getHobbyActivities(hobby.id));
+        return combineLatest(activityObservables).pipe(
+          map((activitiesArrays: Activity[][]) => {
+            if (monthly) {
+              let monthlyData: ActivityWrapData[][] = Array.from({ length: 12 }, () => []);
+
+              hobbies.map((hobby, index) => {
+                for (let i = 0; i < 12; i++) {
+                  let sum = activitiesArrays[index]
+                    .filter(activity => {
+                      return activity.date?.toDate().getMonth() === i;
+                    })
+                    .reduce((sum, activity) => {
+                      return sum + (activity.spentHours || 0);
+                    }, 0);
+                  
+                    monthlyData[i].push(new ActivityWrapData(
+                      this.bilingualTranslatePipe.transform(hobby.name),
+                      sum
+                    ));
+                  
+                }
+              });
+              return monthlyData;
+            }
+            else {
+              let data: ActivityWrapData[] = hobbies.map((hobby, index) => {
+                let sum = activitiesArrays[index].reduce((sum, activity) => {
+                  return sum + (activity.spentHours || 0);
+                }, 0);
+                return new ActivityWrapData(
+                  this.bilingualTranslatePipe.transform(hobby.name),
+                  sum
+                );
+              });
+              return data;
+            }
+          })
+        );
+      })
+    );
+  }
 
 
-getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
-  return this.userService.getUser().pipe(
-    switchMap((user: User) => {
-      let route = `${GlobalVariables.COLLECTIONS.users}/${user.id}/${GlobalVariables.COLLECTIONS.ownHobbies}/${hobbyId}/${GlobalVariables.COLLECTIONS.activities}`;
-      
-      return this.firebaseService.getCollectionList(route).pipe(
-        catchError((error: Error) => {
-          this.errorService.errorLog('get_activities_error', error);
-          return throwError(error); // re-throw the error after logging
-        })
-      );
-    })
-  );
-}
+
+  getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
+    return this.userService.getUser().pipe(
+      switchMap((user: User) => {
+        let route = `${GlobalVariables.COLLECTIONS.users}/${user.id}/${GlobalVariables.COLLECTIONS.ownHobbies}/${hobbyId}/${GlobalVariables.COLLECTIONS.activities}`;
+
+        return this.firebaseService.getCollectionList(route).pipe(
+          catchError((error: Error) => {
+            this.errorService.errorLog('get_activities_error', error);
+            return throwError(error); // re-throw the error after logging
+          })
+        );
+      })
+    );
+  }
 
   getHobbies(): Observable<Hobby[]> {
     return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies);
@@ -140,10 +162,10 @@ getHobbyActivities(hobbyId?: string): Observable<Activity[]> {
 
   async addNewHobby(hobby: Hobby): Promise<boolean> {
     return this.firebaseService.addToCollection(
-      GlobalVariables.COLLECTIONS.hobbies, 
-      hobby, 
-      'successful_hobby_save', 
-      'failed_hobby_save', 
+      GlobalVariables.COLLECTIONS.hobbies,
+      hobby,
+      'successful_hobby_save',
+      'failed_hobby_save',
       Hobby);
   }
 

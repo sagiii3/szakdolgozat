@@ -6,7 +6,7 @@ export class Activity {
     notes?: string;
     date?: Timestamp;
 
-    constructor(spentHours?: number, notes?: string, date?: Timestamp){
+    constructor(spentHours?: number, date?: Timestamp, notes?: string,){
         this.spentHours = spentHours;
         this.notes = notes;
         this.date = date;

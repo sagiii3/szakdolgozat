@@ -32,6 +32,11 @@ export class GlobalVariables {
     addNewHobby: 'add-new-hobby',
   };
 
+  public static months: string[] = [
+    'january', 'february', 'march', 'april', 'may', 'june', 'july',
+    'august', 'september', 'october', 'november', 'december'
+  ];
+
   // Snackbar
   public static SNACKBAR_ERROR = 'error';
   public static SNACKBAR_SUCCESS = 'success';
