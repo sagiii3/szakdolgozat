@@ -37,7 +37,7 @@
             <option *ngFor="let month of globalVariables.months; let i = index" [value]="i">{{ month | translate }}</option>
         </select>
 
-        <button (click)="showMonthlyData()">Show</button>
+        <button (click)="showMonthlyData()">{{'show' | translate}}</button>
     </div>
 
     <div *ngIf="buttons['monthlyPie']">

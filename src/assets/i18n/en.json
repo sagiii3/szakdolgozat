@@ -109,5 +109,6 @@
     "show_monthly_pie": "Show monthly pie chart",
     "show_monthly_vertical": "Show monthly vertical chart",
     "show_all_pie": "Show all hobby pie chart",
-    "show_all_vertical": "Show all hobby vertical chart"
+    "show_all_vertical": "Show all hobby vertical chart",
+    "show": "Show"
 }

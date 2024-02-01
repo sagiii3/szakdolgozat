@@ -17,7 +17,7 @@ export class ActivityWrapComponent implements OnInit, OnDestroy{
   monthlyData?: ActivityWrapData[];
   monthNumber: number = 0;
   buttons: { [key: string]: boolean } = {
-    allPie: false,
+    allPie: true,
     allVertical: false,
     monthlyVertical: false,
     monthlyPie: false,
