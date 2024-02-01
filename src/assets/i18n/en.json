@@ -110,5 +110,6 @@
     "show_monthly_vertical": "Show monthly vertical chart",
     "show_all_pie": "Show all hobby pie chart",
     "show_all_vertical": "Show all hobby vertical chart",
-    "show": "Show"
+    "show": "Show",
+    "show_grouped_vertical": "Show 12 month grouped vertical chart"
 }

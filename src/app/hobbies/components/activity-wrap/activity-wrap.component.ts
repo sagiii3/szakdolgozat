@@ -4,6 +4,8 @@ import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { ActivityWrapData } from '../../models/activityWrapData';
 import { Subscription } from 'rxjs';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { groupedVerticalBarChartData } from '../../models/groupedVerticalBarChartData';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-activity-wrap',
@@ -12,16 +14,18 @@ import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 })
 export class ActivityWrapComponent implements OnInit, OnDestroy{
   data?: ActivityWrapData[];
-  view: [number, number ] = [800, 300];//width, height
+  view: [number, number ] = [1200, 300];//width, height
   monthlyDatas?: ActivityWrapData[][];
   monthlyData?: ActivityWrapData[];
   monthNumber: number = 0;
   buttons: { [key: string]: boolean } = {
-    allPie: true,
+    allPie: false,
     allVertical: false,
     monthlyVertical: false,
     monthlyPie: false,
+    groupedVerticalBarChart: false
   };
+  groupedVerticalBarChart: groupedVerticalBarChartData[] = Array<groupedVerticalBarChartData>(12);
 
   globalVariables = GlobalVariables;
 
@@ -39,7 +43,8 @@ export class ActivityWrapComponent implements OnInit, OnDestroy{
 
   constructor(
     private hobbyService: HobbyService,
-    private errorService: ErrorService) {}
+    private errorService: ErrorService,
+    private translateService: TranslateService) {}
 
   ngOnInit(): void {
     this.getActivityWrapData();
@@ -72,6 +77,12 @@ export class ActivityWrapComponent implements OnInit, OnDestroy{
           this.data = activityWrapData as ActivityWrapData[];
         } else {
           this.monthlyDatas = activityWrapData as ActivityWrapData[][];
+          for (let i = 0; i < 12; i++) {
+            this.groupedVerticalBarChart[i] = 
+              new groupedVerticalBarChartData(
+                this.translateService.instant(this.globalVariables.months[i]),
+                this.monthlyDatas![i]);
+          }
         }
       },
       error: (error: Error) => {
