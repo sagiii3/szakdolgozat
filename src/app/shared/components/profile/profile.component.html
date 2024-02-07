@@ -12,24 +12,28 @@
         {{user.fullName}}
       </div>
     </div>
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 block">
       <div class="mb-3 row">
-      <div class="data-div-item mb-3 row">
-        <div class="data-div-item-title col-sm-3">
-          {{'email' | translate}}
+        <div class="data-div-item mb-3 row">
+          <div class="data-div-item-title col-sm-3">
+            {{'email' | translate}}
+          </div>
+          <div class="data-div-item-data col-sm-9">
+            {{user.email}}
+          </div>
         </div>
-        <div class="data-div-item-data col-sm-9">
-          {{user.email}}
-        </div>
-      </div>
-      <div class="data-div-item mb-3 row">
-        <div class="data-div-item-title col-sm-3">
-          {{'username' | translate}}
-        </div>
-        <div class="data-div-item-data col-sm-9">
-          {{user.username}}
+        <div class="data-div-item mb-3 row">
+          <div class="data-div-item-title col-sm-3">
+            {{'username' | translate}}
+          </div>
+          <div class="data-div-item-data col-sm-9">
+            {{user.username}}
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-md-6 offset-md-3 block">
+      <button class="btn btn-danger" (click)="logout()">{{'logout' | translate}}</button>
+      <button class="btn btn-primary" (click)="editProfile()">{{'edit_profile' | translate}}</button>
+    </div>
   </div>
-</div>

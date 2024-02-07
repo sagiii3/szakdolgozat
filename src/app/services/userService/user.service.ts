@@ -6,6 +6,8 @@ import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { User } from 'src/app/shared/models/user';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { ErrorService } from '../errorService/error.service';
+import { SnackbarService } from '../snackbarService/snackbar.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,9 @@ export class UserService implements OnDestroy{
     private angularFireAuth: AngularFireAuth,
     private router: Router,
     private firebaseService: FirebaseService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private snackbarService: SnackbarService,
+    private translateService: TranslateService
   ) { }
 
   isAuthenticated(): Observable<boolean> {
@@ -100,8 +104,14 @@ export class UserService implements OnDestroy{
     await this.angularFireAuth.sendPasswordResetEmail(email);
   }
 
-  async logout(): Promise<void> {
-    await this.angularFireAuth.signOut();
+  async logout() {
+    await this.angularFireAuth.signOut()
+    .then(() => {
+      this.snackbarService.snackbarSuccess(this.translateService.instant('successful_logout'));
+      this.router.navigate([GlobalVariables.ROUTES.home]);
+    }).catch((error: Error) => {
+      this.errorService.errorLog("failed_login", error);
+    });
   }
 
   ngOnDestroy(): void {

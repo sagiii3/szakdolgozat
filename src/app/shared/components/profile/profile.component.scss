@@ -25,3 +25,23 @@
   align-items: left;
   justify-content: left;
 }
+
+.name-div{
+  text-align: center;
+}
+
+.block{
+  background-color: rgb(255, 166, 234);
+  border-radius: 10px;
+  padding: 10px;
+  border: solid 1px black;
+  margin-top: 30px;
+}
+
+button{
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: solid 1px black;
+  float: right;
+}

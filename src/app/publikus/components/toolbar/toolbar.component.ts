@@ -63,14 +63,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userService.logout().then(() => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('successful_logout'));
-      this.user = undefined;
-      this.isLoggedIn = false;
-      this.router.navigate([GlobalVariables.ROUTES.home]);
-    }).catch((error: Error) => {
-      this.errorService.errorLog("failed_login", error);
-    });
+    this.userService.logout();
   }
 
   changeLanguage(): void {

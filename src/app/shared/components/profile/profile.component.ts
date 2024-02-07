@@ -28,12 +28,30 @@ export class ProfileComponent {
     this.profileSubscription = this.userService.getUser().subscribe({
       next: (user: User) => {
         this.user = user;
+        console.log(user);
       },
       error: (error: Error) => {
         this.errorService.errorLog('profile_error', error);
       }
     });
   }
+
+  editProfile(): void {
+    /*this.profileSubscription = this.userService.editUser().subscribe({
+      next: (user: User) => {
+        this.user = user;
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('profile_error', error);
+      }
+    });*/
+  }
+
+
+  logout(): void {
+    this.userService.logout();
+  }
+
   
   ngOnDestroy(): void {
     this.profileSubscription?.unsubscribe();
