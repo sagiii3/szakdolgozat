@@ -2,11 +2,11 @@
     <h2> {{ "activity_wrap" | translate }}</h2>
 
     <div class="buttons">
-        <button class="btn btn-info" (click)="buttonChange('allPie')" >{{ "show_all_pie" | translate }}</button>
-        <button class="btn btn-info" (click)="buttonChange('allVertical')">{{ "show_all_vertical" | translate }}</button>
-        <button class="btn btn-info" (click)="buttonChange('monthlyPie')">{{ "show_monthly_pie" | translate }}</button>
-        <button class="btn btn-info" (click)="buttonChange('monthlyVertical')">{{ "show_monthly_vertical" | translate }}</button>
-        <button class="btn btn-info" (click)="buttonChange('groupedVerticalBarChart')">{{ "show_grouped_vertical" | translate }}</button>
+        <button class="btn" (click)="buttonChange('allPie')" >{{ "show_all_pie" | translate }}</button>
+        <button class="btn" (click)="buttonChange('allVertical')">{{ "show_all_vertical" | translate }}</button>
+        <button class="btn" (click)="buttonChange('monthlyPie')">{{ "show_monthly_pie" | translate }}</button>
+        <button class="btn" (click)="buttonChange('monthlyVertical')">{{ "show_monthly_vertical" | translate }}</button>
+        <button class="btn" (click)="buttonChange('groupedVerticalBarChart')">{{ "show_grouped_vertical" | translate }}</button>
     </div>
 
     <div *ngIf="buttons['allPie']">

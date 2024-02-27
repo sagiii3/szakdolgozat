@@ -4,13 +4,13 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-$background_color: rgb(193, 108, 186);
+$background_color: var(--background-pink-color);
 
 html, body {
   background-color: $background_color !important;
   height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Optima, sans-serif !important;
 }
 
 .toolbar, .sidenav-container, .sidenav {
@@ -23,6 +23,17 @@ html, body {
   --error-color: red;
   --info-color: rgb(38, 169, 221);
   --warning-color: rgb(238, 238, 76);
+  --neon-pink-color: rgb(255,0,169);
+  --dark-pink-color: rgb(201,0,118);
+  --light-pink-color: rgb(255,191,211);
+  --peach-pink-color: rgb(238,12,145);
+  --salmon-pink-color: rgb(251,88,88);
+  --background-pink-color: rgb(255,212,229);
+  --lighter-pink-color: rgb(255, 244, 249);
+  --mid-light-pink-color: rgb(255,192,230);
+  --light-yellow-color: rgb(254,255,163);
+  --black-color: rgb(0, 0, 0);
+
 }
 
 .success-snackbar {
@@ -92,7 +103,7 @@ html, body {
 .outside_div{
   margin: 20px;
   padding: 20px;
-  border: 1px solid rgb(116, 70, 105);
+  border: 1px solid var(--dark-pink-color);
   border-radius: 5px;
-  background-color: #f0c3f0;
+  background-color: var(--light-pink-color);
 }
