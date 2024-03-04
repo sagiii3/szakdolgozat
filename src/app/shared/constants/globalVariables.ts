@@ -11,6 +11,7 @@ export class GlobalVariables {
     hobbies: 'hobbies',
     ownHobbies: 'ownHobbies',
     activities: 'activities',
+    categories: 'categories'
   };
 
   // URLs

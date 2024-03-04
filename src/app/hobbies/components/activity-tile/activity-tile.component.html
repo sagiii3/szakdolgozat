@@ -1,4 +1,8 @@
 <div *ngIf="activity" class="activity-tile">
+    <button mat-icon-button class="icon-button" [matTooltip]="'delete_activity' | translate"
+          (click)="deleteActivity()">
+        <mat-icon>delete</mat-icon>
+    </button>
     <p>{{'spent_hours' | translate}}: {{activity.spentHours}}</p>
     <p>{{'date' | translate}}: {{activity.date | dateTime}}</p>
     <p>{{'notes' | translate }}: {{activity.notes}}</p>

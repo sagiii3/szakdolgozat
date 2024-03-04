@@ -4,7 +4,7 @@
   overflow: hidden;
   margin: 10px;
   width: 300px;
-  max-height: 270px;
+  max-height: 300px;
   transition: transform 0.3s ease;
 }
 
@@ -37,4 +37,17 @@ button{
   margin: 0px;
   padding: 0px;
   cursor: pointer;
+}
+
+.category{
+  background-color: white;
+  padding: 2px;
+  border: black 1px solid;
+  border-radius: 10px;
+  margin: 2px;
+}
+
+.categories{
+  display: flex;
+  flex-wrap: wrap;
 }

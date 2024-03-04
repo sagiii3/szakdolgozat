@@ -3,8 +3,8 @@ import { Hobby } from '../../models/hobby';
 import { Subscription } from 'rxjs';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
-import { MatDialog } from '@angular/material/dialog';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-hobby-list',
@@ -30,6 +30,19 @@ export class HobbyListComponent implements OnInit, OnDestroy{
     .subscribe({
       next: (hobbies: Hobby[]) => {
         this.hobbyList = hobbies;
+        this.hobbyList.forEach(hobby => {
+          hobby.categoryIds.forEach(categoryId => {
+            hobby.categories = [];
+            this.hobbyService.getHobbyCategoryById(categoryId).subscribe({
+              next: (category: Category) => {
+                hobby.categories.push(category);
+              },
+              error: (error: Error) => {
+                this.errorService.errorLog('get_hobby_category_error', error);
+              }
+            });
+          });
+        });
       },
       error: (error: Error) => {
         this.errorService.errorLog('get_hobbies_error', error);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Activity } from '../../models/activity';
 
 @Component({
@@ -8,6 +8,11 @@ import { Activity } from '../../models/activity';
 })
 export class ActivityTileComponent {
   @Input() activity?: Activity;
+  @Output() deleteEventEmitter = new EventEmitter<string>();
     constructor() { }
 
+
+    deleteActivity(): void{
+      this.deleteEventEmitter?.emit(this.activity?.id);
+    }
 }

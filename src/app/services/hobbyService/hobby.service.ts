@@ -4,13 +4,14 @@ import { OwnHobby } from 'src/app/hobbies/models/ownHobby';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { FirebaseService } from '../firebaseService/firebase.service';
 import { UserService } from '../userService/user.service';
-import { Observable, catchError, combineLatest, filter, map, of, switchMap, throwError } from 'rxjs';
+import { Observable, catchError, combineLatest, filter, forkJoin, map, of, switchMap, tap, throwError } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { Activity } from 'src/app/hobbies/models/activity';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/shared/models/user';
 import { ActivityWrapData } from 'src/app/hobbies/models/activityWrapData';
 import { BilingualTranslatePipe } from 'src/app/shared/pipes/bilingual-translate.pipe'
+import { Category } from 'src/app/hobbies/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +72,54 @@ export class HobbyService {
     );
   }
 
+/*
+getOwnHobbies(): Observable<OwnHobby[]> {
+  return this.userService.isAuthenticated().pipe(
+    filter(isAuthenticated => isAuthenticated),
+    switchMap(() => {
+      const userId = this.userService.getCurrentUser().id;
+      const route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
+
+      return this.firebaseService.getCollectionList(route).pipe(
+        switchMap((ownHobbies: OwnHobby[]) => {
+          if (ownHobbies.length === 0) {
+            return of([]);
+          }
+          console.log(ownHobbies)
+          const hobbyRequests = ownHobbies.map(ownHobby => {
+            return this.getHobbyById(ownHobby.id).pipe(
+              tap(data => console.log(data)),
+              catchError((error: Error) => {
+                this.errorService.errorLog('get_hobby_by_id_error', error);
+                return throwError(error);
+              })
+            );
+          });
+
+          return forkJoin(hobbyRequests).pipe(
+            switchMap((hobbies: Hobby[]) => {
+              console.log(hobbies)
+              ownHobbies.forEach((ownHobby, index) => {
+                ownHobby.hobbyCopy(hobbies[index]);
+                console.log(hobbies[index])
+              });
+              return of(ownHobbies);
+            }),
+            catchError((error: Error) => {
+              this.errorService.errorLog('get_hobbies_by_ids_error', error);
+              return throwError(error);
+            })
+          );
+        }),
+        catchError((error: Error) => {
+          this.errorService.errorLog('get_own_hobbies_error', error);
+          return throwError(error);
+        })
+      );
+    })
+  );
+}*/
+
   getHobbyById(id?: string): Observable<OwnHobby> {
     return this.userService.getUser().pipe(
       switchMap((user: User) => {
@@ -81,6 +130,20 @@ export class HobbyService {
             return throwError(error); // return the error as an observable
           })
         );
+      }),
+      catchError((error: Error) => {
+        this.errorService.errorLog('get_user_error', error);
+        return throwError(error); // re-throw the error after logging
+      })
+    );
+  }
+
+  deleteActivityByIds(hobbyId?: string, activityId?: string): Observable<any>{
+    return this.userService.getUser().pipe(
+      switchMap((user: User) => {
+        let route = GlobalVariables.COLLECTIONS.users + '/' + user.id + '/' + GlobalVariables.COLLECTIONS.ownHobbies
+        + '/' + hobbyId + '/' + GlobalVariables.COLLECTIONS.activities;
+        return this.firebaseService.removeFromCollection(route, activityId || '')
       }),
       catchError((error: Error) => {
         this.errorService.errorLog('get_user_error', error);
@@ -154,6 +217,14 @@ export class HobbyService {
         );
       })
     );
+  }
+
+  getHobbyCategories(): Observable<Category[]> {
+    return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.categories);
+  }
+
+  getHobbyCategoryById(id?: string): Observable<Category> {
+    return this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.categories, id || '');
   }
 
   getHobbies(): Observable<Hobby[]> {

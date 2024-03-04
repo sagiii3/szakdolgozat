@@ -1,10 +1,18 @@
 <div *ngIf="hobby" class="hobby-tile">
-  <div class="header header-colored">
-    <h2>{{ hobby.name | bilingualTranslate}}</h2>
-    <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate"
-        (click)="addToOwnHobbies()">
-      <mat-icon>add</mat-icon>
-    </button>
+  <div class="header-colored">
+    <div class="header">
+      <h2>{{ hobby.name | bilingualTranslate}}</h2>
+      <button mat-icon-button class="icon-button" [matTooltip]="'add_to_own_hobbies' | translate"
+          (click)="addToOwnHobbies()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    
+    <div class="categories">
+      <div class="category" *ngFor="let category of hobby.categories">
+        {{ category.name | bilingualTranslate}}
+      </div>
+    </div>
   </div>
   <div class="content">
     <button *ngIf="hobby" [routerLink]="['/', globalVariables.ROUTES.ownHobbies, hobby.id]" class="tile-image-button"

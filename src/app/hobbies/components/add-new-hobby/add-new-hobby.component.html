@@ -35,11 +35,19 @@
       </div>
 
       <div class="mb-3 row">
-          <label>{{"hobby_image_url" | translate }}: </label>
-          <mat-form-field>
-            <input matInput id="hobbyImageUrl" type="text" class="form-control" name="hobbyImageUrl"
-              [(ngModel)]="hobby.imageUrl" required #hobbyImageUrl="ngModel">
-          </mat-form-field>
+        <label>{{"hobby_image_url" | translate }}: </label>
+        <mat-form-field>
+          <input matInput id="hobbyImageUrl" type="text" class="form-control" name="hobbyImageUrl"
+            [(ngModel)]="hobby.imageUrl" required #hobbyImageUrl="ngModel">
+        </mat-form-field>
+    </div>
+
+      <div class="mb-3 row">
+        <label>{{"categories" | translate }}: </label>
+        TODO
+        <div *ngFor="let category of categories">
+          <mat-checkbox >{{ category.name }}</mat-checkbox>
+        </div>
       </div>
 
       <div class="button-row">

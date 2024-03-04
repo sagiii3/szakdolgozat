@@ -5,6 +5,7 @@ import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../models/activity';
+import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 
 @Component({
   selector: 'app-hobby-detail',
@@ -17,6 +18,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
 
   getHobbySubscription?: Subscription;
   getHobbyActivitiesSubscription?: Subscription;
+  deleteActivitySubscription?: Subscription;
 
     constructor(
       private activatedRoute: ActivatedRoute,
@@ -40,6 +42,21 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
    });
   }
 
+  deleteActivity(id?: string): void{
+    this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
+      next: () => {
+        this.getHobbyActivities();
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('get_activities_error', error);
+      }
+    })
+  }
+
+  addToOwnHobbies(): void {
+    this.hobbyService.openDialog(RecordHobbyComponent, this.hobby);
+  }
+
   getHobbyActivities(): void {
     this.getHobbyActivitiesSubscription = this.hobbyService.getHobbyActivities(this.id).subscribe({
       next: (activities: Activity[]) => {
@@ -56,5 +73,6 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getHobbySubscription?.unsubscribe();
     this.getHobbyActivitiesSubscription?.unsubscribe();
+    this.deleteActivitySubscription?.unsubscribe();
   }
 }

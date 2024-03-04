@@ -112,5 +112,8 @@
     "show_all_vertical": "Show all hobby vertical chart",
     "show": "Show",
     "show_grouped_vertical": "Show 12 month grouped vertical chart",
-    "edit_profile": "Edit Profile"
+    "edit_profile": "Edit Profile",
+    "get_hobby_category_error": "Error while getting hobby category",
+    "categories": "Categories",
+    "delete_activity": "Tevékenység törlése"
 }

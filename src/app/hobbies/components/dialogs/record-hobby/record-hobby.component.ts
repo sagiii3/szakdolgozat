@@ -33,7 +33,9 @@ export class RecordHobbyComponent {
       let addActivity: boolean = await this.hobbyService.addActivityToOwnHobby(this.data.hobby.id || '', this.activity);
       if(addHobby && addActivity){
         this.closeDialog();
-        this.router.navigate([GlobalVariables.ROUTES.ownHobbies, this.data.hobby.id]);
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([GlobalVariables.ROUTES.ownHobbies, this.data.hobby.id]);
+        }); 
       }
       else{
         this.errorService.errorLog('save_problem', undefined);
