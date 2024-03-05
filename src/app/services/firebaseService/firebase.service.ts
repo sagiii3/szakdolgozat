@@ -110,6 +110,7 @@ export class FirebaseService {
         if (doc.exists()) {
           return doc.data();
         } else {
+          this.errorService.errorLog('document_not_found', new Error('Document not found'));
           return undefined;
         }
       })
