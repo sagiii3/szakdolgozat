@@ -32,13 +32,15 @@
             >
 		</ngx-charts-bar-vertical>
     </div>
-    <div *ngIf="buttons['monthlyPie'] || buttons['monthlyVertical']">
-        <label for="monthSelector">{{'select_month' | translate}}</label>
-        <select id="monthSelector" [(ngModel)]="monthNumber">
-            <option *ngFor="let month of globalVariables.months; let i = index" [value]="i">{{ month | translate }}</option>
-        </select>
+    <div *ngIf="buttons['monthlyPie'] || buttons['monthlyVertical']" class="options">
+         <mat-form-field>
+            <mat-label for="monthSelector">{{'select_month' | translate}}</mat-label>
+            <mat-select id="monthSelector" [(ngModel)]="monthNumber">
+              <mat-option *ngFor="let month of globalVariables.months; let i = index" [value]="i">{{ month | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <button (click)="showMonthlyData()">{{'show' | translate}}</button>
+        <button class="show_button btn btn-success" (click)="showMonthlyData()">{{'show' | translate}}</button>
     </div>
 
     <div *ngIf="buttons['monthlyPie']">

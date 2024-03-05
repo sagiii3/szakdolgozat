@@ -14,3 +14,16 @@ button{
         border-color: var(--dark-pink-color);
     }
 }
+.options{
+    margin: 10px;
+}
+
+.show_button{
+    background-color: var(--success-color);
+    border: 1px solid var(--dark-green-color);
+    &:hover{
+        background-color: var(--dark-green-color);
+        border-color: var(--dark-green-color);
+    }
+    margin: 10px;
+}

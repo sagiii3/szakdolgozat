@@ -116,5 +116,6 @@
     "get_hobby_category_error": "Error while getting hobby category",
     "categories": "Categories",
     "delete_activity": "Delete activity",
-    "document_not_found": "Document not found"
+    "document_not_found": "Document not found",
+    "required_fullname_error": "Full name is required!"
 }

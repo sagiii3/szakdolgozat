@@ -116,5 +116,6 @@
     "get_hobby_category_error": "Hobbi kategória lekérése sikertelen",
     "categories": "Kategóriák",
     "delete_activity": "Tevékenység törlése",
-    "document_not_found": "A dokumentum nem található"
+    "document_not_found": "A dokumentum nem található",
+    "required_fullname_error": "A teljes név megadása kötelező"
 }
