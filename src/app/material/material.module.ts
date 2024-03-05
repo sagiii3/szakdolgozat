@@ -36,6 +36,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatBadgeModule} from '@angular/material/badge';
 import 'moment/locale/hu';
 import {
@@ -132,7 +133,8 @@ const materialModules = [
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
-    NgxChartsModule
+    NgxChartsModule,
+    ReactiveFormsModule
 ]
 
 

@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 import { Category } from '../../models/category';
 import { ErrorService } from 'src/app/services/errorService/error.service';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { BilingualTranslatePipe } from 'src/app/shared/pipes/bilingual-translate.pipe';
+import { MatSelectionListChange } from '@angular/material/list';
 
 @Component({
   selector: 'app-add-new-hobby',
@@ -20,25 +24,40 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
 
   categories?: Category[];
 
+  categoriesFormControl = new FormControl();
+
   getCategoriesSubscription?: Subscription;
 
   constructor(
     private hobbyService: HobbyService,
     private router: Router,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private translateService: TranslateService,
+    private bilingualTranslatePipe: BilingualTranslatePipe
   ) { }
 
   ngOnInit() {
+    this.getCategories();
   }
 
   addNewHobby(): void {
+    this.hobby.categories = this.categoriesFormControl.value;
     this.hobbyService.addNewHobby(this.hobby);
+  }
+
+  selectedChanged($event: MatSelectionListChange) {
+    
   }
 
   getCategories(): void {
     this.getCategoriesSubscription = this.hobbyService.getHobbyCategories().subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
+        this.categories.forEach(element => {
+          if (this.bilingualTranslatePipe.transform(element.name) == this.translateService.instant("custom")) {
+            this.categoriesFormControl.setValue([element]);
+          }
+        });
       },
       error: (error: any) => {
         this.errorService.errorLog(error);

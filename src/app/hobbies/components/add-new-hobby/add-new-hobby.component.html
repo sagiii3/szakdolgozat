@@ -3,35 +3,35 @@
     <h2>{{ "add_new_hobby" | translate }}</h2>
     <form #newHobby="ngForm">
       <div class="mb-3 row">
-          <label>{{"hobby_name_hu" | translate }}: </label>
-          <mat-form-field>
-            <input matInput id="hobbyNameHU" type="text" class="form-control" name="hobbyNameHU"
-              [(ngModel)]="hobby.name.hu" required #hobbyNameHU="ngModel">
-          </mat-form-field>
+        <label>{{"hobby_name_hu" | translate }}: </label>
+        <mat-form-field>
+          <input matInput id="hobbyNameHU" type="text" class="form-control" name="hobbyNameHU"
+            [(ngModel)]="hobby.name.hu" required #hobbyNameHU="ngModel">
+        </mat-form-field>
       </div>
 
       <div class="mb-3 row">
-          <label>{{"hobby_name_en" | translate }}: </label>
-          <mat-form-field>
-            <input matInput id="hobbyNameEN" type="text" class="form-control" name="hobbyNameEN"
-              [(ngModel)]="hobby.name.en" required #hobbyNameEN="ngModel">
-          </mat-form-field>
+        <label>{{"hobby_name_en" | translate }}: </label>
+        <mat-form-field>
+          <input matInput id="hobbyNameEN" type="text" class="form-control" name="hobbyNameEN"
+            [(ngModel)]="hobby.name.en" required #hobbyNameEN="ngModel">
+        </mat-form-field>
       </div>
 
       <div class="mb-3 row">
-          <label>{{"hobby_description_hu" | translate }}: </label>
-          <mat-form-field>
-            <input matInput id="hobbyDescriptionHU" type="text" class="form-control" name="hobbyDescriptionHU"
-              [(ngModel)]="hobby.description.hu" required #hobbyDescriptionHU="ngModel">
-          </mat-form-field>
+        <label>{{"hobby_description_hu" | translate }}: </label>
+        <mat-form-field>
+          <input matInput id="hobbyDescriptionHU" type="text" class="form-control" name="hobbyDescriptionHU"
+            [(ngModel)]="hobby.description.hu" required #hobbyDescriptionHU="ngModel">
+        </mat-form-field>
       </div>
 
       <div class="mb-3 row">
-          <label>{{"hobby_description_en" | translate }}: </label>
-          <mat-form-field>
-            <input matInput id="hobbyDescriptionEN" type="text" class="form-control" name="hobbyDescriptionEN"
-              [(ngModel)]="hobby.description.en" required #hobbyDescriptionEN="ngModel">
-          </mat-form-field>
+        <label>{{"hobby_description_en" | translate }}: </label>
+        <mat-form-field>
+          <input matInput id="hobbyDescriptionEN" type="text" class="form-control" name="hobbyDescriptionEN"
+            [(ngModel)]="hobby.description.en" required #hobbyDescriptionEN="ngModel">
+        </mat-form-field>
       </div>
 
       <div class="mb-3 row">
@@ -40,14 +40,25 @@
           <input matInput id="hobbyImageUrl" type="text" class="form-control" name="hobbyImageUrl"
             [(ngModel)]="hobby.imageUrl" required #hobbyImageUrl="ngModel">
         </mat-form-field>
-    </div>
+      </div>
 
       <div class="mb-3 row">
-        <label>{{"categories" | translate }}: </label>
-        TODO
-        <div *ngFor="let category of categories">
-          <mat-checkbox >{{ category.name }}</mat-checkbox>
-        </div>
+        <mat-form-field>
+          <mat-label>{{"categories" | translate }}: </mat-label>
+          <mat-select [formControl]="categoriesFormControl" multiple>
+            <mat-select-trigger>
+              {{categoriesFormControl.value ? (categoriesFormControl.value[0].name | bilingualTranslate) : '' }}
+              <span *ngIf="((categoriesFormControl.value?.length || 0) > 1)">
+                (+{{(categoriesFormControl.value?.length || 0) - 1}}
+                {{categoriesFormControl.value?.length === 2 ? ('other' | translate) : ('others' | translate)}})
+              </span>
+            </mat-select-trigger>
+
+            <mat-option *ngFor="let category of categories" [value]="category" >
+              {{category.name | bilingualTranslate}}</mat-option>
+
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="button-row">
