@@ -2,7 +2,7 @@
   <div>
     <h2>{{"my_profile" | translate}}</h2>
   </div>
-  <div class="row">
+  <div>
     <div class="col-md-6 offset-md-3">
       <div class="img-center-div">
         <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
@@ -12,27 +12,27 @@
         {{user.fullName}}
       </div>
     </div>
-    <div class="col-md-6 offset-md-3 block">
-      <div class="mb-3 row">
-        <div class="data-div-item mb-3 row">
-          <div class="data-div-item-title col-sm-3">
-            {{'email' | translate}}:
-          </div>
-          <div class="data-div-item-data col-sm-9">
-            {{user.email}}
-          </div>
+    <div class="block">
+      <div class="grid_table">
+
+        <div class="flex_value">
+          {{'email' | translate}}:
         </div>
-        <div class="data-div-item mb-3 row">
-          <div class="data-div-item-title col-sm-3">
-            {{'username' | translate}}:
-          </div>
-          <div class="data-div-item-data col-sm-9">
-            {{user.username}}
-          </div>
+
+        <div class="flex_value">
+          {{user.email}}
+        </div>
+
+        <div class="flex_value">
+          {{'username' | translate}}:
+        </div>
+
+        <div class="flex_value">
+          {{user.username}}
         </div>
       </div>
     </div>
-    <div class="col-md-6 offset-md-3 block">
+    <div class="data-div-item block">
       <button class="btn btn-danger" (click)="logout()">{{'logout' | translate}}</button>
       <button class="btn btn-primary" (click)="editProfile()">{{'edit_profile' | translate}}</button>
     </div>
