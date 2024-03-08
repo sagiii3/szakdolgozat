@@ -25,6 +25,7 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
   categories?: Category[];
 
   categoriesFormControl = new FormControl();
+  
 
   getCategoriesSubscription?: Subscription;
 
@@ -45,9 +46,6 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
     this.hobbyService.addNewHobby(this.hobby);
   }
 
-  selectedChanged($event: MatSelectionListChange) {
-    
-  }
 
   getCategories(): void {
     this.getCategoriesSubscription = this.hobbyService.getHobbyCategories().subscribe({
