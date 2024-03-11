@@ -152,8 +152,17 @@ export class HobbyService {
     );
   }
 
-  deleteOwnHobby() {
-
+  deleteOwnHobby(hobbyId?: string): Observable<any> {
+    return this.userService.getUser().pipe(
+      switchMap((user: User) => {
+        let route = GlobalVariables.COLLECTIONS.users + '/' + user.id + '/' + GlobalVariables.COLLECTIONS.ownHobbies
+        return this.firebaseService.removeFromCollection(route, hobbyId || '');
+      }),
+      catchError((error: Error) => {
+        this.errorService.errorLog('get_user_error', error);
+        return throwError(error); // re-throw the error after logging
+      })
+    );
   }
 
 

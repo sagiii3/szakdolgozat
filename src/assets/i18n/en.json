@@ -120,5 +120,6 @@
     "required_fullname_error": "Full name is required!",
     "other": "other",
     "others": "others",
-    "custom": "Custom"
+    "custom": "Custom",
+    "delete_own_hobby_error": "Error while deleting own hobby"
 }

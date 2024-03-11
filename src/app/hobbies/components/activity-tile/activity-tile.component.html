@@ -1,8 +1,14 @@
 <div *ngIf="activity" class="activity-tile">
-    <button mat-icon-button class="icon-button" [matTooltip]="'delete_activity' | translate"
-          (click)="deleteActivity()">
-        <mat-icon>delete</mat-icon>
+    <button class="icon-button" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+        <button class="red" mat-menu-item (click)="deleteActivity()">
+            <mat-icon class="red">delete</mat-icon>
+            {{'delete_activity' | translate}}
+        </button>
+    </mat-menu> 
+
     <p>{{'spent_hours' | translate}}: {{activity.spentHours}}</p>
     <p>{{'date' | translate}}: {{activity.date | dateTime}}</p>
     <p>{{'notes' | translate }}: {{activity.notes}}</p>

@@ -6,6 +6,8 @@ import { ErrorService } from 'src/app/services/errorService/error.service';
 import { Subscription } from 'rxjs';
 import { Activity } from '../../models/activity';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
+import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hobby-detail',
@@ -19,11 +21,13 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   getHobbySubscription?: Subscription;
   getHobbyActivitiesSubscription?: Subscription;
   deleteActivitySubscription?: Subscription;
+  deleteOwnHobbySubscription?: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private hobbyService: HobbyService,
-    private errorService: ErrorService) { }
+    private errorService: ErrorService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
@@ -43,18 +47,26 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteActivity(id?: string): void {
-    //todo: ha egy activity van akkor törölni a hobbit a sajátok közül
-    if(this.hobby?.categories.length == 1){
-      this.hobbyService.deleteOwnHobby();
+    if(this.hobby?.activities.length == 1){
+      this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(this.id).subscribe({
+        next: () => {
+          this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('delete_own_hobby_error', error);
+        }
+      });
     }
-    this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
-      next: () => {
-        this.getHobbyActivities();
-      },
-      error: (error: Error) => {
-        this.errorService.errorLog('get_activities_error', error);
-      }
-    })
+    else{
+      this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
+        next: () => {
+          this.getHobbyActivities();
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('get_activities_error', error);
+        }
+      });
+    }
   }
 
   addToOwnHobbies(): void {
@@ -78,5 +90,6 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     this.getHobbySubscription?.unsubscribe();
     this.getHobbyActivitiesSubscription?.unsubscribe();
     this.deleteActivitySubscription?.unsubscribe();
+    this.deleteOwnHobbySubscription?.unsubscribe();
   }
 }
