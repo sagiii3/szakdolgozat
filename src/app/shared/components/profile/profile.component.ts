@@ -36,14 +36,12 @@ export class ProfileComponent {
   }
 
   editProfile(): void {
-    /*this.profileSubscription = this.userService.editUser().subscribe({
-      next: (user: User) => {
-        this.user = user;
-      },
-      error: (error: Error) => {
-        this.errorService.errorLog('profile_error', error);
-      }
-    });*/
+    //todo
+    //this.userService.editUser(this.user);
+  }
+
+  editPassword(): void{
+    
   }
 
 

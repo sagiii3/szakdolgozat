@@ -55,7 +55,20 @@ export class UserService implements OnDestroy{
       'failed_user_save',
       User
     );
-    }
+  }
+
+  editUser(user: User): Promise<boolean>{
+    user.id = this.user.id;
+    user.confirmPassword = undefined;
+    user.password = undefined;
+    return this.firebaseService.addToCollection(
+      GlobalVariables.COLLECTIONS.users,
+      user,
+      'successful_user_edit',
+      'failed_user_edit',
+      User
+    );
+  }
 
   getCurrentUser(): User {
     return this.user;
