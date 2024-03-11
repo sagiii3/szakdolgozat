@@ -20,10 +20,10 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   getHobbyActivitiesSubscription?: Subscription;
   deleteActivitySubscription?: Subscription;
 
-    constructor(
-      private activatedRoute: ActivatedRoute,
-      private hobbyService: HobbyService,
-      private errorService: ErrorService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private hobbyService: HobbyService,
+    private errorService: ErrorService) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
@@ -35,14 +35,18 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
       next: (hobby: OwnHobby) => {
         this.hobby = hobby;
         this.getHobbyActivities();
-      }, 
+      },
       error: (error: Error) => {
         this.errorService.errorLog('get_hobby_by_id_error', error);
       }
-   });
+    });
   }
 
-  deleteActivity(id?: string): void{
+  deleteActivity(id?: string): void {
+    //todo: ha egy activity van akkor törölni a hobbit a sajátok közül
+    if(this.hobby?.categories.length == 1){
+      this.hobbyService.deleteOwnHobby();
+    }
     this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
       next: () => {
         this.getHobbyActivities();
@@ -60,7 +64,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   getHobbyActivities(): void {
     this.getHobbyActivitiesSubscription = this.hobbyService.getHobbyActivities(this.id).subscribe({
       next: (activities: Activity[]) => {
-        if(this.hobby){
+        if (this.hobby) {
           this.hobby.activities = activities;
         }
       },

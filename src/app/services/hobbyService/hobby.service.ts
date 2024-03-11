@@ -72,53 +72,53 @@ export class HobbyService {
     );
   }
 
-/*
-getOwnHobbies(): Observable<OwnHobby[]> {
-  return this.userService.isAuthenticated().pipe(
-    filter(isAuthenticated => isAuthenticated),
-    switchMap(() => {
-      const userId = this.userService.getCurrentUser().id;
-      const route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
-
-      return this.firebaseService.getCollectionList(route).pipe(
-        switchMap((ownHobbies: OwnHobby[]) => {
-          if (ownHobbies.length === 0) {
-            return of([]);
-          }
-          console.log(ownHobbies)
-          const hobbyRequests = ownHobbies.map(ownHobby => {
-            return this.getHobbyById(ownHobby.id).pipe(
-              tap(data => console.log(data)),
+  /*
+  getOwnHobbies(): Observable<OwnHobby[]> {
+    return this.userService.isAuthenticated().pipe(
+      filter(isAuthenticated => isAuthenticated),
+      switchMap(() => {
+        const userId = this.userService.getCurrentUser().id;
+        const route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
+  
+        return this.firebaseService.getCollectionList(route).pipe(
+          switchMap((ownHobbies: OwnHobby[]) => {
+            if (ownHobbies.length === 0) {
+              return of([]);
+            }
+            console.log(ownHobbies)
+            const hobbyRequests = ownHobbies.map(ownHobby => {
+              return this.getHobbyById(ownHobby.id).pipe(
+                tap(data => console.log(data)),
+                catchError((error: Error) => {
+                  this.errorService.errorLog('get_hobby_by_id_error', error);
+                  return throwError(error);
+                })
+              );
+            });
+  
+            return forkJoin(hobbyRequests).pipe(
+              switchMap((hobbies: Hobby[]) => {
+                console.log(hobbies)
+                ownHobbies.forEach((ownHobby, index) => {
+                  ownHobby.hobbyCopy(hobbies[index]);
+                  console.log(hobbies[index])
+                });
+                return of(ownHobbies);
+              }),
               catchError((error: Error) => {
-                this.errorService.errorLog('get_hobby_by_id_error', error);
+                this.errorService.errorLog('get_hobbies_by_ids_error', error);
                 return throwError(error);
               })
             );
-          });
-
-          return forkJoin(hobbyRequests).pipe(
-            switchMap((hobbies: Hobby[]) => {
-              console.log(hobbies)
-              ownHobbies.forEach((ownHobby, index) => {
-                ownHobby.hobbyCopy(hobbies[index]);
-                console.log(hobbies[index])
-              });
-              return of(ownHobbies);
-            }),
-            catchError((error: Error) => {
-              this.errorService.errorLog('get_hobbies_by_ids_error', error);
-              return throwError(error);
-            })
-          );
-        }),
-        catchError((error: Error) => {
-          this.errorService.errorLog('get_own_hobbies_error', error);
-          return throwError(error);
-        })
-      );
-    })
-  );
-}*/
+          }),
+          catchError((error: Error) => {
+            this.errorService.errorLog('get_own_hobbies_error', error);
+            return throwError(error);
+          })
+        );
+      })
+    );
+  }*/
 
   getHobbyById(id?: string): Observable<OwnHobby> {
     return this.userService.getUser().pipe(
@@ -138,11 +138,11 @@ getOwnHobbies(): Observable<OwnHobby[]> {
     );
   }
 
-  deleteActivityByIds(hobbyId?: string, activityId?: string): Observable<any>{
+  deleteActivityByIds(hobbyId?: string, activityId?: string): Observable<any> {
     return this.userService.getUser().pipe(
       switchMap((user: User) => {
         let route = GlobalVariables.COLLECTIONS.users + '/' + user.id + '/' + GlobalVariables.COLLECTIONS.ownHobbies
-        + '/' + hobbyId + '/' + GlobalVariables.COLLECTIONS.activities;
+          + '/' + hobbyId + '/' + GlobalVariables.COLLECTIONS.activities;
         return this.firebaseService.removeFromCollection(route, activityId || '')
       }),
       catchError((error: Error) => {
@@ -150,6 +150,10 @@ getOwnHobbies(): Observable<OwnHobby[]> {
         return throwError(error); // re-throw the error after logging
       })
     );
+  }
+
+  deleteOwnHobby() {
+
   }
 
 
@@ -174,12 +178,12 @@ getOwnHobbies(): Observable<OwnHobby[]> {
                     .reduce((sum, activity) => {
                       return sum + (activity.spentHours || 0);
                     }, 0);
-                  
-                    monthlyData[i].push(new ActivityWrapData(
-                      this.bilingualTranslatePipe.transform(hobby.name),
-                      sum
-                    ));
-                  
+
+                  monthlyData[i].push(new ActivityWrapData(
+                    this.bilingualTranslatePipe.transform(hobby.name),
+                    sum
+                  ));
+
                 }
               });
               return monthlyData;
@@ -233,7 +237,8 @@ getOwnHobbies(): Observable<OwnHobby[]> {
 
   async addNewHobby(hobby: Hobby): Promise<boolean> {
     return this.firebaseService.addToCollection(
-      GlobalVariables.COLLECTIONS.hobbies,
+      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
+      GlobalVariables.COLLECTIONS.ownHobbies,
       hobby,
       'successful_hobby_save',
       'failed_hobby_save',

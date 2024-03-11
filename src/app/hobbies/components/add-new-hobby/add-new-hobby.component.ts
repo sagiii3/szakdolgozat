@@ -41,9 +41,12 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
     this.getCategories();
   }
 
-  addNewHobby(): void {
+  async addNewHobby() {
     this.hobby.categories = this.categoriesFormControl.value;
-    this.hobbyService.addNewHobby(this.hobby);
+    let addHobby: boolean =  await this.hobbyService.addNewHobby(this.hobby);
+    if(addHobby){
+      this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
+    }
   }
 
 
