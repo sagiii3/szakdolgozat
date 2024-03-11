@@ -5,6 +5,7 @@ import { ErrorService } from 'src/app/services/errorService/error.service';
 import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 import { Category } from '../../models/category';
+import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
   selector: 'app-hobby-list',
@@ -14,15 +15,21 @@ import { Category } from '../../models/category';
 export class HobbyListComponent implements OnInit, OnDestroy{
 
   hobbyList: Hobby[] = [];
+  isLoggedIn: boolean = false;
 
   private hobbyListSubscription?: Subscription;
+  private loggedInSubscription?: Subscription;
+  
+
   constructor(
     private errorService: ErrorService,
-    private hobbyService: HobbyService
+    private hobbyService: HobbyService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
     this.getHobbies();
+    this.getLoggedInSubscription();
   }
 
   getHobbies(): void {
@@ -50,12 +57,30 @@ export class HobbyListComponent implements OnInit, OnDestroy{
     });
   }
 
+
   addToOwnHobbies(hobby: Hobby): void {
-    this.hobbyService.openDialog(RecordHobbyComponent, hobby);
+    if(this.isLoggedIn){
+      this.hobbyService.openDialog(RecordHobbyComponent, hobby);
+    }
+    else{
+      this.errorService.errorLog("not_logged_in")
+    }
+  }
+
+  getLoggedInSubscription(): void{
+    this.loggedInSubscription = this.userService.isAuthenticated().subscribe({
+      next: (data) =>{
+        this.isLoggedIn = data ? true : false;
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog("is_authenticated_error", error);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.hobbyListSubscription?.unsubscribe();
+    this.loggedInSubscription?.unsubscribe();
   }
 
 }

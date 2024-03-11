@@ -29,7 +29,7 @@ export class LoginComponent {
 
   login(formName: any) {
     if (!formName.form.valid) {
-      // Kezelés, ha az űrlap helytelenül van kitöltve
+      this.errorService.errorLog("invalid_form");
     } else {
       this.loginWithEmail();
     }

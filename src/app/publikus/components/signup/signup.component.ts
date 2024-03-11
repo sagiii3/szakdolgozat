@@ -27,7 +27,7 @@ export class SignupComponent {
 
   signupWithEmail(formName: any): void {
     if (!formName.form.valid) {
-      // todo Handle incorrectly filled form
+      this.errorService.errorLog('invalid_form');
     } else {
       let email = formName.form.value.email;
       let password = formName.form.value.password;
@@ -41,7 +41,7 @@ export class SignupComponent {
           });
         this.userService.navigateToPreviousPageAfterLogin();
       }).catch((error) => {
-        this.snackbarService.snackbarError(this.translateService.instant('failed_signup'));
+        this.errorService.errorLog('failed_signup', error);
       });
     }
   }
