@@ -1,76 +1,80 @@
 <div class="login-signup-container">
-  <h2>{{ "signup" | translate }}</h2>
-  <form #signupForm="ngForm">
+    <div class="with_border">
+        <h2>{{ "signup" | translate }}</h2>
+        <form #signupForm="ngForm">
 
-      <div class="mb-3 row">
-          <mat-form-field class="matinput">
-              <mat-label for="username" class="col-form-label bold">{{ "username" | translate }}</mat-label>
-              <input matInput id="username" class="form-control" type="text" required
-                  [(ngModel)]="user.username" name="username" #username="ngModel">
-              <mat-error *ngIf="username.invalid">{{ "required_username_error" | translate }}</mat-error>
-          </mat-form-field>
+            <div class="mb-3 row">
+                <mat-form-field class="matinput">
+                    <mat-label for="username" class="col-form-label bold">{{ "username" | translate }}</mat-label>
+                    <input matInput id="username" class="form-control" type="text" required [(ngModel)]="user.username"
+                        name="username" #username="ngModel">
+                    <mat-error *ngIf="username.invalid">{{ "required_username_error" | translate }}</mat-error>
+                </mat-form-field>
 
-          <mat-form-field class="matinput">
-              <mat-label for="fullName" class="col-form-label bold">{{ "full_name" | translate }}</mat-label>
-              <input id="fullName" matInput type="text" class="form-control" required
-                  [(ngModel)]="user.fullName" name="fullName" #fullName="ngModel">
-              <mat-error *ngIf="fullName.invalid">{{ "required_fullname_error" | translate }}</mat-error>
-          </mat-form-field>
-      </div>
+                <mat-form-field class="matinput">
+                    <mat-label for="fullName" class="col-form-label bold">{{ "full_name" | translate }}</mat-label>
+                    <input id="fullName" matInput type="text" class="form-control" required [(ngModel)]="user.fullName"
+                        name="fullName" #fullName="ngModel">
+                    <mat-error *ngIf="fullName.invalid">{{ "required_fullname_error" | translate }}</mat-error>
+                </mat-form-field>
+            </div>
 
-      <div class="mb-3 row">
-          <mat-form-field class="matinput">
-              <mat-label for="email" class="col-form-label bold">{{ "email" | translate }}</mat-label>
-              <input id="email" matInput class="form-control" type="text" [attr.placeholder]="'email_placeholder' | translate"
-                  required [(ngModel)]="user.email" name="email" #email="ngModel" pattern="^.{6,}$">
-              <mat-error *ngIf="signupForm.value.email">{{ "email_format_error" | translate }}</mat-error>
-              <mat-error *ngIf="email.invalid">{{ "required_email_error" | translate }}</mat-error>
-          </mat-form-field>
-      </div>
+            <div class="mb-3 row">
+                <mat-form-field class="matinput">
+                    <mat-label for="email" class="col-form-label bold">{{ "email" | translate }}</mat-label>
+                    <input id="email" matInput class="form-control" type="text"
+                        [attr.placeholder]="'email_placeholder' | translate" required [(ngModel)]="user.email"
+                        name="email" #email="ngModel" pattern="^.{6,}$">
+                    <mat-error *ngIf="signupForm.value.email">{{ "email_format_error" | translate }}</mat-error>
+                    <mat-error *ngIf="email.invalid">{{ "required_email_error" | translate }}</mat-error>
+                </mat-form-field>
+            </div>
 
-      <div class="mb-3 row">
-          <mat-form-field class="matinput">
-              <mat-label for="password" class="col-form-label bold">
-                  {{ "password" | translate }} {{ "min_8_char" | translate }}</mat-label>
-              <input id="password" class="form-control" matInput [type]="hidePassword ? 'password' : 'text'"
-                  (keydown.enter)="signupWithEmail(signupForm)" required [(ngModel)]="user.password" name="password"
-                  #password="ngModel" pattern="^.{7,}$">
-              <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
-                  [matTooltip]="'hide_password' | translate" [attr.aria-pressed]="hidePassword">
-                  <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-              <mat-error *ngIf="signupForm.value.password">{{ "password_format_error" | translate }}</mat-error>
-              <mat-error *ngIf="password.invalid">{{ "required_password_error" | translate }}</mat-error>
-          </mat-form-field>
+            <div class="mb-3 row">
+                <mat-form-field class="matinput">
+                    <mat-label for="password" class="col-form-label bold">
+                        {{ "password" | translate }} {{ "min_8_char" | translate }}</mat-label>
+                    <input id="password" class="form-control" matInput [type]="hidePassword ? 'password' : 'text'"
+                        (keydown.enter)="signupWithEmail(signupForm)" required [(ngModel)]="user.password"
+                        name="password" #password="ngModel" pattern="^.{7,}$">
+                    <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                        [matTooltip]="'hide_password' | translate" [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signupForm.value.password">{{ "password_format_error" | translate }}</mat-error>
+                    <mat-error *ngIf="password.invalid">{{ "required_password_error" | translate }}</mat-error>
+                </mat-form-field>
 
-          <mat-form-field class="matinput">
-              <mat-label for="confirmPassword" class="col-form-label bold">{{ "confirm_password" | translate }}</mat-label>
-              <input id="confirmPassword" class="form-control" matInput [type]="hideConfirmPassword ? 'password' : 'text'" required
-                  [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel"
-                  (keydown.enter)="signupWithEmail(signupForm)" pattern="{{signupForm.value.password}}">
-              <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
-                  [matTooltip]="'hide_confirm_password' | translate" [attr.aria-pressed]="hideConfirmPassword">
-                  <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-              <mat-error *ngIf="signupForm.value.confirmPassword">{{ "password_mismatch_error" | translate }}</mat-error>
-              <mat-error *ngIf="confirmPassword.pristine">{{ "required_confirm_password_error" | translate }}</mat-error>
-          </mat-form-field>
-      </div>
+                <mat-form-field class="matinput">
+                    <mat-label for="confirmPassword" class="col-form-label bold">{{ "confirm_password" | translate
+                        }}</mat-label>
+                    <input id="confirmPassword" class="form-control" matInput
+                        [type]="hideConfirmPassword ? 'password' : 'text'" required [(ngModel)]="user.confirmPassword"
+                        name="confirmPassword" #confirmPassword="ngModel" (keydown.enter)="signupWithEmail(signupForm)"
+                        pattern="{{signupForm.value.password}}">
+                    <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                        [matTooltip]="'hide_confirm_password' | translate" [attr.aria-pressed]="hideConfirmPassword">
+                        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="signupForm.value.confirmPassword">{{ "password_mismatch_error" | translate
+                        }}</mat-error>
+                    <mat-error *ngIf="confirmPassword.pristine">{{ "required_confirm_password_error" | translate
+                        }}</mat-error>
+                </mat-form-field>
+            </div>
 
-      <div class="d-flex flex-row bd-highlight mb-3 buttons center">
-          <div class="p-2 bd-highlight">
-              <button type="submit" class="btn btn-success" (click)="signupWithEmail(signupForm)">
-                  {{ 'signup' | translate }}
-              </button>
-          </div>
-      </div>
+            <div class="flex_login bigger_padding">
+                <span>
+                    {{ "already_have_account" | translate }}
+                    <a [routerLink]="'/' + globalVariables.ROUTES.login">
+                        {{ "login" | translate }}
+                    </a>
+                </span>
+                <button type="submit" class="btn btn-success" (click)="signupWithEmail(signupForm)">
+                    {{ 'signup' | translate }}
+                </button>
+            </div>
 
-  </form>
-
-  <div class="center" style="display: inline-block;">
-      <p>{{ "already_have_account" | translate }}</p>
-      <a [routerLink]="'/' + globalVariables.ROUTES.login">
-          {{ "login" | translate }}
-      </a>
-  </div>
+        </form>
+    </div>
 </div>
