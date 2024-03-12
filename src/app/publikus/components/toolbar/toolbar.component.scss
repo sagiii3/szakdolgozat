@@ -30,8 +30,11 @@ $iconWidth: 50px;
 }
 
 .pfp{
-  margin: auto;
   display: block;
   width: 100%;
   max-height: $iconWidth;
+}
+
+.lower{
+  margin-top: 10px;
 }

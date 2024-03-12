@@ -46,15 +46,20 @@ export class UserService implements OnDestroy{
 
   saveUser(user: User): Promise<boolean>{
     user.id = this.user.id;
-    user.confirmPassword = undefined;
-    user.password = undefined;
-    return this.firebaseService.addToCollection(
-      GlobalVariables.COLLECTIONS.users,
-      user,
-      'successful_user_save',
-      'failed_user_save',
-      User
-    );
+    if(!user.id){
+      user.confirmPassword = undefined;
+      user.password = undefined;
+      return this.firebaseService.addToCollection(
+        GlobalVariables.COLLECTIONS.users,
+        user,
+        'successful_user_save',
+        'failed_user_save',
+        User
+      );
+    } else {
+      console.log('User already exists, it wont be saved');
+      return Promise.resolve(false);
+    }
   }
 
   editUser(user: User): Promise<boolean>{

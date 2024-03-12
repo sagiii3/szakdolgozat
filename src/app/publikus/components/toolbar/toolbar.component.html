@@ -1,4 +1,5 @@
-<mat-toolbar class="fixed-header toolbar navbar-color mat-elevation-z8 p-0" fxLayout="row" fxLayoutAlign="start stretch" style="z-index: 2">
+<mat-toolbar class="fixed-header toolbar navbar-color mat-elevation-z8 p-0" fxLayout="row" fxLayoutAlign="start stretch"
+  style="z-index: 2">
 
   <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()" matTooltip="Menu">
     <mat-icon aria-hidden="false">menu</mat-icon>
@@ -12,16 +13,15 @@
 
   <span class="example-spacer"></span>
 
-  <button *ngIf="isLoggedIn" mat-button class="profile-button"
-  [matTooltip]="'my_profile' | translate"[routerLink]="[globalVariables.ROUTES.profile]">
-      <span>
-        <mat-icon aria-hidden="false">
-          <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
+  <button *ngIf="isLoggedIn" mat-button class="profile-button" [matTooltip]="'my_profile' | translate"
+    [routerLink]="[globalVariables.ROUTES.profile]">
+    <span>
+      <mat-icon aria-hidden="false" class="lower">
+        <img class="rounded-circle pfp" alt="profile_picture" referrerpolicy="no-referrer"
           [src]="user?.photoURL ? user?.photoURL :'../../../assets/images/pfp.jpg'">
-        </mat-icon>
-        {{user?.fullName}}
-      </span>
-    
+      </mat-icon>
+    </span>
+
   </button>
 
   <button mat-button [matTooltip]="'language' | translate" (click)="changeLanguage()">

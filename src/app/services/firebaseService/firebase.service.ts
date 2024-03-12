@@ -56,6 +56,7 @@ export class FirebaseService {
     document = this.removeUndefinedFields(document);
     try {
       if (document.id) {
+        console.log('document.id', document.id, document);
         const customCollection = doc(this.firestore, collectionName, document.id);
         await setDoc(customCollection.withConverter(converter), document);
         this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
@@ -78,6 +79,35 @@ export class FirebaseService {
       return false;
     }
   }
+
+  /*async editDocInCollection(collectionName: string, document: any, successMessage: string, failedMessage: string, _class: any): Promise<boolean> {
+    const converter = this.createFirestoreDataConverter(_class);
+    document = this.removeUndefinedFields(document);
+    try {
+      if (document.id) {
+        console.log('document.id', document.id, document);
+        const customCollection = doc(this.firestore, collectionName, document.id);
+        await setDoc(customCollection.withConverter(converter), document);
+        this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
+        return true;
+      } else {
+        const customCollection = collection(this.firestore, collectionName);
+        const docRef = await addDoc(customCollection.withConverter(converter), document);
+        
+        // Update the document with the auto-generated ID
+        const newDocument = { ...document, id: docRef.id };
+        await setDoc(doc(customCollection, docRef.id).withConverter(converter), newDocument);
+        
+        this.snackbarService.snackbarSuccess(this.translateService.instant(successMessage));
+        return true;
+      }
+    }
+    catch (error: any) {
+      const message = error.code === 'permission-denied' ? 'permission-denied' : failedMessage;
+      this.errorService.errorLog(message, error);
+      return false;
+    }
+  }*/
 
   async removeFromCollection(collectionNeve: string, id: string): Promise<void> {
     const docRef = doc(this.firestore, collectionNeve, id);

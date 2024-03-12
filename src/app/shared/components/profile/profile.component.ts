@@ -37,7 +37,7 @@ export class ProfileComponent {
 
   editProfile(): void {
     //todo
-    //this.userService.editUser(this.user);
+    //this.userService.editUser(new User(this.user.id, "agi"));
   }
 
   editPassword(): void{
