@@ -36,9 +36,11 @@
     "bootstrap-icons": "^1.11.2",
     "express": "^4.18.2",
     "firebase": "^10.7.0",
+    "ip": "^2.0.1",
     "moment": "^2.29.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "undici": "^6.7.1",
     "zone.js": "~0.13.3"
   },
   "devDependencies": {
