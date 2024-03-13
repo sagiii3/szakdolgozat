@@ -102,6 +102,29 @@ html, body {
   margin: 15px;
 }
 
+.filter_block{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--dark-pink-color);
+  border-radius: 10px;
+  background-color: var(--light-pink-color);
+  overflow: auto;
+}
+
+.inner_div{
+  display: flex;
+  align-items: center;
+  button{
+    margin: 5px;
+  }
+  .mat-mdc-form-field-subscript-wrapper{
+    display: none;
+  }
+}
+
 .hobby-tile-container {
   display: flex;
   gap: 15px;

@@ -55,14 +55,14 @@ export class HobbyService {
     });
   }
 
-  getOwnHobbies(): Observable<OwnHobby[]> {
+  getOwnHobbies(categoryId?: string): Observable<OwnHobby[]> {
     return this.userService.isAuthenticated().pipe(
       filter(isAuthenticated => isAuthenticated), // Ignore if not authenticated
       switchMap(() => {
         let userId = this.userService.getCurrentUser().id;
         let route = `${GlobalVariables.COLLECTIONS.users}/${userId}/${GlobalVariables.COLLECTIONS.ownHobbies}`;
 
-        return this.firebaseService.getCollectionList(route).pipe(
+        return this.firebaseService.getCollectionList(route, categoryId).pipe(
           catchError((error: Error) => {
             this.errorService.errorLog('get_own_hobbies_error', error);
             return throwError(error); // re-throw the error after logging
@@ -240,8 +240,8 @@ export class HobbyService {
     return this.firebaseService.getDocument(GlobalVariables.COLLECTIONS.categories, id || '');
   }
 
-  getHobbies(): Observable<Hobby[]> {
-    return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies);
+  getHobbies(categoryId?: string): Observable<Hobby[]> {
+    return this.firebaseService.getCollectionList(GlobalVariables.COLLECTIONS.hobbies, categoryId);
   }
 
   async addNewHobby(hobby: Hobby): Promise<boolean> {

@@ -47,6 +47,14 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteActivity(id?: string): void {
+    this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
+      next: () => {
+        this.getHobbyActivities();
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('get_activities_error', error);
+      }
+    });
     if(this.hobby?.activities.length == 1){
       this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(this.id).subscribe({
         next: () => {
@@ -54,16 +62,6 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
         },
         error: (error: Error) => {
           this.errorService.errorLog('delete_own_hobby_error', error);
-        }
-      });
-    }
-    else{
-      this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
-        next: () => {
-          this.getHobbyActivities();
-        },
-        error: (error: Error) => {
-          this.errorService.errorLog('get_activities_error', error);
         }
       });
     }

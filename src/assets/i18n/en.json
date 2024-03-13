@@ -125,5 +125,8 @@
     "not_logged_in": "You are currently not logged in!",
     "invalid_form": "Invalid form",
     "successful_user_edit": "Successful user profile edit",
-    "failed_user_edit": "Failed user profile edit"
+    "failed_user_edit": "Failed user profile edit",
+    "filter": "Filter",
+    "delete_filter": "Delete filter",
+    "categories_filter": "Categories filter"
 }

@@ -6,6 +6,8 @@ import { Observable, map, from, filter, catchError, of } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 import { BilingualString } from 'src/app/shared/models/billingual-string';
+import { Hobby } from 'src/app/hobbies/models/hobby';
+import { Category } from 'src/app/hobbies/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -91,13 +93,22 @@ export class FirebaseService {
     }
   }
 
-  getCollectionList(collectionName: string): Observable<any[]> {
+  getCollectionList(collectionName: string, categoryId?: string): Observable<any[]> {
     const collectionRef = collection(this.firestore, collectionName);
     let data: any[] = [];
     return from(getDocs(collectionRef)).pipe(
       map((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          data.push(doc.data());
+          //hobby category filter
+          if(categoryId){
+            let hobby = doc.data() as Hobby;
+            if(hobby.categoryIds.includes(categoryId)){
+              data.push(hobby);
+            }
+          }
+          else{
+            data.push(doc.data());
+          }          
         });
         return data;
       })

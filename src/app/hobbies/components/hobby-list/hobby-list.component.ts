@@ -17,8 +17,12 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   hobbyList: Hobby[] = [];
   isLoggedIn: boolean = false;
 
+  categoryFilter?: Category;
+  categories?: Category[];
+
   private hobbyListSubscription?: Subscription;
   private loggedInSubscription?: Subscription;
+  private getCategoriesSubscription?: Subscription;
   
 
   constructor(
@@ -28,12 +32,13 @@ export class HobbyListComponent implements OnInit, OnDestroy{
     ) { }
 
   ngOnInit(): void {
+    this.getCategories();
     this.getHobbies();
     this.getLoggedInSubscription();
   }
 
   getHobbies(): void {
-    this.hobbyListSubscription = this.hobbyService.getHobbies()
+    this.hobbyListSubscription = this.hobbyService.getHobbies(this.categoryFilter?.id)
     .subscribe({
       next: (hobbies: Hobby[]) => {
         this.hobbyList = hobbies;
@@ -53,6 +58,17 @@ export class HobbyListComponent implements OnInit, OnDestroy{
       },
       error: (error: Error) => {
         this.errorService.errorLog('get_hobbies_error', error);
+      }
+    });
+  }
+
+  getCategories(): void {
+    this.getCategoriesSubscription = this.hobbyService.getHobbyCategories().subscribe({
+      next: (categories: Category[]) => {
+        this.categories = categories;
+      },
+      error: (error: any) => {
+        this.errorService.errorLog(error);
       }
     });
   }
@@ -81,6 +97,7 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.hobbyListSubscription?.unsubscribe();
     this.loggedInSubscription?.unsubscribe();
+    this.getCategoriesSubscription?.unsubscribe();
   }
 
 }
