@@ -28,7 +28,7 @@ export class LoginComponent {
   ) { }
 
   login(formName: any) {
-    if (!formName.form.valid) {
+    if (!formName.form.valid || !this.loginUser.email || !this.loginUser.password) {
       this.errorService.errorLog("invalid_form");
     } else {
       this.loginWithEmail();

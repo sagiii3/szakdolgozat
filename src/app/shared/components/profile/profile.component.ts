@@ -18,12 +18,12 @@ export class ProfileComponent {
 
   constructor(
     private userService: UserService,
-    private errorService: ErrorService) {}
-  
+    private errorService: ErrorService) { }
+
   ngOnInit(): void {
     this.getProfile();
-  } 
-  
+  }
+
   getProfile(): void {
     this.profileSubscription = this.userService.getUser().subscribe({
       next: (user: User) => {
@@ -35,23 +35,14 @@ export class ProfileComponent {
     });
   }
 
-  editProfile(): void {
-    //todo
-    //this.userService.editUser(new User(this.user.id, "agi"));
-  }
-
-  editPassword(): void{
-    
-  }
-
 
   logout(): void {
     this.userService.logout();
   }
 
-  
+
   ngOnDestroy(): void {
     this.profileSubscription?.unsubscribe();
   }
-  
+
 }

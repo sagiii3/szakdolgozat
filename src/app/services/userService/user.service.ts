@@ -8,11 +8,12 @@ import { FirebaseService } from '../firebaseService/firebase.service';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
+import { EmailAuthProvider, GoogleAuthProvider, getAuth, reauthenticateWithCredential, updateEmail, updatePassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements OnDestroy{
+export class UserService implements OnDestroy {
 
   private previousLoginUrl: string = GlobalVariables.ROUTES.home;
 
@@ -36,41 +37,21 @@ export class UserService implements OnDestroy{
           user?.uid,
           undefined,
           user?.displayName || undefined,
-          user?.email  || undefined, 
+          user?.email || undefined,
           undefined,
-          undefined, 
-          user?.photoURL  || undefined);
+          undefined,
+          user?.photoURL || undefined);
       });
     });
   }
 
-  saveUser(user: User): Promise<boolean>{
+  saveUser(user: User): Promise<boolean> {
     user.id = this.user.id;
-    if(!user.id){
-      user.confirmPassword = undefined;
-      user.password = undefined;
-      return this.firebaseService.addToCollection(
-        GlobalVariables.COLLECTIONS.users,
-        user,
-        'successful_user_save',
-        'failed_user_save',
-        User
-      );
-    } else {
-      console.log('User already exists, it wont be saved');
-      return Promise.resolve(false);
-    }
-  }
-
-  editUser(user: User): Promise<boolean>{
-    user.id = this.user.id;
-    user.confirmPassword = undefined;
-    user.password = undefined;
     return this.firebaseService.addToCollection(
       GlobalVariables.COLLECTIONS.users,
       user,
-      'successful_user_edit',
-      'failed_user_edit',
+      'successful_user_save',
+      'failed_user_save',
       User
     );
   }
@@ -124,12 +105,12 @@ export class UserService implements OnDestroy{
 
   async logout() {
     await this.angularFireAuth.signOut()
-    .then(() => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('successful_logout'));
-      this.router.navigate([GlobalVariables.ROUTES.home]);
-    }).catch((error: Error) => {
-      this.errorService.errorLog("failed_login", error);
-    });
+      .then(() => {
+        this.snackbarService.snackbarSuccess(this.translateService.instant('successful_logout'));
+        this.router.navigate([GlobalVariables.ROUTES.home]);
+      }).catch((error: Error) => {
+        this.errorService.errorLog("failed_login", error);
+      });
   }
 
   ngOnDestroy(): void {

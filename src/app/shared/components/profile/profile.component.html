@@ -12,28 +12,25 @@
         {{user.fullName}}
       </div>
     </div>
-    <div class="block">
-      <div class="grid_table">
-
-        <div class="flex_value">
-          {{'email' | translate}}:
-        </div>
-
-        <div class="flex_value">
-          {{user.email}}
-        </div>
-
-        <div class="flex_value">
-          {{'username' | translate}}:
-        </div>
-
-        <div class="flex_value">
-          {{user.username}}
-        </div>
+    <div class="flex-container block ">
+      <div class="flex-value">
+        <span class="bold">{{'full_name' | translate}}:</span>
+        <span class="margo">{{user.fullName}}</span>
       </div>
+    
+      <div class="flex-value">
+        <span class="bold">{{'email' | translate}}:</span>
+        <span class="margo">{{user.email}}</span>
+      </div>
+    
+      <div class="flex-value">
+        <span class="bold">{{'username' | translate}}:</span>
+        <span class="margo">{{user.username}}</span>
+      </div>
+    </div>
+    
     </div>
     <div class="data-div-item block">
       <button class="btn btn-danger" (click)="logout()">{{'logout' | translate}}</button>
-      <button class="btn btn-primary" (click)="editProfile()">{{'edit_profile' | translate}}</button>
     </div>
   </div>
