@@ -1,4 +1,8 @@
 <div class="outside_div">
+    <button mat-icon-button class="icon-button" [matTooltip]="'delete_hobby' | translate"
+          (click)="deleteOwnHobbyWithSubcollection()" style="color: red;">
+        <mat-icon>delete</mat-icon>
+    </button>
     <button mat-icon-button class="icon-button" [matTooltip]="'record_hobby' | translate"
           (click)="addToOwnHobbies()">
         <mat-icon>add</mat-icon>
@@ -7,7 +11,7 @@
     <div *ngIf="hobby">
         <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
         <p class="center">{{'description' | translate}}: {{hobby.description | bilingualTranslate}}</p>
-        <h3>{{'activity' | translate}}:</h3>
+        <h3 *ngIf="hobby.activities.length>0">{{'activity' | translate}}:</h3>
         <div *ngFor="let activity of hobby.activities">
             <app-activity-tile [activity]="activity" (deleteEventEmitter)="deleteActivity($event)"></app-activity-tile>
         </div>

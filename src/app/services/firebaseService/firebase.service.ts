@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { addDoc, collection, Firestore, FirestoreDataConverter, getDocs } from '@angular/fire/firestore';
 import { TranslateService } from '@ngx-translate/core';
 import { deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
-import { Observable, map, from, filter, catchError, of } from 'rxjs';
+import { Observable, map, from, catchError, of } from 'rxjs';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 import { BilingualString } from 'src/app/shared/models/billingual-string';
 import { Hobby } from 'src/app/hobbies/models/hobby';
-import { Category } from 'src/app/hobbies/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -84,13 +83,24 @@ export class FirebaseService {
 
   async removeFromCollection(collectionNeve: string, id: string): Promise<void> {
     const docRef = doc(this.firestore, collectionNeve, id);
-    deleteDoc(docRef);
     try {
       await deleteDoc(docRef);
       this.snackbarService.snackbarSuccess(this.translateService.instant('successful_delete'));
     } catch (error) {
       this.snackbarService.snackbarError(this.translateService.instant('failed_delete'));
     }
+  }
+
+  deleteCollection(collectionName: string): Observable<void> {
+    const collectionRef = collection(this.firestore, collectionName);
+    let data: any[] = [];
+    return from(getDocs(collectionRef)).pipe(
+      map((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          deleteDoc(doc.ref);
+        
+      })})
+    );
   }
 
   getCollectionList(collectionName: string, categoryId?: string): Observable<any[]> {

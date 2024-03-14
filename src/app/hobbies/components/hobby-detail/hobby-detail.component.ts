@@ -8,6 +8,9 @@ import { Activity } from '../../models/activity';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { Router } from '@angular/router';
+import { Hobby } from '../../models/hobby';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase.service';
+import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
   selector: 'app-hobby-detail',
@@ -22,12 +25,17 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   getHobbyActivitiesSubscription?: Subscription;
   deleteActivitySubscription?: Subscription;
   deleteOwnHobbySubscription?: Subscription;
+  deleteCollectionSubscription?: Subscription;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private hobbyService: HobbyService,
     private errorService: ErrorService,
-    private router: Router) { }
+    private router: Router,
+    private firebaseService: FirebaseService,
+    private userService: UserService
+    ) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
@@ -36,8 +44,8 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
 
   getHobby(): void {
     this.getHobbySubscription = this.hobbyService.getHobbyById(this.id).subscribe({
-      next: (hobby: OwnHobby) => {
-        this.hobby = hobby;
+      next: (hobby: Hobby) => {
+        this.hobby = new OwnHobby(hobby);
         this.getHobbyActivities();
       },
       error: (error: Error) => {
@@ -47,24 +55,43 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteActivity(id?: string): void {
-    this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
-      next: () => {
-        this.getHobbyActivities();
-      },
-      error: (error: Error) => {
-        this.errorService.errorLog('get_activities_error', error);
-      }
-    });
     if(this.hobby?.activities.length == 1){
-      this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(this.id).subscribe({
+      this.deleteOwnHobbyWithSubcollection();
+    }
+    else{
+      this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
         next: () => {
-          this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
+          this.getHobbyActivities();
         },
         error: (error: Error) => {
-          this.errorService.errorLog('delete_own_hobby_error', error);
+          this.errorService.errorLog('get_activities_error', error);
         }
       });
     }
+  }
+
+  deleteOwnHobby(){
+    this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(this.id).subscribe({
+      next: () => {
+        this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('delete_own_hobby_error', error);
+      }
+    });
+  }
+
+  deleteOwnHobbyWithSubcollection(){
+    this.deleteCollectionSubscription = this.firebaseService.deleteCollection(
+      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + 
+      GlobalVariables.COLLECTIONS.ownHobbies + '/' + this.id + '/' + GlobalVariables.COLLECTIONS.activities).subscribe({
+        next: () => {
+          this.deleteOwnHobby()
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('delete_ownhobby_error', error);
+        }
+      });
   }
 
   addToOwnHobbies(): void {

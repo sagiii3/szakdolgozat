@@ -6,6 +6,10 @@ import { ErrorService } from 'src/app/services/errorService/error.service';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { Category } from '../../models/category';
+import { OwnHobby } from '../../models/ownHobby';
+import { Activity } from '../../models/activity';
+import { FirebaseService } from 'src/app/services/firebaseService/firebase.service';
+import { UserService } from 'src/app/services/userService/user.service';
 
 @Component({
   selector: 'app-own-hobbies',
@@ -15,16 +19,20 @@ import { Category } from '../../models/category';
 export class OwnHobbiesComponent implements OnInit, OnDestroy{
   globalVariables = GlobalVariables;
   
-  hobbyList: Hobby[] = [];
+  hobbyList: OwnHobby[] = [];
   categoryFilter?: Category;
   categories?: Category[];
 
   private ownHobbySubscription?: Subscription;
   private getCategoriesSubscription?: Subscription;
+  private deleteOwnHobbySubscription?: Subscription;
+  private deleteCollectionSubscription?: Subscription;
 
   constructor(
     private hobbyService: HobbyService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private firebaseService: FirebaseService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +43,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy{
   getOwnHobbies(): void {
     this.ownHobbySubscription = this.hobbyService.getOwnHobbies(this.categoryFilter?.id)
     .subscribe({
-      next: (hobbies: Hobby[]) => {
+      next: (hobbies: OwnHobby[]) => {
         this.hobbyList = hobbies;
       },
       error: (error: Error) => {
@@ -49,8 +57,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy{
       next: (categories: Category[]) => {
         this.categories = categories;
       },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
+      error: (error: Error) => {
+        this.errorService.errorLog('get_categories_error', error);
       }
     });
   }
@@ -59,9 +67,31 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy{
     this.hobbyService.openDialog(RecordHobbyComponent, hobby);
   }
 
+  deleteOwnHobby(hobby: OwnHobby){
+    this.deleteCollectionSubscription = this.firebaseService.deleteCollection(
+      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + 
+      GlobalVariables.COLLECTIONS.ownHobbies + '/' + hobby.id + '/' + GlobalVariables.COLLECTIONS.activities).subscribe({
+        next: () => {
+          this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(hobby.id).subscribe({
+            next: () => {
+              this.getOwnHobbies();
+            },
+            error: (error: Error) => {
+              this.errorService.errorLog('delete_ownhobby_error', error);
+            }
+          });
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('delete_ownhobby_error', error);
+        }
+      });
+  }
+
   ngOnDestroy(): void {
     this.ownHobbySubscription?.unsubscribe();
     this.getCategoriesSubscription?.unsubscribe();
+    this.deleteOwnHobbySubscription?.unsubscribe();
+    this.deleteCollectionSubscription?.unsubscribe();
   }
 
 }

@@ -24,7 +24,8 @@
     </div>
     <div class="hobby-tile-container">
       <div class="hobby-tile" *ngFor="let hobby of hobbyList">
-        <app-hobby-tile [hobby]="hobby" (addToOwnHobbiesEmitter)="addToOwnHobby($event)"></app-hobby-tile>
+        <app-hobby-tile [hobby]="hobby" (addToOwnHobbiesEmitter)="addToOwnHobby($event)"
+        (deleteActivityEmitter)="deleteOwnHobby($event)" [ownHobby]="true"></app-hobby-tile>
       </div>
     </div>
   </div>

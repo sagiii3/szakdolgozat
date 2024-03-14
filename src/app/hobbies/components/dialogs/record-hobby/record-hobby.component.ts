@@ -34,7 +34,7 @@ export class RecordHobbyComponent {
       if(addHobby && addActivity){
         this.closeDialog();
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate([GlobalVariables.ROUTES.ownHobbies, this.data.hobby.id]);
+          this.router.navigate([GlobalVariables.ROUTES.hobbyList, this.data.hobby.id]);
         }); 
       }
       else{

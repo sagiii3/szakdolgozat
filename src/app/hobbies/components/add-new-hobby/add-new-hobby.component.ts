@@ -17,7 +17,7 @@ import { MatSelectionListChange } from '@angular/material/list';
   templateUrl: './add-new-hobby.component.html',
   styleUrls: ['./add-new-hobby.component.scss']
 })
-export class AddNewHobbyComponent implements OnInit, OnDestroy{
+export class AddNewHobbyComponent implements OnInit, OnDestroy {
   hobby: Hobby = new Hobby(
     new BilingualString(),
     new BilingualString());
@@ -25,7 +25,7 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
   categories?: Category[];
 
   categoriesFormControl = new FormControl();
-  
+
 
   getCategoriesSubscription?: Subscription;
 
@@ -43,8 +43,8 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
 
   async addNewHobby() {
     this.hobby.categoryIds = this.categoriesFormControl.value.map((category: Category) => category.id);
-    let addHobby: boolean =  await this.hobbyService.addNewHobby(this.hobby);
-    if(addHobby){
+    let addHobby: boolean = await this.hobbyService.addNewHobby(this.hobby);
+    if (addHobby) {
       this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
     }
   }
@@ -70,7 +70,7 @@ export class AddNewHobbyComponent implements OnInit, OnDestroy{
     this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
   }
 
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.getCategoriesSubscription?.unsubscribe();
   }
 }

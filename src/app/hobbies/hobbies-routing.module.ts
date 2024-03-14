@@ -11,7 +11,7 @@ import { AddNewHobbyComponent } from './components/add-new-hobby/add-new-hobby.c
 const routes: Routes = [
   { path: GlobalVariables.ROUTES.hobbyList, component: HobbyListComponent },
   { path: GlobalVariables.ROUTES.ownHobbies, component: OwnHobbiesComponent },
-  { path: GlobalVariables.ROUTES.ownHobbies + '/:id', component: HobbyDetailComponent },
+  { path: GlobalVariables.ROUTES.hobbyList + '/:id', component: HobbyDetailComponent },
   { path: GlobalVariables.ROUTES.activityWrap, component: ActivityWrapComponent },
   { path: GlobalVariables.ROUTES.addNewHobby, component: AddNewHobbyComponent },
 ]
