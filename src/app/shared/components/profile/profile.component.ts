@@ -3,7 +3,6 @@ import { User } from '../../models/user';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/userService/user.service';
 import { ErrorService } from 'src/app/services/errorService/error.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -15,24 +14,41 @@ export class ProfileComponent {
 
 
   profileSubscription?: Subscription;
+  offlineProfileSubscription?: Subscription;
 
   constructor(
     private userService: UserService,
     private errorService: ErrorService) { }
 
   ngOnInit(): void {
-    this.getProfile();
+    if(navigator.onLine){
+      this.getProfile();
+    }
+    else{
+      this.getOfflineProfile();
+    }
   }
 
   getProfile(): void {
     this.profileSubscription = this.userService.getUser().subscribe({
       next: (user: User) => {
         this.user = user;
+        //put to the local storage 
+        localStorage.setItem('user', JSON.stringify(user));
+
       },
       error: (error: Error) => {
         this.errorService.errorLog('profile_error', error);
       }
     });
+  }
+
+  getOfflineProfile(): void{
+    //get from the local storage
+    const user = localStorage.getItem('user');
+    if(user){
+      this.user = JSON.parse(user);
+    }
   }
 
 
@@ -43,6 +59,7 @@ export class ProfileComponent {
 
   ngOnDestroy(): void {
     this.profileSubscription?.unsubscribe();
+    this.offlineProfileSubscription?.unsubscribe();
   }
 
 }
