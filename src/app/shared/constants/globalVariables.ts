@@ -5,6 +5,12 @@ export class GlobalVariables {
   public static PRIVATE = 'Private';
   public static VISIBILITY_TYPES = [this.PUBLIC, this.PRIVATE];
 
+  public static DB_STORE_NAMES = {
+    hobbies: 'hobbies',
+    ownHobbies: 'ownHobbies',
+    activities: 'activities'
+  };
+
   //Firebase collections
   public static COLLECTIONS = {
     users: 'users',

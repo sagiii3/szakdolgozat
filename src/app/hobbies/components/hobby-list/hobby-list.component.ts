@@ -6,13 +6,16 @@ import { HobbyService } from 'src/app/services/hobbyService/hobby.service';
 import { RecordHobbyComponent } from '../dialogs/record-hobby/record-hobby.component';
 import { Category } from '../../models/category';
 import { UserService } from 'src/app/services/userService/user.service';
+import { IndexedDBService } from 'src/app/services/indexedDBService/indexed-db.service';
+import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
+import { OwnHobby } from '../../models/ownHobby';
 
 @Component({
   selector: 'app-hobby-list',
   templateUrl: './hobby-list.component.html',
   styleUrls: ['./hobby-list.component.scss']
 })
-export class HobbyListComponent implements OnInit, OnDestroy{
+export class HobbyListComponent implements OnInit, OnDestroy {
 
   hobbyList: Hobby[] = [];
   isLoggedIn: boolean = false;
@@ -21,45 +24,71 @@ export class HobbyListComponent implements OnInit, OnDestroy{
   categories?: Category[];
 
   private hobbyListSubscription?: Subscription;
+  private hobbyListFromIDBSubscription?: Subscription;
   private loggedInSubscription?: Subscription;
   private getCategoriesSubscription?: Subscription;
-  
+  private getHobbyCategoriesSubscription?: Subscription;
+
 
   constructor(
     private errorService: ErrorService,
     private hobbyService: HobbyService,
-    private userService: UserService
-    ) { }
+    private userService: UserService,
+    private indexedDBService: IndexedDBService
+
+  ) { }
 
   ngOnInit(): void {
     this.getCategories();
-    this.getHobbies();
+
     this.getLoggedInSubscription();
+    if (navigator.onLine) {
+      console.log("online")
+      this.getHobbies();
+    }
+    else {
+      console.log("offline")
+      this.getHobbiesFromIDB();
+    }
   }
 
   getHobbies(): void {
+    this.indexedDBService.deleteDBData(GlobalVariables.DB_STORE_NAMES.hobbies);
     this.hobbyListSubscription = this.hobbyService.getHobbies(this.categoryFilter?.id)
-    .subscribe({
-      next: (hobbies: Hobby[]) => {
-        this.hobbyList = hobbies;
-        this.hobbyList.forEach(hobby => {
-          hobby.categoryIds.forEach(categoryId => {
-            hobby.categories = [];
-            this.hobbyService.getHobbyCategoryById(categoryId).subscribe({
-              next: (category: Category) => {
-                hobby.categories.push(category);
-              },
-              error: (error: Error) => {
-                this.errorService.errorLog('get_hobby_category_error', error);
-              }
+      .subscribe({
+        next: (hobbies: Hobby[]) => {
+          this.hobbyList = hobbies;
+
+          this.hobbyList.forEach(hobby => {
+            hobby.categoryIds.forEach(categoryId => {
+              hobby.categories = [];
+              this.getHobbyCategoriesSubscription = this.hobbyService.getHobbyCategoryById(categoryId).subscribe({
+                next: (category: Category) => {
+                  hobby.categories.push(category);
+                },
+                error: (error: Error) => {
+                  this.errorService.errorLog('get_hobby_category_error', error);
+                },
+                complete: () => {
+                  //save to indexedDB
+                  this.indexedDBService.addHobby(hobby as OwnHobby, GlobalVariables.DB_STORE_NAMES.hobbies, true);
+                }
+              });
             });
           });
-        });
-      },
-      error: (error: Error) => {
-        this.errorService.errorLog('get_hobbies_error', error);
-      }
-    });
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('get_hobbies_error', error);
+        }
+      });
+  }
+
+  getHobbiesFromIDB() {
+    this.hobbyListFromIDBSubscription = this.indexedDBService.loadHobbies(GlobalVariables.DB_STORE_NAMES.hobbies).subscribe(
+      (hobbyList: Hobby[]) => {
+        console.log(hobbyList, "aa")
+        this.hobbyList = hobbyList.length > 0 ? hobbyList : [];
+      });
   }
 
   getCategories(): void {
@@ -75,17 +104,17 @@ export class HobbyListComponent implements OnInit, OnDestroy{
 
 
   addToOwnHobbies(hobby: Hobby): void {
-    if(this.isLoggedIn){
+    if (this.isLoggedIn) {
       this.hobbyService.openDialog(RecordHobbyComponent, hobby);
     }
-    else{
+    else {
       this.errorService.errorLog("not_logged_in")
     }
   }
 
-  getLoggedInSubscription(): void{
+  getLoggedInSubscription(): void {
     this.loggedInSubscription = this.userService.isAuthenticated().subscribe({
-      next: (data) =>{
+      next: (data) => {
         this.isLoggedIn = data ? true : false;
       },
       error: (error: Error) => {
@@ -98,6 +127,8 @@ export class HobbyListComponent implements OnInit, OnDestroy{
     this.hobbyListSubscription?.unsubscribe();
     this.loggedInSubscription?.unsubscribe();
     this.getCategoriesSubscription?.unsubscribe();
+    this.getHobbyCategoriesSubscription?.unsubscribe();
+    this.hobbyListFromIDBSubscription?.unsubscribe();
   }
 
 }

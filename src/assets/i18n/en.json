@@ -132,5 +132,14 @@
     "get_categories_error": "Error while geting categories",
     "delete_ownhobby_error": "Error while deleting ownhobby",
     "delete_hobby": "Delete hobby",
+    "update_downloaded": "Update downloaded",
+    "error_db_open": "Error while opening database",
+    "db_not_loaded": "Database not loaded",
+    "repeated_hobby": "Repeated hobby",
+    "add_hobby_error_idb": "Error while adding hobby to indexeddb",
+    "hobby_added_idb": "Hobby added to indexeddb",
+    "hobby_deleted_idb": "Hobby deleted from indexeddb",
+    "delete_db_data_error": "Error while deleting database data",
+    "db_data_deleted": "Database data deleted",
     "home_intro": "Would you like to see how much do you spend on your hobbies? Are you curious about the statistics? Wouldn’t it be great to see how much free time you had in the past few months? If your answer to any of these questions is “yes” then the Hobby Journal is the solution. This wonderful application provides a great variety of functions to the users. After registration and profile making, you can add an array of common hobbies to your own collection, you can set the activity’s date, length and even add notes. If you changed your mind or made a mistake, you can also delete these activities. If you can’t find one of your beloved hobbies in the hobby list, then you can add new hobbies as a logged in user. You can set the name, description, picture, and category of the new hobby. If you find this application useful and you would like to recommend it one of your foreigner friends, language barriers aren’t a problem. If they don’t speak Hungarian, they can easily change the language to English. You can filter the hobbies based on categories; this allows you to easily find hobbies that interest you."
 }
