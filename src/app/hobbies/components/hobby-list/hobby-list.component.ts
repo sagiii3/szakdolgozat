@@ -84,22 +84,28 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   }
 
   getHobbiesFromIDB() {
-    this.hobbyListFromIDBSubscription = this.indexedDBService.loadHobbies(GlobalVariables.DB_STORE_NAMES.hobbies).subscribe(
-      (hobbyList: Hobby[]) => {
-        console.log(hobbyList, "aa")
-        this.hobbyList = hobbyList.length > 0 ? hobbyList : [];
+    this.hobbyListFromIDBSubscription = this.indexedDBService.loadHobbies(GlobalVariables.DB_STORE_NAMES.hobbies)
+      .subscribe({
+        next: (hobbies: Hobby[]) => {
+          this.hobbyList = hobbies;
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('get_hobbies_idb_error', error);
+        }
       });
   }
 
+
   getCategories(): void {
-    this.getCategoriesSubscription = this.hobbyService.getHobbyCategories().subscribe({
-      next: (categories: Category[]) => {
-        this.categories = categories;
-      },
-      error: (error: any) => {
-        this.errorService.errorLog(error);
-      }
-    });
+    this.getCategoriesSubscription = this.hobbyService.getHobbyCategories()
+      .subscribe({
+        next: (categories: Category[]) => {
+          this.categories = categories;
+        },
+        error: (error: any) => {
+          this.errorService.errorLog(error);
+        }
+      });
   }
 
 

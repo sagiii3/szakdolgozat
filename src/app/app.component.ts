@@ -52,14 +52,7 @@ export class AppComponent {
 
     createObjectStore(db: IDBDatabase, objectStoreName: string): void {
       if (!db.objectStoreNames.contains(objectStoreName)) {
-        let objectStore = db.createObjectStore(objectStoreName, { keyPath: 'id'});
-        console.log(objectStore);
-        objectStore.createIndex('nev', 'nev', { unique: false });
-        objectStore.createIndex('kepUrl', 'kepUrl', { unique: false });
-        objectStore.createIndex('szin', 'szin', { unique: false });
-        objectStore.createIndex('meret', 'meret', { unique: false });
-        objectStore.createIndex('ar', 'ar', { unique: false });
-        objectStore.createIndex('elerhetoDb', 'elerhetoDb', { unique: false });
+        db.createObjectStore(objectStoreName, { keyPath: 'id'});
       }
     }
 }

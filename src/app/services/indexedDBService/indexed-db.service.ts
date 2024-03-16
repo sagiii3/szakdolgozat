@@ -36,7 +36,6 @@ export class IndexedDBService {
       }
 
       request.onsuccess = (e: any) => {
-        this.loadHobbies(objectStoreName);
         if (withoutMessage) return;
         this.snackbarService.snackbarSuccess(this.translateService.instant('hobby_added_idb'));
       }
@@ -87,7 +86,7 @@ export class IndexedDBService {
 
   public loadHobbies(objectStoreName: string): Observable<OwnHobby[]> {
     //várjuk meg amíg a konstruktor lefut és inicializálódik az adatbázis
-    setTimeout(() => { }, 3000);
+    setTimeout(() => { }, 5000);
     if (!this.db) {
       this.errorService.errorLog('db_not_loaded');
       return new Observable<OwnHobby[]>();
