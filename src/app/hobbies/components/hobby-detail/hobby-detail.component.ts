@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { Hobby } from '../../models/hobby';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase.service';
 import { UserService } from 'src/app/services/userService/user.service';
+import { IndexedDBService } from 'src/app/services/indexedDBService/indexed-db.service';
 
 @Component({
   selector: 'app-hobby-detail',
@@ -27,6 +28,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   deleteActivitySubscription?: Subscription;
   deleteOwnHobbySubscription?: Subscription;
   deleteCollectionSubscription?: Subscription;
+  getHobbyFromIDBSubscription?: Subscription;
 
 
   constructor(
@@ -35,13 +37,18 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private router: Router,
     private firebaseService: FirebaseService,
-    private userService: UserService
-    ) { }
+    private userService: UserService,
+    private indexedDBService: IndexedDBService
+  ) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
-    this.getHobby();
-    navigator.onLine
+    if (this.online) {
+      this.getHobby();
+    }
+    else {
+      this.getHobbyFromIDB();
+    }
   }
 
   getHobby(): void {
@@ -56,11 +63,23 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  getHobbyFromIDB(): void {
+    this.getHobbyFromIDBSubscription = this.indexedDBService.getElementById(this.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies).subscribe({
+      next: (hobby: any) => {
+        this.hobby = hobby as OwnHobby;
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('get_element_by_id_from_idb_error', error);
+      }
+    });
+  }
+
+
   deleteActivity(id?: string): void {
-    if(this.hobby?.activities.length == 1){
+    if (this.hobby?.activities.length == 1) {
       this.deleteOwnHobbyWithSubcollection();
     }
-    else{
+    else {
       this.deleteActivitySubscription = this.hobbyService.deleteActivityByIds(this.hobby?.id, id).subscribe({
         next: () => {
           this.getHobbyActivities();
@@ -72,7 +91,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteOwnHobby(){
+  deleteOwnHobby() {
     this.deleteOwnHobbySubscription = this.hobbyService.deleteOwnHobby(this.id).subscribe({
       next: () => {
         this.router.navigate([GlobalVariables.ROUTES.ownHobbies]);
@@ -83,9 +102,9 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteOwnHobbyWithSubcollection(){
+  deleteOwnHobbyWithSubcollection() {
     this.deleteCollectionSubscription = this.firebaseService.deleteCollection(
-      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' + 
+      GlobalVariables.COLLECTIONS.users + '/' + this.userService.getCurrentUser().id + '/' +
       GlobalVariables.COLLECTIONS.ownHobbies + '/' + this.id + '/' + GlobalVariables.COLLECTIONS.activities).subscribe({
         next: () => {
           this.deleteOwnHobby()
@@ -105,6 +124,17 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
       next: (activities: Activity[]) => {
         if (this.hobby) {
           this.hobby.activities = activities;
+          this.indexedDBService.getElementById(this.hobby.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies).subscribe({
+            next: (hobby : OwnHobby) => {
+              this.hobby!.categories = hobby.categories;
+              this.hobby!.categoryIds = hobby.categoryIds;
+              this.indexedDBService.updateElement(GlobalVariables.DB_STORE_NAMES.ownHobbies, this.hobby);
+            },
+            error: (error: Error) => {
+              this.errorService.errorLog("error", error);
+            }
+          });
+          
         }
       },
       error: (error: Error) => {
@@ -118,5 +148,6 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     this.getHobbyActivitiesSubscription?.unsubscribe();
     this.deleteActivitySubscription?.unsubscribe();
     this.deleteOwnHobbySubscription?.unsubscribe();
+    this.getHobbyFromIDBSubscription?.unsubscribe();
   }
 }

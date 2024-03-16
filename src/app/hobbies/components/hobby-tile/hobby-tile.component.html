@@ -21,8 +21,8 @@
     </div>
   </div>
   <div class="content">
-    <button *ngIf="hobby" [routerLink]="['/', globalVariables.ROUTES.hobbyList, hobby.id]" class="tile-image-button"
-      matTooltip="{{'details' | translate}}">
+    <button *ngIf="hobby" (click)="redirectToDetail()" class="tile-image-button"
+      matTooltip="{{'details' | translate}}" >
       <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />
     </button>
   </div>

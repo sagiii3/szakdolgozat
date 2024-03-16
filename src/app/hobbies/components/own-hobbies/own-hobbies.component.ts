@@ -31,6 +31,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
   private deleteOwnHobbySubscription?: Subscription;
   private deleteCollectionSubscription?: Subscription;
   private ownHobbyFromIDBSubscription?: Subscription;
+  private getCategoriesFromIDBSubscription?: Subscription;
 
   constructor(
     private hobbyService: HobbyService,
@@ -41,17 +42,26 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    if (this.online) {
+      this.getOwnHobbies();
+      this.getCategories();
+    }
+    else {
+      this.getOwnHobbiesFromIDB();
+      this.getCategoriesFromIDB();
+    }
+  }
+
+  filter(): void{
     if (this.online) {
       this.getOwnHobbies();
     }
-    else {
+    else{
       this.getOwnHobbiesFromIDB();
     }
   }
 
   getOwnHobbies(): void {
-    this.indexedDBService.deleteDBData(GlobalVariables.DB_STORE_NAMES.ownHobbies);
     this.ownHobbySubscription = this.hobbyService.getOwnHobbies(this.categoryFilter?.id)
       .subscribe({
         next: (hobbies: OwnHobby[]) => {
@@ -68,7 +78,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
   }
 
   getOwnHobbiesFromIDB(): void {
-    this.ownHobbyFromIDBSubscription = this.indexedDBService.loadHobbies(GlobalVariables.DB_STORE_NAMES.ownHobbies)
+    this.ownHobbyFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.ownHobbies, this.categoryFilter?.id)
       .subscribe({
         next: (hobbies: OwnHobby[]) => {
           this.hobbyList = hobbies;
@@ -87,6 +97,18 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
           //save to indexedDB
           this.indexedDBService.addElement(category, GlobalVariables.DB_STORE_NAMES.categories, true);
         });
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('get_categories_error', error);
+      }
+    });
+  }
+
+  getCategoriesFromIDB(): void {
+    this.getCategoriesFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories)
+    .subscribe({
+      next: (categories: Category[]) => {
+        this.categories = categories;
       },
       error: (error: Error) => {
         this.errorService.errorLog('get_categories_error', error);
@@ -124,6 +146,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
     this.deleteOwnHobbySubscription?.unsubscribe();
     this.deleteCollectionSubscription?.unsubscribe();
     this.ownHobbyFromIDBSubscription?.unsubscribe();
+    this.getCategoriesFromIDBSubscription?.unsubscribe();
   }
 
 }

@@ -7,10 +7,11 @@ import { Timestamp } from '@firebase/firestore-types';
 })
 export class DateTimePipe implements PipeTransform {
 
-  constructor(private datePipe: DatePipe){}
+  constructor(private datePipe: DatePipe) { }
 
   transform(value?: Timestamp) {
-    return this.datePipe.transform(value?.toDate(),  'yyyy. MM. dd.');
+    let time = navigator.onLine ? value?.toDate() : value!.seconds * 1000;
+    return this.datePipe.transform(time, 'yyyy. MM. dd.');
   }
 
 }

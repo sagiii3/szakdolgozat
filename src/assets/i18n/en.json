@@ -138,6 +138,8 @@
     "repeated_element": "Repeated element",
     "add_element_error_idb": "Error while adding element to indexeddb",
     "element_added_idb": "Element added to indexeddb",
+    "get_element_by_id_from_idb_error": "Error while getting element by id from indexeddb",
+    "element_updated_idb": "Element updated by id in indexeddb",
     "delete_db_data_error": "Error while deleting database data",
     "db_data_deleted": "Database data deleted",
     "get_own_hobbies_idb_error": "Error while getting own hobbies from indexeddb",

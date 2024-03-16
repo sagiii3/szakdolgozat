@@ -10,10 +10,10 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button class="btn btn-success" (click)="getOwnHobbies()" [matTooltip]="'filter' | translate">
+        <button class="btn btn-success" (click)="filter()" [matTooltip]="'filter' | translate">
           <mat-icon>filter_list</mat-icon>
         </button>
-        <button class="btn btn-danger" (click)="categoryFilter = undefined; getOwnHobbies();" [matTooltip]="'delete_filter' | translate ">
+        <button class="btn btn-danger" (click)="categoryFilter = undefined; filter();" [matTooltip]="'delete_filter' | translate ">
           <mat-icon>clear</mat-icon>
         </button>
         <button class="btn btn-primary" [routerLink]="['/', globalVariables.ROUTES.addNewHobby]" *ngIf="online"

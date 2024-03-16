@@ -10,10 +10,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="btn btn-success" (click)="getHobbies()" [matTooltip]="'filter' | translate">
+      <button class="btn btn-success" (click)="filter()" [matTooltip]="'filter' | translate">
         <mat-icon>filter_list</mat-icon>
       </button>
-      <button class="btn btn-danger" (click)="categoryFilter = undefined; getHobbies();" [matTooltip]="'delete_filter' | translate ">
+      <button class="btn btn-danger" (click)="categoryFilter = undefined; filter();" [matTooltip]="'delete_filter' | translate ">
         <mat-icon>clear</mat-icon>
       </button>
     </div>

@@ -30,6 +30,7 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   private loggedInSubscription?: Subscription;
   private getCategoriesSubscription?: Subscription;
   private getHobbyCategoriesSubscription?: Subscription;
+  private getCategoriesFromIDBSubscription?: Subscription;
 
 
   constructor(
@@ -41,13 +42,22 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getCategories();
-
     this.getLoggedInSubscription();
     if (this.online) {
       this.getHobbies();
+      this.getCategories();
     }
     else {
+      this.getHobbiesFromIDB();
+      this.getCategoriesFromIDB();
+    }
+  }
+
+  filter(): void{
+    if (this.online) {
+      this.getHobbies();
+    }
+    else{
       this.getHobbiesFromIDB();
     }
   }
@@ -62,9 +72,11 @@ export class HobbyListComponent implements OnInit, OnDestroy {
           this.hobbyList.forEach(hobby => {
             hobby.categoryIds.forEach(categoryId => {
               hobby.categories = [];
+              hobby.categoryIds = [];
               this.getHobbyCategoriesSubscription = this.hobbyService.getHobbyCategoryById(categoryId).subscribe({
                 next: (category: Category) => {
                   hobby.categories.push(category);
+                  hobby.categoryIds.push(category.id!);
                 },
                 error: (error: Error) => {
                   this.errorService.errorLog('get_hobby_category_error', error);
@@ -84,7 +96,7 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   }
 
   getHobbiesFromIDB() {
-    this.hobbyListFromIDBSubscription = this.indexedDBService.loadHobbies(GlobalVariables.DB_STORE_NAMES.hobbies)
+    this.hobbyListFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.hobbies, this.categoryFilter?.id)
       .subscribe({
         next: (hobbies: Hobby[]) => {
           this.hobbyList = hobbies;
@@ -111,6 +123,18 @@ export class HobbyListComponent implements OnInit, OnDestroy {
           this.errorService.errorLog(error);
         }
       });
+  }
+
+  getCategoriesFromIDB(): void {
+    this.getCategoriesFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories)
+    .subscribe({
+      next: (categories: Category[]) => {
+        this.categories = categories;
+      },
+      error: (error: Error) => {
+        this.errorService.errorLog('get_categories_error', error);
+      }
+    });
   }
 
 
@@ -140,6 +164,7 @@ export class HobbyListComponent implements OnInit, OnDestroy {
     this.getCategoriesSubscription?.unsubscribe();
     this.getHobbyCategoriesSubscription?.unsubscribe();
     this.hobbyListFromIDBSubscription?.unsubscribe();
+    this.getCategoriesFromIDBSubscription?.unsubscribe();
   }
 
 }

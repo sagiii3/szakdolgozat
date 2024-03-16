@@ -42,6 +42,25 @@ export class IndexedDBService {
     }
   }
 
+  updateElement(objectStoreName: string, element: any) {
+    if (!this.db) {
+      this.errorService.errorLog('db_not_loaded');
+    } else {
+      let objectStore = this.db.transaction(objectStoreName, 'readwrite').objectStore(objectStoreName);
+
+      let request = objectStore.put(element);
+
+      request.onerror = (e: any) => {
+        this.errorService.errorLog('update_element_error_idb', e.target.error);
+      }
+
+      request.onsuccess = (e: any) => {
+        this.snackbarService.snackbarSuccess(this.translateService.instant('element_updated_idb'));
+      }
+    }
+  }
+
+
   public deleteDBData(objectStoreName: string) {
     if (!this.db) {
       this.errorService.errorLog('db_not_loaded');
@@ -60,27 +79,51 @@ export class IndexedDBService {
     }
   }
 
+  getElementById(id: string, objectStoreName: string): Observable<any> {
+    if (!this.db) {
+      this.errorService.errorLog('db_not_loaded');
+      return new Observable<any>();
+    }
+    else {
+      let objectStore = this.db.transaction(objectStoreName).objectStore(objectStoreName);
+      return new Observable<any>(subscriber => {
+        const request = objectStore.get(id);
+        request.onsuccess = (e: any) => {
+          subscriber.next(request.result);
+        }
+      });
+    }
+  }
 
 
-  public loadHobbies(objectStoreName: string): Observable<OwnHobby[]> {
+
+
+  public loadCollection(objectStoreName: string, filterId?: string): Observable<any[]> {
     //várjuk meg amíg a konstruktor lefut és inicializálódik az adatbázis
     setTimeout(() => { }, 5000);
     if (!this.db) {
       this.errorService.errorLog('db_not_loaded');
-      return new Observable<OwnHobby[]>();
+      return new Observable<any[]>();
     }
     else {
       let objectStore = this.db.transaction(objectStoreName).objectStore(objectStoreName);
-      return new Observable<OwnHobby[]>(subscriber => {
-        let hobbyList: OwnHobby[] = [];
+      return new Observable<any[]>(subscriber => {
+        let dataList: any[] = [];
 
         objectStore.openCursor().onsuccess = (e: any) => {
           const cursor = e.target.result;
           if (cursor) {
-            hobbyList.push(cursor.value);
+            if(filterId){
+              if(cursor.value.categoryIds.includes(filterId)){
+                dataList.push(cursor.value);
+              }
+            }
+            else{
+              dataList.push(cursor.value);
+            }
             cursor.continue();
           } else {
-            subscriber.next(hobbyList);
+            subscriber.next(dataList);
           }
         };
       });

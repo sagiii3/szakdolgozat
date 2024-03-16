@@ -3,6 +3,7 @@ import { Hobby } from '../../models/hobby';
 import * as e from 'express';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { OwnHobby } from '../../models/ownHobby';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hobby-tile',
@@ -17,6 +18,10 @@ export class HobbyTileComponent {
   @Output() deleteActivityEmitter = new EventEmitter<OwnHobby>();
 
   online: boolean = navigator.onLine;
+
+  constructor(
+    private router: Router
+  ) { }
   
   addToOwnHobbies() {
     this.addToOwnHobbiesEmitter.emit(this.hobby);
@@ -24,5 +29,11 @@ export class HobbyTileComponent {
 
   deleteHobby() {
     this.deleteActivityEmitter.emit(this.hobby as OwnHobby);
+  }
+
+  redirectToDetail() {
+    if (this.ownHobby) {
+      this.router.navigate([GlobalVariables.ROUTES.hobbyList, this.hobby?.id]);
+    }
   }
 }

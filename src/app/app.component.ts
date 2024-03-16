@@ -42,7 +42,6 @@ export class AppComponent {
       indexedDBService.db = e.target.result  as IDBDatabase;
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.hobbies);
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.ownHobbies);
-      this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.activities);
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.categories);
     };
 
