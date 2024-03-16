@@ -8,7 +8,6 @@ import { FirebaseService } from '../firebaseService/firebase.service';
 import { ErrorService } from '../errorService/error.service';
 import { SnackbarService } from '../snackbarService/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
-import { EmailAuthProvider, GoogleAuthProvider, getAuth, reauthenticateWithCredential, updateEmail, updatePassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'

@@ -9,6 +9,7 @@ import { Activity } from '../../models/activity';
 export class ActivityTileComponent {
   @Input() activity?: Activity;
   @Output() deleteEventEmitter = new EventEmitter<string>();
+  online: boolean = navigator.onLine;
     constructor() { }
 
 

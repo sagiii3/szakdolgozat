@@ -20,6 +20,8 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   hobbyList: Hobby[] = [];
   isLoggedIn: boolean = false;
 
+  online: boolean = navigator.onLine;
+
   categoryFilter?: Category;
   categories?: Category[];
 
@@ -42,12 +44,10 @@ export class HobbyListComponent implements OnInit, OnDestroy {
     this.getCategories();
 
     this.getLoggedInSubscription();
-    if (navigator.onLine) {
-      console.log("online")
+    if (this.online) {
       this.getHobbies();
     }
     else {
-      console.log("offline")
       this.getHobbiesFromIDB();
     }
   }

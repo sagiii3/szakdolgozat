@@ -16,7 +16,7 @@
         <button class="btn btn-danger" (click)="categoryFilter = undefined; getOwnHobbies();" [matTooltip]="'delete_filter' | translate ">
           <mat-icon>clear</mat-icon>
         </button>
-        <button class="btn btn-primary" [routerLink]="['/', globalVariables.ROUTES.addNewHobby]" 
+        <button class="btn btn-primary" [routerLink]="['/', globalVariables.ROUTES.addNewHobby]" *ngIf="online"
           [matTooltip]="'add_new_hobby' | translate ">
           <mat-icon>add</mat-icon>
         </button>

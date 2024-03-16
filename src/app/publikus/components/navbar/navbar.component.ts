@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isScreenSmall2: boolean = false;
 
   isLoggedIn: boolean = false;
-
+  online: boolean = navigator.onLine;
+  
   private breakpointObserverSubscription?: Subscription;
   private breakpointObserverSubscription2?: Subscription;
   private isAuthSubscription?: Subscription;

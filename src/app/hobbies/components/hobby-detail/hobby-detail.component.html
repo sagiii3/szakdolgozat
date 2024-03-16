@@ -1,12 +1,14 @@
 <div class="outside_div">
-    <button mat-icon-button class="icon-button" [matTooltip]="'delete_hobby' | translate"
-          (click)="deleteOwnHobbyWithSubcollection()" style="color: red;">
-        <mat-icon>delete</mat-icon>
-    </button>
-    <button mat-icon-button class="icon-button" [matTooltip]="'record_hobby' | translate"
-          (click)="addToOwnHobbies()">
-        <mat-icon>add</mat-icon>
-    </button>
+    <div *ngIf="online">
+        <button mat-icon-button class="icon-button" [matTooltip]="'delete_hobby' | translate"
+            (click)="deleteOwnHobbyWithSubcollection()" style="color: red;">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button class="icon-button" [matTooltip]="'record_hobby' | translate"
+            (click)="addToOwnHobbies()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
     <h1 *ngIf="hobby" class="center"> {{"hobby_detail" | translate }} - {{ hobby.name | bilingualTranslate}}</h1>
     <div *ngIf="hobby">
         <img [src]="hobby.imageUrl" alt="{{ hobby.name | bilingualTranslate}} image" class="tile-image" />

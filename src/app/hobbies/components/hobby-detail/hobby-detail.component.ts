@@ -20,6 +20,7 @@ import { UserService } from 'src/app/services/userService/user.service';
 export class HobbyDetailComponent implements OnInit, OnDestroy {
   id?: string;
   hobby?: OwnHobby;
+  online: boolean = navigator.onLine;
 
   getHobbySubscription?: Subscription;
   getHobbyActivitiesSubscription?: Subscription;
@@ -40,6 +41,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') || undefined;
     this.getHobby();
+    navigator.onLine
   }
 
   getHobby(): void {

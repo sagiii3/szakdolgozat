@@ -24,8 +24,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
   categoryFilter?: Category;
   categories?: Category[];
 
-  private onlineEvent: any;
-  private offlineEvent: any;
+  online: boolean = navigator.onLine;
 
   private ownHobbySubscription?: Subscription;
   private getCategoriesSubscription?: Subscription;
@@ -43,12 +42,10 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCategories();
-    if (navigator.onLine) {
-      console.log("online")
+    if (this.online) {
       this.getOwnHobbies();
     }
     else {
-      console.log("offline")
       this.getOwnHobbiesFromIDB();
     }
   }

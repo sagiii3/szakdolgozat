@@ -16,6 +16,8 @@ export class HobbyTileComponent {
   @Output() addToOwnHobbiesEmitter = new EventEmitter<Hobby>();
   @Output() deleteActivityEmitter = new EventEmitter<OwnHobby>();
 
+  online: boolean = navigator.onLine;
+  
   addToOwnHobbies() {
     this.addToOwnHobbiesEmitter.emit(this.hobby);
   }

@@ -21,7 +21,7 @@
 
         <mat-divider></mat-divider>
 
-        <mat-list-item *ngIf="isLoggedIn" matLine [routerLink]="[globalVariables.ROUTES.activityWrap]" routerLinkActive="selected"
+        <mat-list-item *ngIf="isLoggedIn && online" matLine [routerLink]="[globalVariables.ROUTES.activityWrap]" routerLinkActive="selected"
           (click)="isScreenSmall2?sidenav.toggle():{}">
           {{"activity_wrap" | translate}}
         </mat-list-item>
