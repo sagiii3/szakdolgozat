@@ -8,7 +8,8 @@ export class GlobalVariables {
   public static DB_STORE_NAMES = {
     hobbies: 'hobbies',
     ownHobbies: 'ownHobbies',
-    activities: 'activities'
+    activities: 'activities',
+    categories: 'categories'
   };
 
   //Firebase collections

@@ -58,7 +58,7 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
           this.hobbyList = hobbies;
           this.hobbyList.forEach(hobby => {
             //save to indexedDB
-            this.indexedDBService.addHobby(hobby, GlobalVariables.DB_STORE_NAMES.ownHobbies, true);
+            this.indexedDBService.addElement(hobby, GlobalVariables.DB_STORE_NAMES.ownHobbies, true);
           });
         },
         error: (error: Error) => {
@@ -83,6 +83,10 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
     this.getCategoriesSubscription = this.hobbyService.getHobbyCategories().subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
+        this.categories.forEach(category => {
+          //save to indexedDB
+          this.indexedDBService.addElement(category, GlobalVariables.DB_STORE_NAMES.categories, true);
+        });
       },
       error: (error: Error) => {
         this.errorService.errorLog('get_categories_error', error);

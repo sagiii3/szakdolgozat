@@ -18,26 +18,26 @@ export class IndexedDBService {
     private errorService: ErrorService
   ) { }
 
-  public addHobby(hobby: OwnHobby, objectStoreName: string, withoutMessage?: boolean) {
+  public addElement(element: any, objectStoreName: string, withoutMessage?: boolean) {
     if (!this.db) {
       this.errorService.errorLog('db_not_loaded');
     }
     else {
       let objectStore = this.db.transaction(objectStoreName, 'readwrite').objectStore(objectStoreName);
-      let request = objectStore.add(hobby);
+      let request = objectStore.add(element);
 
       request.onerror = (error: any) => {
         if (withoutMessage) return;
         if (error.target.error.name === 'ConstraintError') {
-          this.errorService.errorLog('repeated_hobby');
+          this.errorService.errorLog('repeated_element');
         } else {
-          this.errorService.errorLog('add_hobby_error_idb', error.target.error);
+          this.errorService.errorLog('add_element_error_idb', error.target.error);
         }
       }
 
       request.onsuccess = (e: any) => {
         if (withoutMessage) return;
-        this.snackbarService.snackbarSuccess(this.translateService.instant('hobby_added_idb'));
+        this.snackbarService.snackbarSuccess(this.translateService.instant('element_added_idb'));
       }
     }
   }
@@ -57,28 +57,6 @@ export class IndexedDBService {
 
     request.onsuccess = (e: any) => {
       console.log(this.translateService.instant('db_data_deleted'));
-    }
-  }
-
-
-
-
-  public removeHobby(id: string, objectStoreName: string) {
-    if (!this.db) {
-      this.errorService.errorLog('db_not_loaded');
-      return;
-    }
-
-    let objectStore = this.db.transaction(objectStoreName, 'readwrite').objectStore(objectStoreName);
-    let request = objectStore.delete(id);
-
-    request.onerror = (e: any) => {
-      this.errorService.errorLog('hobby_deleted_idb', e.target.error);
-    }
-
-    request.onsuccess = (e: any) => {
-      this.snackbarService.snackbarSuccess(this.translateService.instant('hobby_deleted_idb'));
-      this.loadHobbies(objectStoreName);
     }
   }
 

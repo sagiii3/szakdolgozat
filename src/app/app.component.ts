@@ -43,6 +43,7 @@ export class AppComponent {
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.hobbies);
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.ownHobbies);
       this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.activities);
+      this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.categories);
     };
 
     openRequest.onsuccess = (e: any) => {

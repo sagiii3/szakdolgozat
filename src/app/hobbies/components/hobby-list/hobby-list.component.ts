@@ -71,7 +71,7 @@ export class HobbyListComponent implements OnInit, OnDestroy {
                 },
                 complete: () => {
                   //save to indexedDB
-                  this.indexedDBService.addHobby(hobby as OwnHobby, GlobalVariables.DB_STORE_NAMES.hobbies, true);
+                  this.indexedDBService.addElement(hobby as OwnHobby, GlobalVariables.DB_STORE_NAMES.hobbies, true);
                 }
               });
             });
@@ -101,6 +101,11 @@ export class HobbyListComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (categories: Category[]) => {
           this.categories = categories;
+          this.categories.forEach(category => {
+            //save to indexedDB
+            this.indexedDBService.addElement(category, GlobalVariables.DB_STORE_NAMES.categories, true);
+          });
+
         },
         error: (error: any) => {
           this.errorService.errorLog(error);
