@@ -77,8 +77,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
       });
   }
 
-  getOwnHobbiesFromIDB(): void {
-    this.ownHobbyFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.ownHobbies, this.categoryFilter?.id)
+  async getOwnHobbiesFromIDB() {
+    this.ownHobbyFromIDBSubscription = (await this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.ownHobbies, this.categoryFilter?.id))
       .subscribe({
         next: (hobbies: OwnHobby[]) => {
           this.hobbyList = hobbies;
@@ -104,8 +104,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCategoriesFromIDB(): void {
-    this.getCategoriesFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories)
+  async getCategoriesFromIDB() {
+    this.getCategoriesFromIDBSubscription = (await this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories))
     .subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;

@@ -63,7 +63,6 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   }
 
   getHobbies(): void {
-    this.indexedDBService.deleteDBData(GlobalVariables.DB_STORE_NAMES.hobbies);
     this.hobbyListSubscription = this.hobbyService.getHobbies(this.categoryFilter?.id)
       .subscribe({
         next: (hobbies: Hobby[]) => {
@@ -95,8 +94,8 @@ export class HobbyListComponent implements OnInit, OnDestroy {
       });
   }
 
-  getHobbiesFromIDB() {
-    this.hobbyListFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.hobbies, this.categoryFilter?.id)
+  async getHobbiesFromIDB() {
+    this.hobbyListFromIDBSubscription = (await this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.hobbies, this.categoryFilter?.id))
       .subscribe({
         next: (hobbies: Hobby[]) => {
           this.hobbyList = hobbies;
@@ -125,8 +124,8 @@ export class HobbyListComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCategoriesFromIDB(): void {
-    this.getCategoriesFromIDBSubscription = this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories)
+  async getCategoriesFromIDB() {
+    this.getCategoriesFromIDBSubscription = (await this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories))
     .subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;

@@ -29,6 +29,7 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
   deleteOwnHobbySubscription?: Subscription;
   deleteCollectionSubscription?: Subscription;
   getHobbyFromIDBSubscription?: Subscription;
+  getElementByIdSubscription?: Subscription;
 
 
   constructor(
@@ -63,8 +64,9 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  getHobbyFromIDB(): void {
-    this.getHobbyFromIDBSubscription = this.indexedDBService.getElementById(this.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies).subscribe({
+  async getHobbyFromIDB(): Promise<void> {
+    this.getHobbyFromIDBSubscription = (await this.indexedDBService.getElementById(this.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies))
+    .subscribe({
       next: (hobby: any) => {
         this.hobby = hobby as OwnHobby;
       },
@@ -119,12 +121,13 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     this.hobbyService.openDialog(RecordHobbyComponent, this.hobby);
   }
 
-  getHobbyActivities(): void {
+  getHobbyActivities() {
     this.getHobbyActivitiesSubscription = this.hobbyService.getHobbyActivities(this.id).subscribe({
-      next: (activities: Activity[]) => {
+      next: async (activities: Activity[]) => {
         if (this.hobby) {
           this.hobby.activities = activities;
-          this.indexedDBService.getElementById(this.hobby.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies).subscribe({
+          this.getElementByIdSubscription = (await this.indexedDBService.getElementById(this.hobby.id || "", GlobalVariables.DB_STORE_NAMES.ownHobbies))
+          .subscribe({
             next: (hobby : OwnHobby) => {
               this.hobby!.categories = hobby.categories;
               this.hobby!.categoryIds = hobby.categoryIds;
@@ -149,5 +152,6 @@ export class HobbyDetailComponent implements OnInit, OnDestroy {
     this.deleteActivitySubscription?.unsubscribe();
     this.deleteOwnHobbySubscription?.unsubscribe();
     this.getHobbyFromIDBSubscription?.unsubscribe();
+    this.getElementByIdSubscription?.unsubscribe();
   }
 }

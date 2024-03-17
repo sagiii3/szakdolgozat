@@ -31,24 +31,29 @@ export class AppComponent {
         }
       });
     }
+    this.initIndexedDB();
+  }
 
-  const openRequest = indexedDB.open('hobbyJournal', 1);
+  private initIndexedDB(): void {
+    const openRequest = indexedDB.open('hobbyJournal', 1);
 
     openRequest.onerror = (e: any) => {
       this.errorService.errorLog('error_db_open', e.target.error);
     };
 
     openRequest.onupgradeneeded = (e: any) => {
-      indexedDBService.db = e.target.result  as IDBDatabase;
-      this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.hobbies);
-      this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.ownHobbies);
-      this.createObjectStore(indexedDBService.db, GlobalVariables.DB_STORE_NAMES.categories);
+      this.indexedDBService.db = e.target.result  as IDBDatabase;
+      this.createObjectStore(this.indexedDBService.db, GlobalVariables.DB_STORE_NAMES.hobbies);
+      this.createObjectStore(this.indexedDBService.db, GlobalVariables.DB_STORE_NAMES.ownHobbies);
+      this.createObjectStore(this.indexedDBService.db, GlobalVariables.DB_STORE_NAMES.categories);
     };
 
     openRequest.onsuccess = (e: any) => {
-      indexedDBService.db = e.target.result as IDBDatabase;
+      this.indexedDBService.db = e.target.result as IDBDatabase;
     };
   }
+
+
 
     createObjectStore(db: IDBDatabase, objectStoreName: string): void {
       if (!db.objectStoreNames.contains(objectStoreName)) {
