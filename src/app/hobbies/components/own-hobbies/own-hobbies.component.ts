@@ -11,6 +11,8 @@ import { Activity } from '../../models/activity';
 import { FirebaseService } from 'src/app/services/firebaseService/firebase.service';
 import { UserService } from 'src/app/services/userService/user.service';
 import { IndexedDBService } from 'src/app/services/indexedDBService/indexed-db.service';
+import { BilingualString } from 'src/app/shared/models/billingual-string';
+import { BilingualTranslatePipe } from 'src/app/shared/pipes/bilingual-translate.pipe';
 
 @Component({
   selector: 'app-own-hobbies',
@@ -24,6 +26,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
   categoryFilter?: Category;
   categories?: Category[];
 
+  sortOrder?: boolean;
+  
   online: boolean = navigator.onLine;
 
   private ownHobbySubscription?: Subscription;
@@ -38,7 +42,8 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private firebaseService: FirebaseService,
     private userService: UserService,
-    private indexedDBService: IndexedDBService
+    private indexedDBService: IndexedDBService,
+    private bilingualTranslate: BilingualTranslatePipe
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +55,59 @@ export class OwnHobbiesComponent implements OnInit, OnDestroy {
       this.getOwnHobbiesFromIDB();
       this.getCategoriesFromIDB();
     }
+  }
+
+  translator(name: BilingualString): string {
+    return this.bilingualTranslate.transform(name);
+  }
+
+  sort(): void {
+    if(this.sortOrder){
+      this.sortOrder = false;
+    }
+    else{
+      if(this.sortOrder == false){
+        this.sortOrder = undefined;
+      }
+      else{
+        this.sortOrder = true;
+      }
+    }
+    if(this.sortOrder != undefined){
+      this.hobbyList.sort((a, b) => {
+        let nameA = this.translator(a.name);
+        let nameB = this.translator(b.name);
+
+        return this.hungarianCompare(nameA, nameB);
+      });
+    }
+    else{
+      if(navigator.onLine){
+        this.getOwnHobbies();
+      }
+      else{
+        this.getOwnHobbiesFromIDB();
+      }
+    }
+  }
+
+  hungarianCompare(a: string, b: string): number {
+    let hungarianOrder = 'aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyzAÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ';
+
+    for (let i = 0; i < a.length && i < b.length; i++) {
+      let indexA = hungarianOrder.indexOf(a[i]);
+      let indexB = hungarianOrder.indexOf(b[i]);
+
+      if (indexA !== indexB) {
+        if (this.sortOrder) {
+          return indexA - indexB;
+        }
+        else {
+          return indexB - indexA;
+        }
+      }
+    }
+    return this.sortOrder ? a.length - b.length : b.length - a.length;
   }
 
   filter(): void{

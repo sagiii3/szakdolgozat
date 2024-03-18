@@ -9,6 +9,8 @@ import { UserService } from 'src/app/services/userService/user.service';
 import { IndexedDBService } from 'src/app/services/indexedDBService/indexed-db.service';
 import { GlobalVariables } from 'src/app/shared/constants/globalVariables';
 import { OwnHobby } from '../../models/ownHobby';
+import { BilingualString } from 'src/app/shared/models/billingual-string';
+import { BilingualTranslatePipe } from 'src/app/shared/pipes/bilingual-translate.pipe';
 
 @Component({
   selector: 'app-hobby-list',
@@ -21,6 +23,8 @@ export class HobbyListComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
   online: boolean = navigator.onLine;
+
+  sortOrder?: boolean;
 
   categoryFilter?: Category;
   categories?: Category[];
@@ -37,7 +41,8 @@ export class HobbyListComponent implements OnInit, OnDestroy {
     private errorService: ErrorService,
     private hobbyService: HobbyService,
     private userService: UserService,
-    private indexedDBService: IndexedDBService
+    private indexedDBService: IndexedDBService,
+    private bilingualTranslate: BilingualTranslatePipe
 
   ) { }
 
@@ -53,11 +58,64 @@ export class HobbyListComponent implements OnInit, OnDestroy {
     }
   }
 
-  filter(): void{
+  translator(name: BilingualString): string {
+    return this.bilingualTranslate.transform(name);
+  }
+
+  sort(): void {
+    if(this.sortOrder){
+      this.sortOrder = false;
+    }
+    else{
+      if(this.sortOrder == false){
+        this.sortOrder = undefined;
+      }
+      else{
+        this.sortOrder = true;
+      }
+    }
+    if(this.sortOrder != undefined){
+      this.hobbyList.sort((a, b) => {
+        let nameA = this.translator(a.name);
+        let nameB = this.translator(b.name);
+
+        return this.hungarianCompare(nameA, nameB);
+      });
+    }
+    else{
+      if(navigator.onLine){
+        this.getHobbies();
+      }
+      else{
+        this.getHobbiesFromIDB();
+      }
+    }
+  }
+
+  hungarianCompare(a: string, b: string): number {
+    let hungarianOrder = 'aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyzAÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ';
+
+    for (let i = 0; i < a.length && i < b.length; i++) {
+      let indexA = hungarianOrder.indexOf(a[i]);
+      let indexB = hungarianOrder.indexOf(b[i]);
+
+      if (indexA !== indexB) {
+        if (this.sortOrder) {
+          return indexA - indexB;
+        }
+        else {
+          return indexB - indexA;
+        }
+      }
+    }
+    return this.sortOrder ? a.length - b.length : b.length - a.length;
+  }
+
+  filter(): void {
     if (this.online) {
       this.getHobbies();
     }
-    else{
+    else {
       this.getHobbiesFromIDB();
     }
   }
@@ -126,14 +184,14 @@ export class HobbyListComponent implements OnInit, OnDestroy {
 
   async getCategoriesFromIDB() {
     this.getCategoriesFromIDBSubscription = (await this.indexedDBService.loadCollection(GlobalVariables.DB_STORE_NAMES.categories))
-    .subscribe({
-      next: (categories: Category[]) => {
-        this.categories = categories;
-      },
-      error: (error: Error) => {
-        this.errorService.errorLog('get_categories_error', error);
-      }
-    });
+      .subscribe({
+        next: (categories: Category[]) => {
+          this.categories = categories;
+        },
+        error: (error: Error) => {
+          this.errorService.errorLog('get_categories_error', error);
+        }
+      });
   }
 
 
