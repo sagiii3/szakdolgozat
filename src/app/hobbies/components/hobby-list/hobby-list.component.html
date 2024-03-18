@@ -16,10 +16,10 @@
       <button class="btn btn-danger" (click)="categoryFilter = undefined; filter();" [matTooltip]="'delete_filter' | translate ">
         <mat-icon>clear</mat-icon>
       </button>
-      <button class="btn btn-primary" *ngIf="sortOrder == true" (click)="sort()" [matTooltip]="'sort' | translate">
+      <button class="btn btn-primary" *ngIf="sortOrder == true" (click)="sort()" [matTooltip]="'sort_asc' | translate">
         <mat-icon>arrow_upward</mat-icon>
       </button>
-      <button class="btn btn-primary" *ngIf="sortOrder == false" (click)="sort()" [matTooltip]="'sort' | translate">
+      <button class="btn btn-primary" *ngIf="sortOrder == false" (click)="sort()" [matTooltip]="'sort_desc' | translate">
         <mat-icon>arrow_downward</mat-icon>
       </button>
       <button class="btn btn-primary" *ngIf="sortOrder == undefined" (click)="sort()" [matTooltip]="'sort' | translate">
